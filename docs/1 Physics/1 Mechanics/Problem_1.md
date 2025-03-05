@@ -24,3 +24,10 @@ and range is $R=\frac{v_0^2sin(2θ)}{g}$
 $v_0$ is the velocity, 
 $θ$ is the angle of projection, 
 $g$ is the acceleration due to gravity.
+
+import numpy as np
+print("v^2*sin(2*θ)/g")
+```
+
+```python
+import numpy as np
