@@ -39,58 +39,84 @@ Most useful equation is range:
 $$R=\frac{v_0^2sin(2θ)}{g}$$
 
 In which:
-- $R$ is the range
-- $v_0$ is the velocity, 
-- $θ$ is the angle of projection, 
-- $g$ which is $9.81$ is the acceleration due to gravity.
 
-#NOT FORMATED FROM HERE
+- $R$ is the range
+
+- $v_0$ is the velocity 
+
+- $θ$ is the angle of projection 
+
+- $g$ which is $9.81$ is the acceleration due to gravity
+
 Other useful equations are:
-horisontal motion is $x=v_0cos(θ)t$
-vertical motiion is $y=v_0sin(θ)t-\frac{1}{2}gt^2$
-distance(range) of projectile if its launched from a height is $R=\frac{v_0 \cdot cos(θ)}{g}(v_0 \cdot sin(θ) + \sqrt{v_0^2 \cdot sin^2(θ)+2gy_0})$ 
-in which
-v_0 is velocity 
-t is time of flight
-g is acceleration due to gravity
-y_0 is hight of launch of the projectile
+
+- horisontal motion: $x=v_0cos(θ)t$
+
+- vertical motiion: $y=v_0sin(θ)t-\frac{1}{2}gt^2$
+
+- distance(range) of projectile if its launched from a height: $R=\frac{v_0 \cdot cos(θ)}{g}(v_0 \cdot sin(θ) + \sqrt{v_0^2 \cdot sin^2(θ)+2gy_0})$ 
+
+in which:
+
+- $v_0$ is velocity 
+
+- $t$ is time of flight
+
+- $g$ is acceleration due to gravity
+
+- $y_0$ is hight of launch of the projectile
 
 ##Maximum range
-it is know nthat 45 gives max range, lets prove this 
-we can prove it with trugonometry and caclculus
+It is known that $θ=45°$ gives maximum range, let's prove this.
 
-trigonometry
+We can prove it with trigonometry and caclculus.
 
-sin's function is maximum when the angle is 90°
-and from the equation of range 
+**Trigonometry**
+
+sin's function ($sin(2θ)$) is maximum when the angle is 90°
+
+and from the equation of range
+
 $R=\frac{v_0^2sin(2θ)}{g}$
-we can see that max angle is $sin(2θ)=90$
-$2θ=90$
-$θ=45$
 
-this can also be proven with calculus, from the formula
+we can see that max angle is 
+
+$sin(2θ)=90°$
+
+$2θ=90°$
+
+$θ=45°$
+
+**Calculus**
+
+This can also be proven with calculus, from the formula
+
 $R=\frac{v_0^2sin(2θ)}{g}$
-we want to maximize the range(R) so we need to find the maximum of the function
-how to find the maximum of the function:
-we need to find the derivative of the function and set it to 0
-we specifficaly want to find the derivative of $θ$
-so after differnciating R with respect to $θ$ we get
+
+We want to maximize the range(R) so we need to find the maximum of the function
+
+How to find the maximum of the function:
+
+We need to find the derivative of the function and set it to $0$
+
+We specifficaly want to find the derivative with respect to $θ$
+
+So after differnciating R with respect to $θ$ we get
+
 $\frac{dR}{dθ}=\frac{2v_0^2}{g}cos(2θ)$
+
 now we need to set it to 0
+
 $\frac{2v_0^2}{g}cos(2θ)=0$
+
 we know that $v_0^2$ and $g$ are constants so we can ignore them
+
 $cos(2θ)=0$
+
 maximum angle of $θ$ is $90°$ so
+
 $2θ=90$
+
 $θ=45$
 
-this proves that 45° gives the maximum range using calculus.
-
-how increasing velocity increases range
-from the equation of range we see that range is proportional to the square of the velocity
-
-
-
-
-How increasing velocity increases range.
-Ideas for future improvements (air resistance, wind, etc.).
+this proves that $45°$ gives the maximum range using calculus.
