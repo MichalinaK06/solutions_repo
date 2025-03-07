@@ -54,6 +54,8 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#math">Math</a>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#maximum-range">Maximum range</a>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Problem_2/">Problem 2</a>
@@ -198,51 +200,76 @@ If the angle is small the horisontal range is big which means the projectile wil
 <p>The eqations in the Range of a projectile:</p>
 <p>Most useful equation is range: </p>
 <div class="arithmatex">\[R=\frac{v_0^2sin(2θ)}{g}\]</div>
-<p>In which:
-- <span class="arithmatex">\(R\)</span> is the range
-- <span class="arithmatex">\(v_0\)</span> is the velocity, 
-- <span class="arithmatex">\(θ\)</span> is the angle of projection, 
-- <span class="arithmatex">\(g\)</span> which is <span class="arithmatex">\(9.81\)</span> is the acceleration due to gravity.</p>
-<h1 id="not-formated-from-here">NOT FORMATED FROM HERE</h1>
-<p>Other useful equations are:
-horisontal motion is <span class="arithmatex">\(x=v_0cos(θ)t\)</span>
-vertical motiion is <span class="arithmatex">\(y=v_0sin(θ)t-\frac{1}{2}gt^2\)</span>
-distance(range) of projectile if its launched from a height is <span class="arithmatex">\(R=\frac{v_0 \cdot cos(θ)}{g}(v_0 \cdot sin(θ) + \sqrt{v_0^2 \cdot sin^2(θ)+2gy_0})\)</span> 
-in which
-v_0 is velocity 
-t is time of flight
-g is acceleration due to gravity
-y_0 is hight of launch of the projectile</p>
+<p>In which:</p>
+<ul>
+<li>
+<p><span class="arithmatex">\(R\)</span> is the range</p>
+</li>
+<li>
+<p><span class="arithmatex">\(v_0\)</span> is the velocity </p>
+</li>
+<li>
+<p><span class="arithmatex">\(θ\)</span> is the angle of projection </p>
+</li>
+<li>
+<p><span class="arithmatex">\(g\)</span> which is <span class="arithmatex">\(9.81\)</span> is the acceleration due to gravity</p>
+</li>
+</ul>
+<p>Other useful equations are:</p>
+<ul>
+<li>
+<p>horisontal motion: <span class="arithmatex">\(x=v_0cos(θ)t\)</span></p>
+</li>
+<li>
+<p>vertical motiion: <span class="arithmatex">\(y=v_0sin(θ)t-\frac{1}{2}gt^2\)</span></p>
+</li>
+<li>
+<p>distance(range) of projectile if its launched from a height: <span class="arithmatex">\(R=\frac{v_0 \cdot cos(θ)}{g}(v_0 \cdot sin(θ) + \sqrt{v_0^2 \cdot sin^2(θ)+2gy_0})\)</span> </p>
+</li>
+</ul>
+<p>in which:</p>
+<ul>
+<li>
+<p><span class="arithmatex">\(v_0\)</span> is velocity </p>
+</li>
+<li>
+<p><span class="arithmatex">\(t\)</span> is time of flight</p>
+</li>
+<li>
+<p><span class="arithmatex">\(g\)</span> is acceleration due to gravity</p>
+</li>
+<li>
+<p><span class="arithmatex">\(y_0\)</span> is hight of launch of the projectile</p>
+</li>
+</ul>
 <h2 id="maximum-range">Maximum range</h2>
-<p>it is know nthat 45 gives max range, lets prove this 
-we can prove it with trugonometry and caclculus</p>
-<p>trigonometry</p>
-<p>sin's function is maximum when the angle is 90°
-and from the equation of range 
-<span class="arithmatex">\(R=\frac{v_0^2sin(2θ)}{g}\)</span>
-we can see that max angle is <span class="arithmatex">\(sin(2θ)=90\)</span>
-<span class="arithmatex">\(2θ=90\)</span>
-<span class="arithmatex">\(θ=45\)</span></p>
-<p>this can also be proven with calculus, from the formula
-<span class="arithmatex">\(R=\frac{v_0^2sin(2θ)}{g}\)</span>
-we want to maximize the range(R) so we need to find the maximum of the function
-how to find the maximum of the function:
-we need to find the derivative of the function and set it to 0
-we specifficaly want to find the derivative of <span class="arithmatex">\(θ\)</span>
-so after differnciating R with respect to <span class="arithmatex">\(θ\)</span> we get
-<span class="arithmatex">\(\frac{dR}{dθ}=\frac{2v_0^2}{g}cos(2θ)\)</span>
-now we need to set it to 0
-<span class="arithmatex">\(\frac{2v_0^2}{g}cos(2θ)=0\)</span>
-we know that <span class="arithmatex">\(v_0^2\)</span> and <span class="arithmatex">\(g\)</span> are constants so we can ignore them
-<span class="arithmatex">\(cos(2θ)=0\)</span>
-maximum angle of <span class="arithmatex">\(θ\)</span> is <span class="arithmatex">\(90°\)</span> so
-<span class="arithmatex">\(2θ=90\)</span>
-<span class="arithmatex">\(θ=45\)</span></p>
-<p>this proves that 45° gives the maximum range using calculus.</p>
-<p>how increasing velocity increases range
-from the equation of range we see that range is proportional to the square of the velocity</p>
-<p>How increasing velocity increases range.
-Ideas for future improvements (air resistance, wind, etc.).</p>
+<p>It is known that <span class="arithmatex">\(θ=45°\)</span> gives maximum range, let's prove this.</p>
+<p>We can prove it with trigonometry and caclculus.</p>
+<p><strong>Trigonometry</strong></p>
+<p>sin's function (<span class="arithmatex">\(sin(2θ)\)</span>) is maximum when the angle is 90°</p>
+<p>and from the equation of range</p>
+<p><span class="arithmatex">\(R=\frac{v_0^2sin(2θ)}{g}\)</span></p>
+<p>we can see that max angle is </p>
+<p><span class="arithmatex">\(sin(2θ)=90°\)</span></p>
+<p><span class="arithmatex">\(2θ=90°\)</span></p>
+<p><span class="arithmatex">\(θ=45°\)</span></p>
+<p><strong>Calculus</strong></p>
+<p>This can also be proven with calculus, from the formula</p>
+<p><span class="arithmatex">\(R=\frac{v_0^2sin(2θ)}{g}\)</span></p>
+<p>We want to maximize the range(R) so we need to find the maximum of the function</p>
+<p>How to find the maximum of the function:</p>
+<p>We need to find the derivative of the function and set it to <span class="arithmatex">\(0\)</span></p>
+<p>We specifficaly want to find the derivative with respect to <span class="arithmatex">\(θ\)</span></p>
+<p>So after differnciating R with respect to <span class="arithmatex">\(θ\)</span> we get</p>
+<p><span class="arithmatex">\(\frac{dR}{dθ}=\frac{2v_0^2}{g}cos(2θ)\)</span></p>
+<p>now we need to set it to 0</p>
+<p><span class="arithmatex">\(\frac{2v_0^2}{g}cos(2θ)=0\)</span></p>
+<p>we know that <span class="arithmatex">\(v_0^2\)</span> and <span class="arithmatex">\(g\)</span> are constants so we can ignore them</p>
+<p><span class="arithmatex">\(cos(2θ)=0\)</span></p>
+<p>maximum angle of <span class="arithmatex">\(θ\)</span> is <span class="arithmatex">\(90°\)</span> so</p>
+<p><span class="arithmatex">\(2θ=90\)</span></p>
+<p><span class="arithmatex">\(θ=45\)</span></p>
+<p>this proves that <span class="arithmatex">\(45°\)</span> gives the maximum range using calculus.</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
