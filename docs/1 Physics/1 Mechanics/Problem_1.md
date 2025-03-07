@@ -1,123 +1,140 @@
 # Problem 1
-##Investigating the Range as a Function of the Angle of Projection.
 
-How the range of a projectile depends on its angle of projection.
+[Simulation](simulation_projectile.html)
 
-Let's start from, what is range of projection? and what is angle of projection?
+Let’s dive into this investigation of how the range of a projectile depends on its angle of projection. We’ll build this step-by-step, starting with the theoretical foundation, analyzing the range, exploring practical applications, and then suggesting a computational approach. Buckle up—physics is about to get fun!
 
-**Range of projection** is the distance that a projectile has to travel before it hits the ground.
+---
 
-The range can be horisontal or vertical.
+### 1. Theoretical Foundation
 
-**Angle of projection** is the angle of which the projectile is projected from the ground. 
+Projectile motion is a classic two-dimensional problem governed by Newton’s laws. We’re dealing with an object launched with an initial velocity $ v_0$ at an angle $\theta$ relative to the horizontal, under the influence of gravity $g$, and for now, we’ll assume no air resistance and a flat surface (launch height $h = 0$).
 
-In other words we have a projectile that "shoots" from a point at a certain angle.
+#### Deriving the Equations of Motion
+The motion splits into horizontal (x) and vertical (y) components, and gravity only acts vertically. Start with the acceleration:
 
+- Horizontal: $a_x = 0$ (no forces in x-direction).
+- Vertical: $a_y = -g$ (gravity downward).
 
-##How range depends on angle
-**Vertical**
+Initial conditions:
 
- If the angle is small the vertical range is also small which means the projectile will hit the ground faster.
+- Initial velocity in x: $v_{0x} = v_0 \cos\theta$.
+- Initial velocity in y: $v_{0y} = v_0 \sin\theta$.
+- Initial position: $(x_0, y_0) = (0, 0)$.
 
- If the angle is big the vertical range is big which means the projectile will go far vertically before it hits the ground.
+Using kinematics ($v = u + at$, $x = ut + \frac{1}{2}at^2$):
 
- **Horisontal**
- 
-If the angle is small the horisontal range is big which means the projectile will go far horisontally before it hits the ground.
+**Horizontal motion** (constant velocity):
 
-If the angle is big the horisontal range is small which means the projectile will return(hit) to the ground faster.
+- $v_x = v_0 \cos\theta$.
+- $x(t) = (v_0 \cos\theta) t$.
 
-It's proboably hard to imagine this in your head so
+**Vertical motion** (constant acceleration):
 
-[Angle to range in geogebra](https://www.geogebra.org/calculator/jubc9rkb)
+- $v_y = v_0 \sin\theta - gt$.
+- $y(t) = (v_0 \sin\theta) t - \frac{1}{2} g t^2$.
 
-##Math
+This is a parametric description of a parabola. The projectile hits the ground when $y(t) = 0$. Solve for time of flight:
 
-The eqations in the Range of a projectile:
+$$
+0 = (v_0 \sin\theta) t - \frac{1}{2} g t^2
+$$
 
-Most useful equation is range: 
+Factor out $t$:
+$$
+t \left( v_0 \sin\theta - \frac{1}{2} g t \right) = 0
+$$
+- $t = 0$ (launch).
+- $t = \frac{2 v_0 \sin\theta}{g}$ (landing, the time of flight $T$).
 
-$$R=\frac{v_0^2sin(2θ)}{g}$$
+#### Family of Solutions
 
-In which:
+The parameters $v_0$, $\theta$, and $g$ define a family of trajectories. Changing $v_0$ scales the size of the parabola, $\theta$ adjusts its shape and orientation, and $g$ (e.g., Earth vs. Moon) alters the curvature. Launch height $h$ or air resistance would add complexity, but we’ll keep it simple for now.
 
-- $R$ is the range
+---
 
-- $v_0$ is the velocity 
+### 2. Analysis of the Range
 
-- $θ$ is the angle of projection 
+The range $R$ is the horizontal distance traveled when $y = 0$. 
+Plug 
 
-- $g$ which is $9.81$ is the acceleration due to gravity
+$$t = T = \frac{2 v_0 \sin\theta}{g}$$
 
-Other useful equations are:
+into the x-equation:
 
-- horisontal motion: $x=v_0cos(θ)t$
+$$
+R = (v_0 \cos\theta) \cdot \frac{2 v_0 \sin\theta}{g}
+$$
 
-- vertical motiion: $y=v_0sin(θ)t-\frac{1}{2}gt^2$
+Use the identity $\sin 2\theta = 2 \sin\theta \cos\theta$:
+$$
+R = \frac{v_0^2 \sin 2\theta}{g}
+$$
 
-- distance(range) of projectile if its launched from a height: $R=\frac{v_0 \cdot cos(θ)}{g}(v_0 \cdot sin(θ) + \sqrt{v_0^2 \cdot sin^2(θ)+2gy_0})$ 
+#### Dependence on Angle $\theta$
+- **Maximum Range**: $R$ peaks when $\sin 2\theta = 1$, so $2\theta = 90^\circ$, or $\theta = 45^\circ$. Here, $R_{\text{max}} = \frac{v_0^2}{g}$.
+- **Symmetry**: $\sin 2\theta = \sin (180^\circ - 2\theta)$, so $\theta$ and $90^\circ - \theta$ (e.g., 30° and 60°) give the same range.
+- **Extremes**: At $\theta = 0^\circ$ or $90^\circ$, $\sin 2\theta = 0$, so $R = 0$.
 
-in which:
+#### Other Parameters
+- **Initial Velocity $v_0$**: Range scales with $v_0^2$—double $v_0$, get four times the range.
+- **Gravity $g$**: Inverse relationship—on the Moon ($g \approx 1.62 \, \text{m/s}^2$), range is much larger than on Earth ($g \approx 9.8 \, \text{m/s}^2$).
 
-- $v_0$ is velocity 
+---
 
-- $t$ is time of flight
+### 3. Practical Applications
 
-- $g$ is acceleration due to gravity
+This idealized model adapts to real-world scenarios:
+- **Uneven Terrain**: If launched from height $h$, the time of flight changes. Solve $y(t) = h + (v_0 \sin\theta) t - \frac{1}{2} g t^2 = 0$ with the quadratic formula. Range still depends on $\theta$, but the optimal angle shifts (e.g., < 45° for a cliff launch).
+- **Air Resistance**: Adds a drag force proportional to velocity (or $v^2$). Trajectories shorten and skew, and the optimal $\theta$ drops below 45°. Numerical methods or approximations are needed.
+- **Examples**: A basketball shot (low $v_0$, air matters), artillery (high $v_0$, terrain matters), or a Mars rover landing (low $g$, thin atmosphere).
 
-- $y_0$ is hight of launch of the projectile
+---
 
-##Maximum range
-It is known that $θ=45°$ gives maximum range, let's prove this.
+### 4. Implementation
 
-We can prove it with trigonometry and caclculus.
+Let’s simulate this computationally and visualize $R(\theta)$.
 
-**Trigonometry**
+#### Algorithm
+1. **Inputs**: $v_0$, $g$, range of $\theta$ (e.g., 0° to 90°).
+2. **Compute**: $R = \frac{v_0^2 \sin 2\theta}{g}$ for each $\theta$.
+3. **Visualize**: Plot $R$ vs. $\theta$.
 
-sin's function ($sin(2θ)$) is maximum when the angle is 90°
+#### Python Code (Pseudo-Implementation)
+```python
+import numpy as np
+import matplotlib.pyplot as plt
 
-and from the equation of range
+# Parameters
+v0 = 20.0  # m/s
+g = 9.8    # m/s^2
+theta_deg = np.linspace(0, 90, 91)  # 0° to 90°
+theta_rad = np.deg2rad(theta_deg)
 
-$R=\frac{v_0^2sin(2θ)}{g}$
+# Range formula
+R = (v0**2 * np.sin(2 * theta_rad)) / g
 
-we can see that max angle is 
+# Plot
+plt.plot(theta_deg, R, label=f'v0 = {v0} m/s, g = {g} m/s²')
+plt.xlabel('Angle of Projection (degrees)')
+plt.ylabel('Range (meters)')
+plt.title('Range vs. Angle of Projection')
+plt.grid(True)
+plt.legend()
+plt.show()
 
-$sin(2θ)=90°$
+# Find max range
+max_R = np.max(R)
+max_theta = theta_deg[np.argmax(R)]
+print(f"Max range: {max_R:.2f} m at θ = {max_theta}°")
+```
 
-$2θ=90°$
+#### Visualization Insights
+- The plot is a sine curve peaking at 45°.
+- Test different $v_0$ (e.g., 10, 20, 30 m/s) or $g$ (e.g., 9.8 vs. 1.62 m/s²) to see scaling effects.
+- Add $h > 0$ by solving the quadratic for $T$ and recomputing $R$.
 
-$θ=45°$
+---
 
-**Calculus**
-
-This can also be proven with calculus, from the formula
-
-$R=\frac{v_0^2sin(2θ)}{g}$
-
-We want to maximize the range(R) so we need to find the maximum of the function
-
-How to find the maximum of the function:
-
-We need to find the derivative of the function and set it to $0$
-
-We specifficaly want to find the derivative with respect to $θ$
-
-So after differnciating R with respect to $θ$ we get
-
-$\frac{dR}{dθ}=\frac{2v_0^2}{g}cos(2θ)$
-
-now we need to set it to 0
-
-$\frac{2v_0^2}{g}cos(2θ)=0$
-
-we know that $v_0^2$ and $g$ are constants so we can ignore them
-
-$cos(2θ)=0$
-
-maximum angle of $θ$ is $90°$ so
-
-$2θ=90$
-
-$θ=45$
-
-this proves that $45°$ gives the maximum range using calculus.
+### Conclusion
+The range’s dependence on $\theta$ is elegantly captured by $R = \frac{v_0^2 \sin 2\theta}{g}$, with a sweet spot at 45° for flat ground. Tweaking $v_0$, $g$, or adding real-world factors like height or drag enriches the problem, making it a versatile tool for understanding everything from sports to space exploration. The simulation brings it to life—try it out and watch those parabolas soar!

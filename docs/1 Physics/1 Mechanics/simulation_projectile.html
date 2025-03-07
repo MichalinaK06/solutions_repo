@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projectile Motion Simulator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        canvas {
+            border: 1px solid black;
+        }
+        .controls {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Projectile Motion Simulator</h1>
+    <div class="controls">
+        <label for="velocity">Initial Velocity (m/s): </label>
+        <input type="number" id="velocity" value="20" min="1" step="1">
+        <br><br>
+        <label for="angle">Angle of Projection (degrees): </label>
+        <input type="number" id="angle" value="45" min="0" max="90" step="1">
+        <br><br>
+        <button onclick="startSimulation()">Launch</button>
+        <button onclick="resetSimulation()">Reset</button>
+    </div>
+    <canvas id="canvas" width="800" height="400"></canvas>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const g = 9.8; // Gravity (m/s^2)
+        const scale = 10; // Pixels per meter for scaling
+        let animationId = null;
+
+        // Projectile state
+        let x = 0, y = 0, t = 0;
+        let v0, theta, vx, vy;
+
+        function degreesToRadians(deg) {
+            return deg * Math.PI / 180;
+        }
+
+        function startSimulation() {
+            // Stop any ongoing animation
+            if (animationId) cancelAnimationFrame(animationId);
+
+            // Get user inputs
+            v0 = parseFloat(document.getElementById('velocity').value);
+            theta = parseFloat(document.getElementById('angle').value);
+            if (v0 <= 0 || theta < 0 || theta > 90) {
+                alert("Please enter valid values: v0 > 0, 0 ≤ θ ≤ 90");
+                return;
+            }
+
+            // Reset position and time
+            x = 0;
+            y = 0;
+            t = 0;
+
+            // Initial velocity components
+            const thetaRad = degreesToRadians(theta);
+            vx = v0 * Math.cos(thetaRad);
+            vy = v0 * Math.sin(thetaRad);
+
+            // Start animation
+            animate();
+        }
+
+        function resetSimulation() {
+            if (animationId) cancelAnimationFrame(animationId);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawGround();
+        }
+
+        function drawGround() {
+            ctx.beginPath();
+            ctx.moveTo(0, canvas.height - 20);
+            ctx.lineTo(canvas.width, canvas.height - 20);
+            ctx.strokeStyle = 'green';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+
+        function animate() {
+            // Clear canvas and redraw ground
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawGround();
+
+            // Update position
+            x = vx * t;
+            y = vy * t - 0.5 * g * t * t;
+
+            // Convert to canvas coordinates (y is inverted)
+            const canvasX = x * scale;
+            const canvasY = canvas.height - 20 - y * scale;
+
+            // Draw projectile
+            ctx.beginPath();
+            ctx.arc(canvasX, canvasY, 5, 0, 2 * Math.PI);
+            ctx.fillStyle = 'red';
+            ctx.fill();
+
+            // Update time
+            t += 0.05; // Time step (s)
+
+            // Stop when projectile hits ground (or goes off-screen)
+            if (canvasY > canvas.height - 20 || canvasX > canvas.width) {
+                cancelAnimationFrame(animationId);
+                return;
+            }
+
+            // Continue animation
+            animationId = requestAnimationFrame(animate);
+        }
+
+        // Initial ground draw
+        drawGround();
+    </script>
+</body>
+</html>
