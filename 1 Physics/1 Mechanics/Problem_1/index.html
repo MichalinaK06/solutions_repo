@@ -48,6 +48,12 @@
 <ul class="current">
 <li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 1</a>
 <ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#investigating-the-range-as-a-function-of-the-angle-of-projection">Investigating the Range as a Function of the Angle of Projection.</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#how-range-depends-on-angle">How range depends on angle</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#math">Math</a>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Problem_2/">Problem 2</a>
@@ -172,31 +178,43 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
 <h1 id="problem-1">Problem 1</h1>
-<p>Investigating the Range as a Function of the Angle of Projection</p>
-<p>how the range of a projectile depends on its angle of projection.
-lets start from what is range of projection and what is angle of projection.</p>
-<p>range of projection is the distance that a projectile has to travel before it hits the ground.
-the range can be horisontal or vertical.
-angle of projection is the angle of which the projectile is projected from the ground. 
-in other words we have a projectile that "shoots" from a point at a certain angle.</p>
-<p>how range depends on angle
- vertical
- if the angle is small the vertical range is also small which means the projectile will return(hit) to the ground faster. 
- if the angle is big the vertical range is big which means the projectile will go far vertically before it hits the ground.
- horisontal
-if the angle is small the horisontal range is big which means the projectile will go far horisontally before it hits the ground.
-if the angle is big the horisontal range is small which means the projectile will return(hit) to the ground faster.</p>
-<p>the eqations:
+<h2 id="investigating-the-range-as-a-function-of-the-angle-of-projection">Investigating the Range as a Function of the Angle of Projection.</h2>
+<p>How the range of a projectile depends on its angle of projection.</p>
+<p>Let's start from, what is range of projection? and what is angle of projection?</p>
+<p><strong>Range of projection</strong> is the distance that a projectile has to travel before it hits the ground.</p>
+<p>The range can be horisontal or vertical.</p>
+<p><strong>Angle of projection</strong> is the angle of which the projectile is projected from the ground. </p>
+<p>In other words we have a projectile that "shoots" from a point at a certain angle.</p>
+<h2 id="how-range-depends-on-angle">How range depends on angle</h2>
+<p><strong>Vertical</strong></p>
+<p>If the angle is small the vertical range is also small which means the projectile will hit the ground faster.</p>
+<p>If the angle is big the vertical range is big which means the projectile will go far vertically before it hits the ground.</p>
+<p><strong>Horisontal</strong>
+If the angle is small the horisontal range is big which means the projectile will go far horisontally before it hits the ground.</p>
+<p>If the angle is big the horisontal range is small which means the projectile will return(hit) to the ground faster.</p>
+<p>It's proboably hard to imagine this in your head so</p>
+<p><a href="https://www.geogebra.org/calculator/jubc9rkb">Angle to range in geogebra</a></p>
+<h2 id="math">Math</h2>
+<p>The eqations in the Range of a projectile:</p>
+<p>Most useful equation is range: </p>
+<div class="arithmatex">\[R=\frac{v_0^2sin(2θ)}{g}\]</div>
+<p>In which:
+- <span class="arithmatex">\(R\)</span> is the range
+- <span class="arithmatex">\(v_0\)</span> is the velocity, 
+- <span class="arithmatex">\(θ\)</span> is the angle of projection, 
+- <span class="arithmatex">\(g\)</span> which is <span class="arithmatex">\(9.81\)</span> is the acceleration due to gravity.</p>
+<h1 id="not-formated-from-here">NOT FORMATED FROM HERE</h1>
+<p>Other useful equations are:
 horisontal motion is <span class="arithmatex">\(x=v_0cos(θ)t\)</span>
 vertical motiion is <span class="arithmatex">\(y=v_0sin(θ)t-\frac{1}{2}gt^2\)</span>
-and range is <span class="arithmatex">\(R=\frac{v_0^2sin(2θ)}{g}\)</span>
-<span class="arithmatex">\(v_0\)</span> is the velocity, 
-<span class="arithmatex">\(θ\)</span> is the angle of projection, 
-<span class="arithmatex">\(g\)</span> is the acceleration due to gravity.</p>
-<p><a href="https://www.geogebra.org/calculator/jubc9rkb">Angle to range in geogebra</a></p>
-<p>from this we can confirm that 
-if <span class="arithmatex">\(v_0&lt;θ\)</span> than the range is smaller than if <span class="arithmatex">\(v_0&gt;θ\)</span>.</p>
-<p>45 gives max range, lets prove this 
+distance(range) of projectile if its launched from a height is <span class="arithmatex">\(R=\frac{v_0 \cdot cos(θ)}{g}(v_0 \cdot sin(θ) + \sqrt{v_0^2 \cdot sin^2(θ)+2gy_0})\)</span> 
+in which
+v_0 is velocity 
+t is time of flight
+g is acceleration due to gravity
+y_0 is hight of launch of the projectile</p>
+<h2 id="maximum-range">Maximum range</h2>
+<p>it is know nthat 45 gives max range, lets prove this 
 we can prove it with trugonometry and caclculus</p>
 <p>trigonometry</p>
 <p>sin's function is maximum when the angle is 90°
