@@ -22,6 +22,7 @@ In other words we have a projectile that "shoots" from a point at a certain angl
  If the angle is big the vertical range is big which means the projectile will go far vertically before it hits the ground.
 
  **Horisontal**
+ 
 If the angle is small the horisontal range is big which means the projectile will go far horisontally before it hits the ground.
 
 If the angle is big the horisontal range is small which means the projectile will return(hit) to the ground faster.
