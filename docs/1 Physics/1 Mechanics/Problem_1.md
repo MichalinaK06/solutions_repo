@@ -1,5 +1,6 @@
 # Problem 1
 
+
 [Simulation](simulation_projectile.html)
 
 Let’s dive into this investigation of how the range of a projectile depends on its angle of projection. We’ll build this step-by-step, starting with the theoretical foundation, analyzing the range, exploring practical applications, and then suggesting a computational approach. Buckle up—physics is about to get fun!
@@ -67,9 +68,8 @@ R = (v_0 \cos\theta) \cdot \frac{2 v_0 \sin\theta}{g}
 $$
 
 Use the identity $\sin 2\theta = 2 \sin\theta \cos\theta$:
-$$
-R = \frac{v_0^2 \sin 2\theta}{g}
-$$
+
+$$R = \frac{v_0^2 \sin 2\theta}{g}$$
 
 #### Dependence on Angle $\theta$
 - **Maximum Range**: $R$ peaks when $\sin 2\theta = 1$, so $2\theta = 90^\circ$, or $\theta = 45^\circ$. Here, $R_{\text{max}} = \frac{v_0^2}{g}$.
