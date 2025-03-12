@@ -202,11 +202,8 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
 <h1 id="problem-1">Problem 1</h1>
-<p><a href="../simulation_projectile.html">Simulation</a></p>
-<p>Let’s dive into this investigation of how the range of a projectile depends on its angle of projection. We’ll build this step-by-step, starting with the theoretical foundation, analyzing the range, exploring practical applications, and then suggesting a computational approach. Buckle up—physics is about to get fun!</p>
-<hr/>
 <h3 id="1-theoretical-foundation">1. Theoretical Foundation</h3>
-<p>Projectile motion is a classic two-dimensional problem governed by Newton’s laws. We’re dealing with an object launched with an initial velocity $ v_0$ at an angle <span class="arithmatex">\(\theta\)</span> relative to the horizontal, under the influence of gravity <span class="arithmatex">\(g\)</span>, and for now, we’ll assume no air resistance and a flat surface (launch height <span class="arithmatex">\(h = 0\)</span>).</p>
+<p>Projectile motion is a classic two-dimensional problem governed by Newton’s laws. We’re dealing with an object launched with an initial velocity <span class="arithmatex">\(v_0\)</span> at an angle <span class="arithmatex">\(\theta\)</span> relative to the horizontal, under the influence of gravity <span class="arithmatex">\(g\)</span>, and for now, we’ll assume no air resistance and a flat surface (launch height <span class="arithmatex">\(h = 0\)</span>).</p>
 <h4 id="deriving-the-equations-of-motion">Deriving the Equations of Motion</h4>
 <p>The motion splits into horizontal (x) and vertical (y) components, and gravity only acts vertically. Start with the acceleration:</p>
 <ul>
@@ -237,9 +234,15 @@
 <p>Factor out <span class="arithmatex">\(t\)</span>:
 $$
 t \left( v_0 \sin\theta - \frac{1}{2} g t \right) = 0
-$$
-- <span class="arithmatex">\(t = 0\)</span> (launch).
-- <span class="arithmatex">\(t = \frac{2 v_0 \sin\theta}{g}\)</span> (landing, the time of flight <span class="arithmatex">\(T\)</span>).</p>
+$$</p>
+<ul>
+<li>
+<p><span class="arithmatex">\(t = 0\)</span> (launch).</p>
+</li>
+<li>
+<p><span class="arithmatex">\(t = \frac{2 v_0 \sin\theta}{g}\)</span> (landing, the time of flight <span class="arithmatex">\(T\)</span>).</p>
+</li>
+</ul>
 <h4 id="family-of-solutions">Family of Solutions</h4>
 <p>The parameters <span class="arithmatex">\(v_0\)</span>, <span class="arithmatex">\(\theta\)</span>, and <span class="arithmatex">\(g\)</span> define a family of trajectories. Changing <span class="arithmatex">\(v_0\)</span> scales the size of the parabola, <span class="arithmatex">\(\theta\)</span> adjusts its shape and orientation, and <span class="arithmatex">\(g\)</span> (e.g., Earth vs. Moon) alters the curvature. Launch height <span class="arithmatex">\(h\)</span> or air resistance would add complexity, but we’ll keep it simple for now.</p>
 <hr/>
@@ -267,11 +270,18 @@ R = (v_0 \cos\theta) \cdot \frac{2 v_0 \sin\theta}{g}
 <hr/>
 <h3 id="3-practical-applications">3. Practical Applications</h3>
 <p>This idealized model adapts to real-world scenarios:
-- <strong>Uneven Terrain</strong>: If launched from height <span class="arithmatex">\(h\)</span>, the time of flight changes. Solve <span class="arithmatex">\(y(t) = h + (v_0 \sin\theta) t - \frac{1}{2} g t^2 = 0\)</span> with the quadratic formula. Range still depends on <span class="arithmatex">\(\theta\)</span>, but the optimal angle shifts (e.g., &lt; 45° for a cliff launch).
-- <strong>Air Resistance</strong>: Adds a drag force proportional to velocity (or <span class="arithmatex">\(v^2\)</span>). Trajectories shorten and skew, and the optimal <span class="arithmatex">\(\theta\)</span> drops below 45°. Numerical methods or approximations are needed.
-- <strong>Examples</strong>: A basketball shot (low <span class="arithmatex">\(v_0\)</span>, air matters), artillery (high <span class="arithmatex">\(v_0\)</span>, terrain matters), or a Mars rover landing (low <span class="arithmatex">\(g\)</span>, thin atmosphere).</p>
+- <strong>Uneven Terrain</strong>: If launched from height <span class="arithmatex">\(h\)</span>, the time of flight changes. Solve <span class="arithmatex">\(y(t) = h + (v_0 \sin\theta) t - \frac{1}{2} g t^2 = 0\)</span> with the quadratic formula. Range still depends on <span class="arithmatex">\(\theta\)</span>, but the optimal angle shifts (e.g., &lt; 45° for a cliff launch).</p>
+<ul>
+<li>
+<p><strong>Air Resistance</strong>: Adds a drag force proportional to velocity (or <span class="arithmatex">\(v^2\)</span>). Trajectories shorten and skew, and the optimal <span class="arithmatex">\(\theta\)</span> drops below 45°. Numerical methods or approximations are needed.</p>
+</li>
+<li>
+<p><strong>Examples</strong>: A basketball shot (low <span class="arithmatex">\(v_0\)</span>, air matters), artillery (high <span class="arithmatex">\(v_0\)</span>, terrain matters), or a Mars rover landing (low <span class="arithmatex">\(g\)</span>, thin atmosphere).</p>
+</li>
+</ul>
 <hr/>
 <h3 id="4-implementation">4. Implementation</h3>
+<p><a href="../simulation_projectile.html">Simulation of projectile</a></p>
 <p>Let’s simulate this computationally and visualize <span class="arithmatex">\(R(\theta)\)</span>.</p>
 <h4 id="algorithm">Algorithm</h4>
 <ol>
