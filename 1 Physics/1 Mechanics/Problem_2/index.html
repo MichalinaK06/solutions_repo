@@ -257,33 +257,21 @@ mL\frac{d^2\theta}{dt^2} + b\frac{d\theta}{dt} + mg\sin\theta = F_0 \cos(\omega 
 <h3 id="2-analysis-of-dynamics">2. Analysis of Dynamics</h3>
 <h4 id="influence-of-parameters">Influence of Parameters</h4>
 <ul>
-<li>
-<p><strong>Damping Coefficient (<span class="arithmatex">\(\gamma\)</span>)</strong>:</p>
-</li>
-<li>
-<p>Low <span class="arithmatex">\(\gamma\)</span>: Sustained oscillations with large amplitude near resonance.</p>
-</li>
-<li>
-<p>High <span class="arithmatex">\(\gamma\)</span>: Overdamping suppresses oscillations, and the system settles to the driving rhythm or equilibrium.</p>
-</li>
-<li>
-<p><strong>Driving Amplitude (<span class="arithmatex">\(A\)</span>)</strong>: </p>
-</li>
-<li>
-<p>Small <span class="arithmatex">\(A\)</span>: Linear behavior dominates (small-angle approximation holds).</p>
-</li>
-<li>
-<p>Large <span class="arithmatex">\(A\)</span>: Nonlinear effects (e.g., <span class="arithmatex">\(\sin\theta\)</span>) become significant, potentially driving the pendulum over the top ( librations to rotations) or into chaos.</p>
-</li>
-<li>
-<p><strong>Driving Frequency (<span class="arithmatex">\(\omega\)</span>)</strong>: </p>
-</li>
-<li>
-<p><span class="arithmatex">\(\omega \approx \omega_0\)</span>: Resonance amplifies motion.</p>
-</li>
-<li><span class="arithmatex">\(\omega \ll \omega_0\)</span>: The pendulum follows the slow driving force.</li>
-<li><span class="arithmatex">\(\omega \gg \omega_0\)</span>: Small, rapid oscillations with reduced amplitude.</li>
+<li><strong>Damping Coefficient (<span class="arithmatex">\(\gamma\)</span>)</strong>:</li>
 </ul>
+<p>Low <span class="arithmatex">\(\gamma\)</span>: Sustained oscillations with large amplitude near resonance.</p>
+<p>High <span class="arithmatex">\(\gamma\)</span>: Overdamping suppresses oscillations, and the system settles to the driving rhythm or equilibrium.</p>
+<ul>
+<li><strong>Driving Amplitude (<span class="arithmatex">\(A\)</span>)</strong>: </li>
+</ul>
+<p>Small <span class="arithmatex">\(A\)</span>: Linear behavior dominates (small-angle approximation holds).</p>
+<p>Large <span class="arithmatex">\(A\)</span>: Nonlinear effects (e.g., <span class="arithmatex">\(\sin\theta\)</span>) become significant, potentially driving the pendulum over the top ( librations to rotations) or into chaos.</p>
+<ul>
+<li><strong>Driving Frequency (<span class="arithmatex">\(\omega\)</span>)</strong>: </li>
+</ul>
+<p><span class="arithmatex">\(\omega \approx \omega_0\)</span>: Resonance amplifies motion.</p>
+<p><span class="arithmatex">\(\omega \ll \omega_0\)</span>: The pendulum follows the slow driving force.</p>
+<p><span class="arithmatex">\(\omega \gg \omega_0\)</span>: Small, rapid oscillations with reduced amplitude.</p>
 <h4 id="transition-to-chaos">Transition to Chaos</h4>
 <p>For large driving amplitudes or specific frequency ratios, the nonlinear <span class="arithmatex">\(\sin\theta\)</span> term triggers complex dynamics:</p>
 <ul>
@@ -304,6 +292,7 @@ mL\frac{d^2\theta}{dt^2} + b\frac{d\theta}{dt} + mg\sin\theta = F_0 \cos(\omega 
 <hr/>
 <h3 id="4-implementation">4. Implementation</h3>
 <h4 id="computational-model">Computational Model</h4>
+<p><a href="../pendulum.html">Simulation model motion of pendulum</a></p>
 <p>Here’s a Python snippet using the <code>scipy.integrate.odeint</code> solver to simulate the pendulum:</p>
 <pre><code class="language-python">import numpy as np
 import matplotlib.pyplot as plt
