@@ -1,15 +1,8 @@
 # Problem 1
 
-
-[Simulation](simulation_projectile.html)
-
-Let’s dive into this investigation of how the range of a projectile depends on its angle of projection. We’ll build this step-by-step, starting with the theoretical foundation, analyzing the range, exploring practical applications, and then suggesting a computational approach. Buckle up—physics is about to get fun!
-
----
-
 ### 1. Theoretical Foundation
 
-Projectile motion is a classic two-dimensional problem governed by Newton’s laws. We’re dealing with an object launched with an initial velocity $ v_0$ at an angle $\theta$ relative to the horizontal, under the influence of gravity $g$, and for now, we’ll assume no air resistance and a flat surface (launch height $h = 0$).
+Projectile motion is a classic two-dimensional problem governed by Newton’s laws. We’re dealing with an object launched with an initial velocity $v_0$ at an angle $\theta$ relative to the horizontal, under the influence of gravity $g$, and for now, we’ll assume no air resistance and a flat surface (launch height $h = 0$).
 
 #### Deriving the Equations of Motion
 The motion splits into horizontal (x) and vertical (y) components, and gravity only acts vertically. Start with the acceleration:
@@ -45,7 +38,9 @@ Factor out $t$:
 $$
 t \left( v_0 \sin\theta - \frac{1}{2} g t \right) = 0
 $$
+
 - $t = 0$ (launch).
+
 - $t = \frac{2 v_0 \sin\theta}{g}$ (landing, the time of flight $T$).
 
 #### Family of Solutions
@@ -86,12 +81,16 @@ $$R = \frac{v_0^2 \sin 2\theta}{g}$$
 
 This idealized model adapts to real-world scenarios:
 - **Uneven Terrain**: If launched from height $h$, the time of flight changes. Solve $y(t) = h + (v_0 \sin\theta) t - \frac{1}{2} g t^2 = 0$ with the quadratic formula. Range still depends on $\theta$, but the optimal angle shifts (e.g., < 45° for a cliff launch).
+
 - **Air Resistance**: Adds a drag force proportional to velocity (or $v^2$). Trajectories shorten and skew, and the optimal $\theta$ drops below 45°. Numerical methods or approximations are needed.
+
 - **Examples**: A basketball shot (low $v_0$, air matters), artillery (high $v_0$, terrain matters), or a Mars rover landing (low $g$, thin atmosphere).
 
 ---
 
 ### 4. Implementation
+
+[Simulation of projectile](simulation_projectile.html)
 
 Let’s simulate this computationally and visualize $R(\theta)$.
 
