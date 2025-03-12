@@ -84,19 +84,23 @@ For small damping ($\gamma \ll \omega_0$), the peak amplitude scales as $D \prop
 
 - **Damping Coefficient ($\gamma$)**:
 
-  - Low $\gamma$: Sustained oscillations with large amplitude near resonance.
-  - High $\gamma$: Overdamping suppresses oscillations, and the system settles to the driving rhythm or equilibrium.
+  Low $\gamma$: Sustained oscillations with large amplitude near resonance.
+
+  High $\gamma$: Overdamping suppresses oscillations, and the system settles to the driving rhythm or equilibrium.
 
 - **Driving Amplitude ($A$)**: 
 
-  - Small $A$: Linear behavior dominates (small-angle approximation holds).
-  - Large $A$: Nonlinear effects (e.g., $\sin\theta$) become significant, potentially driving the pendulum over the top ( librations to rotations) or into chaos.
+  Small $A$: Linear behavior dominates (small-angle approximation holds).
+
+  Large $A$: Nonlinear effects (e.g., $\sin\theta$) become significant, potentially driving the pendulum over the top ( librations to rotations) or into chaos.
 
 - **Driving Frequency ($\omega$)**: 
 
-  - $\omega \approx \omega_0$: Resonance amplifies motion.
-  - $\omega \ll \omega_0$: The pendulum follows the slow driving force.
-  - $\omega \gg \omega_0$: Small, rapid oscillations with reduced amplitude.
+  $\omega \approx \omega_0$: Resonance amplifies motion.
+
+  $\omega \ll \omega_0$: The pendulum follows the slow driving force.
+
+  $\omega \gg \omega_0$: Small, rapid oscillations with reduced amplitude.
 
 #### Transition to Chaos
 
@@ -125,6 +129,8 @@ In each case, understanding resonance and chaos helps design stable or efficient
 ### 4. Implementation
 
 #### Computational Model
+
+[Simulation model motion of pendulum](pendulum.html)
 
 Here’s a Python snippet using the `scipy.integrate.odeint` solver to simulate the pendulum:
 
