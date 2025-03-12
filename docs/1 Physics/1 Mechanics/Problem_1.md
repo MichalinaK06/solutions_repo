@@ -133,7 +133,4 @@ print(f"Max range: {max_R:.2f} m at θ = {max_theta}°")
 - Test different $v_0$ (e.g., 10, 20, 30 m/s) or $g$ (e.g., 9.8 vs. 1.62 m/s²) to see scaling effects.
 - Add $h > 0$ by solving the quadratic for $T$ and recomputing $R$.
 
----
 
-### Conclusion
-The range’s dependence on $\theta$ is elegantly captured by $R = \frac{v_0^2 \sin 2\theta}{g}$, with a sweet spot at 45° for flat ground. Tweaking $v_0$, $g$, or adding real-world factors like height or drag enriches the problem, making it a versatile tool for understanding everything from sports to space exploration. The simulation brings it to life—try it out and watch those parabolas soar!
