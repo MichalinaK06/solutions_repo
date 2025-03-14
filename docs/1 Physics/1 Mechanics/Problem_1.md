@@ -92,6 +92,8 @@ This idealized model adapts to real-world scenarios:
 
 [Simulation of projectile](simulation_projectile.html)
 
+[in geogebra](https://www.geogebra.org/calculator/jubc9rkb})
+
 Let’s simulate this computationally and visualize $R(\theta)$.
 
 #### Algorithm
