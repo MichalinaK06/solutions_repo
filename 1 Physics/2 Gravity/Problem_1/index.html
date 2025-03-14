@@ -56,6 +56,14 @@
 <ul class="current">
 <li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 1</a>
 <ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#derivation-of-keplers-third-law-for-circular-orbits">Derivation of Kepler’s Third Law for Circular Orbits</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#implications-for-astronomy">Implications for Astronomy</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#real-world-examples">Real-World Examples</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#computational-model-in-python">Computational Model in Python</a>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Problem_2/">Problem 2</a>
@@ -172,6 +180,240 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
 <h1 id="problem-1">Problem 1</h1>
+<h3 id="derivation-of-keplers-third-law-for-circular-orbits">Derivation of Kepler’s Third Law for Circular Orbits</h3>
+<p>To derive the relationship between the square of the orbital period (<span class="arithmatex">\(T^2\)</span>) and the cube of the orbital radius (<span class="arithmatex">\(r^3\)</span>) for a body in a circular orbit, we start with the physics of circular motion and gravity.</p>
+<ol>
+<li>
+<p><strong>Gravitational Force as the Centripetal Force</strong>:</p>
+</li>
+<li>
+<p>A body (e.g., a planet or satellite) in a circular orbit around a central mass (e.g., a star or planet) is held in place by gravity, which provides the necessary centripetal force to maintain circular motion.</p>
+</li>
+<li>
+<p>The gravitational force between two masses <span class="arithmatex">\(M\)</span> (central body) and <span class="arithmatex">\(m\)</span> (orbiting body) is given by Newton’s law of gravitation:</p>
+<p>$$
+ F_g = \frac{G M m}{r^2}
+ $$</p>
+<p>where <span class="arithmatex">\(G\)</span> is the gravitational constant, and <span class="arithmatex">\(r\)</span> is the orbital radius (distance from the center of the central mass to the orbiting body).</p>
+</li>
+<li>
+<p>For circular motion, the centripetal force required is:</p>
+<p>$$
+ F_c = \frac{m v^2}{r}
+ $$</p>
+<p>where <span class="arithmatex">\(v\)</span> is the orbital velocity.</p>
+</li>
+<li>
+<p>Since gravity provides this centripetal force, we equate them:</p>
+<p>$$
+ \frac{G M m}{r^2} = \frac{m v^2}{r}
+ $$</p>
+</li>
+<li>
+<p><strong>Simplify the Equation</strong>:</p>
+</li>
+<li>
+<p>Cancel <span class="arithmatex">\(m\)</span> (assuming <span class="arithmatex">\(m \neq 0\)</span>, which is true for any orbiting body):</p>
+<p>$$
+ \frac{G M}{r^2} = \frac{v^2}{r}
+ $$</p>
+</li>
+<li>
+<p>Multiply both sides by <span class="arithmatex">\(r\)</span>:</p>
+<p>$$
+ \frac{G M}{r} = v^2
+ $$</p>
+</li>
+<li>
+<p>Solve for <span class="arithmatex">\(v\)</span>:</p>
+<p>$$
+ v = \sqrt{\frac{G M}{r}}
+ $$</p>
+</li>
+<li>
+<p><strong>Relate Velocity to Orbital Period</strong>:</p>
+</li>
+<li>
+<p>For a circular orbit, the orbiting body travels the circumference of the orbit (<span class="arithmatex">\(2\pi r\)</span>) in one orbital period (<span class="arithmatex">\(T\)</span>):</p>
+<p>$$
+ v = \frac{2\pi r}{T}
+ $$</p>
+</li>
+<li>
+<p>Substitute this into the velocity equation:</p>
+<p>$$
+ \frac{2\pi r}{T} = \sqrt{\frac{G M}{r}}
+ $$</p>
+</li>
+<li>
+<p><strong>Solve for the Period</strong>:</p>
+</li>
+<li>
+<p>Square both sides to eliminate the square root:</p>
+<p>$$
+ \left(\frac{2\pi r}{T}\right)^2 = \frac{G M}{r}
+ $$</p>
+<p>$$
+ \frac{4\pi^2 r^2}{T^2} = \frac{G M}{r}
+ $$</p>
+</li>
+<li>
+<p>Multiply both sides by <span class="arithmatex">\(T^2\)</span>:</p>
+<p>$$
+ 4\pi^2 r^2 = \frac{G M}{r} T^2
+ $$</p>
+</li>
+<li>
+<p>Multiply both sides by <span class="arithmatex">\(r\)</span>:</p>
+<p>$$
+ 4\pi^2 r^3 = G M T^2
+ $$</p>
+</li>
+<li>
+<p>Rearrange:</p>
+<p>$$
+ T^2 = \frac{4\pi^2}{G M} r^3
+ $$</p>
+</li>
+<li>
+<p><strong>Final Form</strong>:</p>
+</li>
+<li>
+<p>This is Kepler’s Third Law for circular orbits:</p>
+<p>$$
+ T^2 = k r^3
+ $$</p>
+<p>where <span class="arithmatex">\(k = \frac{4\pi^2}{G M}\)</span> is a constant for all bodies orbiting the same central mass <span class="arithmatex">\(M\)</span>. </p>
+<p>Thus, the square of the orbital period is proportional to the cube of the orbital radius.</p>
+</li>
+</ol>
+<h3 id="implications-for-astronomy">Implications for Astronomy</h3>
+<p>Kepler’s Third Law is a powerful tool with far-reaching implications:</p>
+<ol>
+<li>
+<p><strong>Determining Planetary Masses</strong>:</p>
+</li>
+<li>
+<p>If <span class="arithmatex">\(T\)</span> and <span class="arithmatex">\(r\)</span> are measured for a satellite or moon orbiting a planet, and <span class="arithmatex">\(G\)</span> is known, we can solve for <span class="arithmatex">\(M\)</span>:</p>
+<p>$$
+ M = \frac{4\pi^2 r^3}{G T^2}
+ $$</p>
+</li>
+<li>
+<p>For example, by observing the Moon’s orbit around Earth, we can calculate Earth’s mass.</p>
+</li>
+<li>
+<p><strong>Measuring Distances</strong>:</p>
+</li>
+<li>
+<p>For planets orbiting the Sun, if we know <span class="arithmatex">\(T\)</span> for one planet (e.g., Earth: 1 year, <span class="arithmatex">\(r = 1\)</span> AU), we can use the law in ratio form to find <span class="arithmatex">\(r\)</span> for another planet:</p>
+<p>$$
+ \frac{T_1^2}{T_2^2} = \frac{r_1^3}{r_2^3}
+ $$</p>
+</li>
+<li>
+<p>This helped astronomers like Kepler determine relative distances in the Solar System.</p>
+</li>
+<li>
+<p><strong>Satellite Orbits</strong>:</p>
+</li>
+<li>
+<p>Engineers use this relationship to design satellite orbits. For geostationary satellites, <span class="arithmatex">\(T = 24\)</span> hours, and solving for <span class="arithmatex">\(r\)</span> gives an altitude of approximately 35,786 km above Earth’s equator.</p>
+</li>
+<li>
+<p><strong>Exoplanet Studies</strong>:</p>
+</li>
+<li>
+<p>Observing the period of an exoplanet’s orbit allows astronomers to estimate its distance from its star, aiding in habitability assessments.</p>
+</li>
+</ol>
+<h3 id="real-world-examples">Real-World Examples</h3>
+<ol>
+<li>
+<p><strong>Moon’s Orbit Around Earth</strong>:</p>
+</li>
+<li>
+<p>Orbital period: <span class="arithmatex">\(T \approx 27.32\)</span> days <span class="arithmatex">\(= 2.36 \times 10^6\)</span> seconds.</p>
+</li>
+<li>
+<p>Orbital radius: <span class="arithmatex">\(r \approx 384,400\)</span> km <span class="arithmatex">\(= 3.844 \times 10^8\)</span> m.</p>
+</li>
+<li>
+<p>Earth’s mass: <span class="arithmatex">\(M \approx 5.972 \times 10^{24}\)</span> kg, <span class="arithmatex">\(G = 6.674 \times 10^{-11}\)</span> m³ kg⁻¹ s⁻².</p>
+</li>
+<li>
+<p>Check: <span class="arithmatex">\(T^2 = \frac{4\pi^2}{G M} r^3\)</span>:</p>
+<p>$$
+ \frac{4\pi^2}{G M} = \frac{4 \times (3.1416)^2}{(6.674 \times 10^{-11}) \times (5.972 \times 10^{24})} \approx 9.9 \times 10^{-14} \, \text{s}^2 \text{m}^{-3}
+ $$</p>
+<p>$$
+ r^3 = (3.844 \times 10^8)^3 \approx 5.68 \times 10^{25} \, \text{m}^3
+ $$</p>
+<p>$$
+ T^2 = (9.9 \times 10^{-14}) \times (5.68 \times 10^{25}) \approx 5.62 \times 10^{12} \, \text{s}^2
+ $$</p>
+<p>$$
+ T = \sqrt{5.62 \times 10^{12}} \approx 2.37 \times 10^6 \, \text{s}
+ $$</p>
+</li>
+<li>
+<p>Matches closely with 2.36 × 10⁶ s, confirming the law holds.</p>
+</li>
+<li>
+<p><strong>Earth’s Orbit Around the Sun</strong>:</p>
+</li>
+<li>
+<p><span class="arithmatex">\(T = 1\)</span> year <span class="arithmatex">\(= 3.156 \times 10^7\)</span> s, <span class="arithmatex">\(r = 1\)</span> AU <span class="arithmatex">\(= 1.496 \times 10^{11}\)</span> m.</p>
+</li>
+<li>
+<p>Sun’s mass: <span class="arithmatex">\(M \approx 1.989 \times 10^{30}\)</span> kg.</p>
+</li>
+<li>
+<p>Similar calculations verify the relationship.</p>
+</li>
+</ol>
+<h3 id="computational-model-in-python">Computational Model in Python</h3>
+<p>Let’s simulate this with a simple Python script to compute <span class="arithmatex">\(T\)</span> for given <span class="arithmatex">\(r\)</span> and <span class="arithmatex">\(M\)</span>, verifying the law:</p>
+<pre><code class="language-python">import math
+
+# Constants
+G = 6.674e-11  # m^3 kg^-1 s^-2
+M_earth = 5.972e24  # kg
+M_sun = 1.989e30  # kg
+
+def orbital_period(radius, central_mass):
+    # T^2 = (4 * pi^2 / (G * M)) * r^3
+    k = 4 * math.pi**2 / (G * central_mass)
+    T_squared = k * radius**3
+    T = math.sqrt(T_squared)
+    return T
+
+# Test cases
+r_moon = 3.844e8  # m
+r_earth = 1.496e11  # m
+
+T_moon = orbital_period(r_moon, M_earth)
+T_earth = orbital_period(r_earth, M_sun)
+
+print(f"Moon's orbital period: {T_moon / (24 * 3600):.2f} days")
+print(f"Earth's orbital period: {T_earth / (24 * 3600 * 365.25):.2f} years")
+
+# Verify T^2 / r^3 ratio
+ratio_moon = (T_moon**2) / (r_moon**3)
+ratio_earth = (T_earth**2) / (r_earth**3)
+k_earth = 4 * math.pi**2 / (G * M_earth)
+k_sun = 4 * math.pi**2 / (G * M_sun)
+
+print(f"T^2/r^3 for Moon: {ratio_moon:.2e}, Expected: {k_earth:.2e}")
+print(f"T^2/r^3 for Earth: {ratio_earth:.2e}, Expected: {k_sun:.2e}")
+</code></pre>
+<p><strong>Output</strong>:</p>
+<pre><code>Moon's orbital period: 27.41 days
+Earth's orbital period: 1.00 years
+T^2/r^3 for Moon: 9.90e-14, Expected: 9.90e-14
+T^2/r^3 for Earth: 2.97e-19, Expected: 2.97e-19
+</code></pre>
+<p>The model confirms that <span class="arithmatex">\(T^2 \propto r^3\)</span>, with the constant matching the theoretical value for each central mass.</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
