@@ -94,7 +94,7 @@ This idealized model adapts to real-world scenarios:
 
 [in geogebra](https://www.geogebra.org/calculator/jubc9rkb})
 
-[suims](prbl1.html)
+
 
 Let’s simulate this computationally and visualize $R(\theta)$.
 
@@ -103,38 +103,8 @@ Let’s simulate this computationally and visualize $R(\theta)$.
 2. **Compute**: $R = \frac{v_0^2 \sin 2\theta}{g}$ for each $\theta$.
 3. **Visualize**: Plot $R$ vs. $\theta$.
 
-#### Python Code (Pseudo-Implementation)
-```python
-import numpy as np
-import matplotlib.pyplot as plt
+[Graph](prbl1.html)
 
-# Parameters
-v0 = 20.0  # m/s
-g = 9.8    # m/s^2
-theta_deg = np.linspace(0, 90, 91)  # 0° to 90°
-theta_rad = np.deg2rad(theta_deg)
 
-# Range formula
-R = (v0**2 * np.sin(2 * theta_rad)) / g
-
-# Plot
-plt.plot(theta_deg, R, label=f'v0 = {v0} m/s, g = {g} m/s²')
-plt.xlabel('Angle of Projection (degrees)')
-plt.ylabel('Range (meters)')
-plt.title('Range vs. Angle of Projection')
-plt.grid(True)
-plt.legend()
-plt.show()
-
-# Find max range
-max_R = np.max(R)
-max_theta = theta_deg[np.argmax(R)]
-print(f"Max range: {max_R:.2f} m at θ = {max_theta}°")
-```
-
-#### Visualization Insights
-- The plot is a sine curve peaking at 45°.
-- Test different $v_0$ (e.g., 10, 20, 30 m/s) or $g$ (e.g., 9.8 vs. 1.62 m/s²) to see scaling effects.
-- Add $h > 0$ by solving the quadratic for $T$ and recomputing $R$.
 
 
