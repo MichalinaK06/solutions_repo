@@ -94,6 +94,8 @@ This idealized model adapts to real-world scenarios:
 
 [in geogebra](https://www.geogebra.org/calculator/jubc9rkb})
 
+(suims)[prbl1.html]
+
 Let’s simulate this computationally and visualize $R(\theta)$.
 
 #### Algorithm

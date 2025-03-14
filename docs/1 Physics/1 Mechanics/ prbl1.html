@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Range vs. Angle of Projection</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <canvas id="myChart" style="max-width: 600px;"></canvas>
+    <script>
+        // Parameters
+        const v0 = 20.0;  // m/s
+        const g = 9.8;    // m/s^2
+        
+        // Generate theta array (0 to 90 degrees)
+        const thetaDeg = Array.from({length: 91}, (_, i) => i);
+        const thetaRad = thetaDeg.map(deg => deg * Math.PI / 180);
+
+        // Calculate range for each angle
+        const R = thetaRad.map(theta => {
+            return (v0 * v0 * Math.sin(2 * theta)) / g;
+        });
+
+        // Create the chart
+        const ctx = document.getElementById('myChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: thetaDeg,
+                datasets: [{
+                    label: `v0 = ${v0} m/s, g = ${g} m/s²`,
+                    data: R,
+                    borderColor: 'blue',
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Angle of Projection (degrees)'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Range (meters)'
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Range vs. Angle of Projection'
+                    }
+                }
+            }
+        });
+
+        // Find max range
+        const maxR = Math.max(...R);
+        const maxIndex = R.indexOf(maxR);
+        const maxTheta = thetaDeg[maxIndex];
+        console.log(`Max range: ${maxR.toFixed(2)} m at θ = ${maxTheta}°`);
+    </script>
+</body>
+</html>
