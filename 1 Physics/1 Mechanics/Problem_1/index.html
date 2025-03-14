@@ -70,10 +70,6 @@
 <ul>
 <li class="toctree-l4"><a class="reference internal" href="#algorithm">Algorithm</a>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="#python-code-pseudo-implementation">Python Code (Pseudo-Implementation)</a>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="#visualization-insights">Visualization Insights</a>
-</li>
 </ul>
 </li>
 </ul>
@@ -281,7 +277,6 @@ R = (v_0 \cos\theta) \cdot \frac{2 v_0 \sin\theta}{g}
 <h3 id="4-implementation">4. Implementation</h3>
 <p><a href="../simulation_projectile.html">Simulation of projectile</a></p>
 <p><a href="https://www.geogebra.org/calculator/jubc9rkb}">in geogebra</a></p>
-<p><a href="../prbl1.html">suims</a></p>
 <p>Let’s simulate this computationally and visualize <span class="arithmatex">\(R(\theta)\)</span>.</p>
 <h4 id="algorithm">Algorithm</h4>
 <ol>
@@ -289,39 +284,7 @@ R = (v_0 \cos\theta) \cdot \frac{2 v_0 \sin\theta}{g}
 <li><strong>Compute</strong>: <span class="arithmatex">\(R = \frac{v_0^2 \sin 2\theta}{g}\)</span> for each <span class="arithmatex">\(\theta\)</span>.</li>
 <li><strong>Visualize</strong>: Plot <span class="arithmatex">\(R\)</span> vs. <span class="arithmatex">\(\theta\)</span>.</li>
 </ol>
-<h4 id="python-code-pseudo-implementation">Python Code (Pseudo-Implementation)</h4>
-<pre><code class="language-python">import numpy as np
-import matplotlib.pyplot as plt
-
-# Parameters
-v0 = 20.0  # m/s
-g = 9.8    # m/s^2
-theta_deg = np.linspace(0, 90, 91)  # 0° to 90°
-theta_rad = np.deg2rad(theta_deg)
-
-# Range formula
-R = (v0**2 * np.sin(2 * theta_rad)) / g
-
-# Plot
-plt.plot(theta_deg, R, label=f'v0 = {v0} m/s, g = {g} m/s²')
-plt.xlabel('Angle of Projection (degrees)')
-plt.ylabel('Range (meters)')
-plt.title('Range vs. Angle of Projection')
-plt.grid(True)
-plt.legend()
-plt.show()
-
-# Find max range
-max_R = np.max(R)
-max_theta = theta_deg[np.argmax(R)]
-print(f"Max range: {max_R:.2f} m at θ = {max_theta}°")
-</code></pre>
-<h4 id="visualization-insights">Visualization Insights</h4>
-<ul>
-<li>The plot is a sine curve peaking at 45°.</li>
-<li>Test different <span class="arithmatex">\(v_0\)</span> (e.g., 10, 20, 30 m/s) or <span class="arithmatex">\(g\)</span> (e.g., 9.8 vs. 1.62 m/s²) to see scaling effects.</li>
-<li>Add <span class="arithmatex">\(h &gt; 0\)</span> by solving the quadratic for <span class="arithmatex">\(T\)</span> and recomputing <span class="arithmatex">\(R\)</span>.</li>
-</ul>
+<p><a href="../prbl1.html">Graph</a></p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
