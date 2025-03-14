@@ -6,7 +6,7 @@
 
 To derive the relationship between the square of the orbital period ($T^2$) and the cube of the orbital radius ($r^3$) for a body in a circular orbit, we start with the physics of circular motion and gravity.
 
-### 1. **Gravitational Force as the Centripetal Force**:
+#### 1. **Gravitational Force as the Centripetal Force**:
 
 - A body (e.g., a planet or satellite) in a circular orbit around a central mass (e.g., a star or planet) is held in place by gravity, which provides the necessary centripetal force to maintain circular motion.
 
@@ -32,7 +32,7 @@ $$
 \frac{G M m}{r^2} = \frac{m v^2}{r}
 $$
 
-### 2. **Simplify the Equation**:
+#### 2. **Simplify the Equation**:
 
 - Cancel $m$ (assuming $m \neq 0$, which is true for any orbiting body):
 
@@ -52,7 +52,7 @@ $$
 v = \sqrt{\frac{G M}{r}}
 $$
 
-### 3. **Relate Velocity to Orbital Period**:
+#### 3. **Relate Velocity to Orbital Period**:
 
 - For a circular orbit, the orbiting body travels the circumference of the orbit ($2\pi r$) in one orbital period ($T$):
 
@@ -66,7 +66,7 @@ $$
 \frac{2\pi r}{T} = \sqrt{\frac{G M}{r}}
 $$
 
-### 4. **Solve for the Period**:
+#### 4. **Solve for the Period**:
 
 - Square both sides to eliminate the square root:
 
@@ -96,7 +96,7 @@ $$
 T^2 = \frac{4\pi^2}{G M} r^3
 $$
 
-### 5. **Final Form**:
+#### 5. **Final Form**:
 
 - This is Kepler’s Third Law for circular orbits:
 
@@ -112,7 +112,7 @@ Thus, the square of the orbital period is proportional to the cube of the orbita
 
 Kepler’s Third Law is a powerful tool with far-reaching implications:
 
-### 1. **Determining Planetary Masses**:
+#### 1. **Determining Planetary Masses**:
 
 - If $T$ and $r$ are measured for a satellite or moon orbiting a planet, and $G$ is known, we can solve for $M$:
 
@@ -122,7 +122,7 @@ $$
 
 - For example, by observing the Moon’s orbit around Earth, we can calculate Earth’s mass.
 
-### 2. **Measuring Distances**:
+#### 2. **Measuring Distances**:
 
 - For planets orbiting the Sun, if we know $T$ for one planet (e.g., Earth: 1 year, $r = 1$ AU), we can use the law in ratio form to find $r$ for another planet:
 
@@ -132,17 +132,17 @@ $$
 
 - This helped astronomers like Kepler determine relative distances in the Solar System.
 
-### 3. **Satellite Orbits**:
+#### 3. **Satellite Orbits**:
 
 - Engineers use this relationship to design satellite orbits. For geostationary satellites, $T = 24$ hours, and solving for $r$ gives an altitude of approximately 35,786 km above Earth’s equator.
 
-### 4. **Exoplanet Studies**:
+#### 4. **Exoplanet Studies**:
 
 - Observing the period of an exoplanet’s orbit allows astronomers to estimate its distance from its star, aiding in habitability assessments.
 
 ### Real-World Examples
 
-### 1. **Moon’s Orbit Around Earth**:
+#### 1. **Moon’s Orbit Around Earth**:
 
 - Orbital period: $T \approx 27.32$ days $= 2.36 \times 10^6$ seconds.
 
@@ -170,7 +170,7 @@ $$
 
 - Matches closely with 2.36 × 10⁶ s, confirming the law holds.
 
-### 2. **Earth’s Orbit Around the Sun**:
+#### 2. **Earth’s Orbit Around the Sun**:
 
 - $T = 1$ year $= 3.156 \times 10^7$ s, $r = 1$ AU $= 1.496 \times 10^{11}$ m.
 
