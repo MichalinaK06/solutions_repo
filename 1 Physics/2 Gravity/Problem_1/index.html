@@ -57,32 +57,38 @@
 <li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 1</a>
 <ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="#derivation-of-keplers-third-law-for-circular-orbits">Derivation of Kepler’s Third Law for Circular Orbits</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#1-gravitational-force-as-the-centripetal-force">1. Gravitational Force as the Centripetal Force:</a>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#1-gravitational-force-as-the-centripetal-force">1. Gravitational Force as the Centripetal Force:</a>
+<li class="toctree-l4"><a class="reference internal" href="#2-simplify-the-equation">2. Simplify the Equation:</a>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#2-simplify-the-equation">2. Simplify the Equation:</a>
+<li class="toctree-l4"><a class="reference internal" href="#3-relate-velocity-to-orbital-period">3. Relate Velocity to Orbital Period:</a>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#3-relate-velocity-to-orbital-period">3. Relate Velocity to Orbital Period:</a>
+<li class="toctree-l4"><a class="reference internal" href="#4-solve-for-the-period">4. Solve for the Period:</a>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#4-solve-for-the-period">4. Solve for the Period:</a>
+<li class="toctree-l4"><a class="reference internal" href="#5-final-form">5. Final Form:</a>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#5-final-form">5. Final Form:</a>
+</ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#implications-for-astronomy">Implications for Astronomy</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#1-determining-planetary-masses">1. Determining Planetary Masses:</a>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#1-determining-planetary-masses">1. Determining Planetary Masses:</a>
+<li class="toctree-l4"><a class="reference internal" href="#2-measuring-distances">2. Measuring Distances:</a>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#2-measuring-distances">2. Measuring Distances:</a>
+<li class="toctree-l4"><a class="reference internal" href="#3-satellite-orbits">3. Satellite Orbits:</a>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#3-satellite-orbits">3. Satellite Orbits:</a>
+<li class="toctree-l4"><a class="reference internal" href="#4-exoplanet-studies">4. Exoplanet Studies:</a>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#4-exoplanet-studies">4. Exoplanet Studies:</a>
+</ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#real-world-examples">Real-World Examples</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#1-moons-orbit-around-earth">1. Moon’s Orbit Around Earth:</a>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#1-moons-orbit-around-earth">1. Moon’s Orbit Around Earth:</a>
+<li class="toctree-l4"><a class="reference internal" href="#2-earths-orbit-around-the-sun">2. Earth’s Orbit Around the Sun:</a>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#2-earths-orbit-around-the-sun">2. Earth’s Orbit Around the Sun:</a>
+</ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#computational-model-in-python">Computational Model in Python</a>
 </li>
@@ -204,7 +210,7 @@
 <h1 id="problem-1">Problem 1</h1>
 <h3 id="derivation-of-keplers-third-law-for-circular-orbits">Derivation of Kepler’s Third Law for Circular Orbits</h3>
 <p>To derive the relationship between the square of the orbital period (<span class="arithmatex">\(T^2\)</span>) and the cube of the orbital radius (<span class="arithmatex">\(r^3\)</span>) for a body in a circular orbit, we start with the physics of circular motion and gravity.</p>
-<h3 id="1-gravitational-force-as-the-centripetal-force">1. <strong>Gravitational Force as the Centripetal Force</strong>:</h3>
+<h4 id="1-gravitational-force-as-the-centripetal-force">1. <strong>Gravitational Force as the Centripetal Force</strong>:</h4>
 <ul>
 <li>
 <p>A body (e.g., a planet or satellite) in a circular orbit around a central mass (e.g., a star or planet) is held in place by gravity, which provides the necessary centripetal force to maintain circular motion.</p>
@@ -230,7 +236,7 @@ F_c = \frac{m v^2}{r}
 <div class="arithmatex">\[
 \frac{G M m}{r^2} = \frac{m v^2}{r}
 \]</div>
-<h3 id="2-simplify-the-equation">2. <strong>Simplify the Equation</strong>:</h3>
+<h4 id="2-simplify-the-equation">2. <strong>Simplify the Equation</strong>:</h4>
 <ul>
 <li>Cancel <span class="arithmatex">\(m\)</span> (assuming <span class="arithmatex">\(m \neq 0\)</span>, which is true for any orbiting body):</li>
 </ul>
@@ -249,7 +255,7 @@ F_c = \frac{m v^2}{r}
 <div class="arithmatex">\[
 v = \sqrt{\frac{G M}{r}}
 \]</div>
-<h3 id="3-relate-velocity-to-orbital-period">3. <strong>Relate Velocity to Orbital Period</strong>:</h3>
+<h4 id="3-relate-velocity-to-orbital-period">3. <strong>Relate Velocity to Orbital Period</strong>:</h4>
 <ul>
 <li>For a circular orbit, the orbiting body travels the circumference of the orbit (<span class="arithmatex">\(2\pi r\)</span>) in one orbital period (<span class="arithmatex">\(T\)</span>):</li>
 </ul>
@@ -262,7 +268,7 @@ v = \frac{2\pi r}{T}
 <div class="arithmatex">\[
 \frac{2\pi r}{T} = \sqrt{\frac{G M}{r}}
 \]</div>
-<h3 id="4-solve-for-the-period">4. <strong>Solve for the Period</strong>:</h3>
+<h4 id="4-solve-for-the-period">4. <strong>Solve for the Period</strong>:</h4>
 <ul>
 <li>Square both sides to eliminate the square root:</li>
 </ul>
@@ -290,7 +296,7 @@ v = \frac{2\pi r}{T}
 <div class="arithmatex">\[
 T^2 = \frac{4\pi^2}{G M} r^3
 \]</div>
-<h3 id="5-final-form">5. <strong>Final Form</strong>:</h3>
+<h4 id="5-final-form">5. <strong>Final Form</strong>:</h4>
 <ul>
 <li>This is Kepler’s Third Law for circular orbits:</li>
 </ul>
@@ -301,7 +307,7 @@ T^2 = k r^3
 <p>Thus, the square of the orbital period is proportional to the cube of the orbital radius.</p>
 <h3 id="implications-for-astronomy">Implications for Astronomy</h3>
 <p>Kepler’s Third Law is a powerful tool with far-reaching implications:</p>
-<h3 id="1-determining-planetary-masses">1. <strong>Determining Planetary Masses</strong>:</h3>
+<h4 id="1-determining-planetary-masses">1. <strong>Determining Planetary Masses</strong>:</h4>
 <ul>
 <li>If <span class="arithmatex">\(T\)</span> and <span class="arithmatex">\(r\)</span> are measured for a satellite or moon orbiting a planet, and <span class="arithmatex">\(G\)</span> is known, we can solve for <span class="arithmatex">\(M\)</span>:</li>
 </ul>
@@ -311,7 +317,7 @@ M = \frac{4\pi^2 r^3}{G T^2}
 <ul>
 <li>For example, by observing the Moon’s orbit around Earth, we can calculate Earth’s mass.</li>
 </ul>
-<h3 id="2-measuring-distances">2. <strong>Measuring Distances</strong>:</h3>
+<h4 id="2-measuring-distances">2. <strong>Measuring Distances</strong>:</h4>
 <ul>
 <li>For planets orbiting the Sun, if we know <span class="arithmatex">\(T\)</span> for one planet (e.g., Earth: 1 year, <span class="arithmatex">\(r = 1\)</span> AU), we can use the law in ratio form to find <span class="arithmatex">\(r\)</span> for another planet:</li>
 </ul>
@@ -321,16 +327,16 @@ M = \frac{4\pi^2 r^3}{G T^2}
 <ul>
 <li>This helped astronomers like Kepler determine relative distances in the Solar System.</li>
 </ul>
-<h3 id="3-satellite-orbits">3. <strong>Satellite Orbits</strong>:</h3>
+<h4 id="3-satellite-orbits">3. <strong>Satellite Orbits</strong>:</h4>
 <ul>
 <li>Engineers use this relationship to design satellite orbits. For geostationary satellites, <span class="arithmatex">\(T = 24\)</span> hours, and solving for <span class="arithmatex">\(r\)</span> gives an altitude of approximately 35,786 km above Earth’s equator.</li>
 </ul>
-<h3 id="4-exoplanet-studies">4. <strong>Exoplanet Studies</strong>:</h3>
+<h4 id="4-exoplanet-studies">4. <strong>Exoplanet Studies</strong>:</h4>
 <ul>
 <li>Observing the period of an exoplanet’s orbit allows astronomers to estimate its distance from its star, aiding in habitability assessments.</li>
 </ul>
 <h3 id="real-world-examples">Real-World Examples</h3>
-<h3 id="1-moons-orbit-around-earth">1. <strong>Moon’s Orbit Around Earth</strong>:</h3>
+<h4 id="1-moons-orbit-around-earth">1. <strong>Moon’s Orbit Around Earth</strong>:</h4>
 <ul>
 <li>
 <p>Orbital period: <span class="arithmatex">\(T \approx 27.32\)</span> days <span class="arithmatex">\(= 2.36 \times 10^6\)</span> seconds.</p>
@@ -360,7 +366,7 @@ T = \sqrt{5.62 \times 10^{12}} \approx 2.37 \times 10^6 \, \text{s}
 <ul>
 <li>Matches closely with 2.36 × 10⁶ s, confirming the law holds.</li>
 </ul>
-<h3 id="2-earths-orbit-around-the-sun">2. <strong>Earth’s Orbit Around the Sun</strong>:</h3>
+<h4 id="2-earths-orbit-around-the-sun">2. <strong>Earth’s Orbit Around the Sun</strong>:</h4>
 <ul>
 <li>
 <p><span class="arithmatex">\(T = 1\)</span> year <span class="arithmatex">\(= 3.156 \times 10^7\)</span> s, <span class="arithmatex">\(r = 1\)</span> AU <span class="arithmatex">\(= 1.496 \times 10^{11}\)</span> m.</p>
