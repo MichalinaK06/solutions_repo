@@ -168,7 +168,7 @@ $$
 T = \sqrt{5.62 \times 10^{12}} \approx 2.37 \times 10^6 \, \text{s}
 $$
 
-- Matches closely with 2.36 × 10⁶ s, confirming the law holds.
+- Matches closely with $2.36 × 10⁶$ s, confirming the law holds.
 
 #### 2. **Earth’s Orbit Around the Sun**:
 
