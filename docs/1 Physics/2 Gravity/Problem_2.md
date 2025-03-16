@@ -1,5 +1,5 @@
 # Problem 2
-
+[sscs](velocity.html)
 Let’s dive into the fascinating world of cosmic velocities—key concepts that govern how we break free from gravitational shackles and explore the cosmos. I’ll define the first, second, and third cosmic velocities, derive them mathematically, calculate examples for Earth, Mars, and Jupiter, and discuss their critical role in space exploration.
 
 ### Definitions and Physical Meaning

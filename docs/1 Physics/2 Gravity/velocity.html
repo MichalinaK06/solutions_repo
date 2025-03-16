@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escape and Cosmic Velocities Simulation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        canvas {
+            border: 1px solid black;
+            background-color: white;
+        }
+        .controls {
+            margin: 20px 0;
+        }
+        select {
+            padding: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Escape and Cosmic Velocities</h1>
+    <div class="controls">
+        <label>Select Celestial Body: 
+            <select id="bodySelect">
+                <option value="Earth">Earth</option>
+                <option value="Moon">Moon</option>
+                <option value="Mars">Mars</option>
+                <option value="Jupiter">Jupiter</option>
+            </select>
+        </label>
+        <br><br>
+        <button onclick="updateVisualization()">Update</button>
+    </div>
+    <div class="container">
+        <canvas id="orbitCanvas" width="400" height="400"></canvas>
+        <canvas id="barCanvas" width="400" height="400"></canvas>
+    </div>
+    <div>
+        <p>Left: Orbital visualization (not to scale)</p>
+        <p>Right: Velocity comparison (km/s)</p>
+    </div>
+
+    <script>
+        // Get canvas elements
+        const orbitCanvas = document.getElementById('orbitCanvas');
+        const orbitCtx = orbitCanvas.getContext('2d');
+        const barCanvas = document.getElementById('barCanvas');
+        const barCtx = barCanvas.getContext('2d');
+
+        // Constants
+        const G = 6.67430e-11; // Gravitational constant (m³ kg⁻¹ s⁻²)
+        const centerX = orbitCanvas.width / 2;
+        const centerY = orbitCanvas.height / 2;
+
+        // Celestial body data (mass in kg, radius in km)
+        const bodies = {
+            Earth: { mass: 5.972e24, radius: 6371, color: 'blue' },
+            Moon: { mass: 7.342e22, radius: 1737.4, color: 'gray' },
+            Mars: { mass: 6.417e23, radius: 3390, color: 'red' },
+            Jupiter: { mass: 1.898e27, radius: 69911, color: 'orange' }
+        };
+
+        let selectedBody = 'Earth';
+        let t = 0;
+
+        // Calculate velocities
+        function getEscapeVelocity(mass, radius) {
+            return Math.sqrt(2 * G * mass / (radius * 1000)) / 1000; // Convert to km/s
+        }
+
+        function getFirstCosmicVelocity(mass, radius) {
+            return Math.sqrt(G * mass / (radius * 1000)) / 1000; // Convert to km/s
+        }
+
+        function getSecondCosmicVelocity(mass, radius) {
+            return getEscapeVelocity(mass, radius); // Same as escape velocity
+        }
+
+        function drawOrbitVisualization() {
+            orbitCtx.clearRect(0, 0, orbitCanvas.width, orbitCanvas.height);
+
+            const body = bodies[selectedBody];
+            const scale = 100 / body.radius; // Simple scaling for visualization
+
+            // Draw celestial body
+            orbitCtx.beginPath();
+            orbitCtx.arc(centerX, centerY, body.radius * scale, 0, 2 * Math.PI);
+            orbitCtx.fillStyle = body.color;
+            orbitCtx.fill();
+
+            // Draw circular orbit (first cosmic velocity)
+            const orbitRadius = body.radius * scale + 30;
+            orbitCtx.beginPath();
+            orbitCtx.arc(centerX, centerY, orbitRadius, 0, 2 * Math.PI);
+            orbitCtx.strokeStyle = 'green';
+            orbitCtx.lineWidth = 2;
+            orbitCtx.stroke();
+
+            // Animate object in circular orbit
+            const v1 = getFirstCosmicVelocity(body.mass, body.radius);
+            const period = 2 * Math.PI * (body.radius / 1000) / v1;
+            const angularVelocity = 2 * Math.PI / period;
+            const theta = angularVelocity * t * 100;
+            const x1 = centerX + orbitRadius * Math.cos(theta);
+            const y1 = centerY + orbitRadius * Math.sin(theta);
+            orbitCtx.beginPath();
+            orbitCtx.arc(x1, y1, 5, 0, 2 * Math.PI);
+            orbitCtx.fillStyle = 'green';
+            orbitCtx.fill();
+
+            // Draw escape trajectory (second cosmic velocity)
+            const escapeRadius = body.radius * scale + 60;
+            orbitCtx.beginPath();
+            orbitCtx.arc(centerX, centerY, escapeRadius, 0, 2 * Math.PI);
+            orbitCtx.strokeStyle = 'red';
+            orbitCtx.lineWidth = 2;
+            orbitCtx.stroke();
+
+            // Animate object escaping
+            const v2 = getSecondCosmicVelocity(body.mass, body.radius);
+            const escapeX = centerX + (v2 * t * 10 * Math.cos(t / 2));
+            const escapeY = centerY + (v2 * t * 10 * Math.sin(t / 2));
+            if (escapeX < orbitCanvas.width && escapeY < orbitCanvas.height) {
+                orbitCtx.beginPath();
+                orbitCtx.arc(escapeX, escapeY, 5, 0, 2 * Math.PI);
+                orbitCtx.fillStyle = 'red';
+                orbitCtx.fill();
+            }
+        }
+
+        function drawBarChart() {
+            barCtx.clearRect(0, 0, barCanvas.width, barCanvas.height);
+
+            const body = bodies[selectedBody];
+            const v1 = getFirstCosmicVelocity(body.mass, body.radius);
+            const v2 = getSecondCosmicVelocity(body.mass, body.radius);
+
+            // Draw axes
+            barCtx.beginPath();
+            barCtx.moveTo(50, barCanvas.height - 50);
+            barCtx.lineTo(barCanvas.width - 20, barCanvas.height - 50);
+            barCtx.moveTo(50, barCanvas.height - 50);
+            barCtx.lineTo(50, 20);
+            barCtx.strokeStyle = 'black';
+            barCtx.lineWidth = 2;
+            barCtx.stroke();
+
+            // Labels
+            barCtx.fillStyle = 'black';
+            barCtx.font = '12px Arial';
+            barCtx.fillText('Velocity (km/s)', 50, 30);
+            barCtx.fillText(selectedBody, barCanvas.width / 2 - 20, barCanvas.height - 20);
+
+            // Scale for bars
+            const maxV = Math.max(v2, 20) * 1.2; // Ensure some headroom
+            const barWidth = 80;
+            const barSpacing = 40;
+
+            // First Cosmic Velocity Bar
+            const v1Height = (v1 / maxV) * (barCanvas.height - 70);
+            barCtx.fillStyle = 'green';
+            barCtx.fillRect(100, barCanvas.height - 50 - v1Height, barWidth, v1Height);
+            barCtx.fillStyle = 'black';
+            barCtx.fillText(`V1: ${v1.toFixed(2)}`, 100, barCanvas.height - 55 - v1Height);
+
+            // Escape Velocity Bar
+            const v2Height = (v2 / maxV) * (barCanvas.height - 70);
+            barCtx.fillStyle = 'red';
+            barCtx.fillRect(100 + barWidth + barSpacing, barCanvas.height - 50 - v2Height, barWidth, v2Height);
+            barCtx.fillStyle = 'black';
+            barCtx.fillText(`V2: ${v2.toFixed(2)}`, 100 + barWidth + barSpacing, barCanvas.height - 55 - v2Height);
+        }
+
+        function animate() {
+            drawOrbitVisualization();
+            drawBarChart();
+            t += 0.02; // Time step
+            requestAnimationFrame(animate);
+        }
+
+        function updateVisualization() {
+            selectedBody = document.getElementById('bodySelect').value;
+            t = 0; // Reset time for new body
+            drawOrbitVisualization();
+            drawBarChart();
+        }
+
+        // Initial draw and start animation
+        drawOrbitVisualization();
+        drawBarChart();
+        animate();
+    </script>
+</body>
+</html>
