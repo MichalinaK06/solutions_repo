@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orbital Period vs Radius Simulation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        canvas {
+            border: 1px solid black;
+            background-color: white;
+        }
+        .controls {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Orbital Period vs Radius Simulation</h1>
+    <div class="controls">
+        <label>Gravitational Parameter (μ): <input type="number" id="mu" value="1000" min="100" max="2000" step="100"></label><br><br>
+        <button onclick="resetSimulation()">Reset</button>
+    </div>
+    <div class="container">
+        <canvas id="orbitCanvas" width="400" height="400"></canvas>
+        <canvas id="graphCanvas" width="400" height="400"></canvas>
+    </div>
+    <div>
+        <p>Left: Circular orbits (time accelerated)</p>
+        <p>Right: Period² vs Radius³ (T² ∝ r³)</p>
+    </div>
+
+    <script>
+        // Get canvas elements
+        const orbitCanvas = document.getElementById('orbitCanvas');
+        const orbitCtx = orbitCanvas.getContext('2d');
+        const graphCanvas = document.getElementById('graphCanvas');
+        const graphCtx = graphCanvas.getContext('2d');
+
+        // Constants
+        const G = 6.67430e-11; // Gravitational constant (m³ kg⁻¹ s⁻²)
+        let mu = parseFloat(document.getElementById('mu').value); // Gravitational parameter (km³/s²)
+        const centerX = orbitCanvas.width / 2;
+        const centerY = orbitCanvas.height / 2;
+        const scale = 1; // Pixels per km
+        const timeScale = 100; // Time acceleration factor
+
+        // Orbital parameters
+        const orbits = [
+            { radius: 50, color: 'red' },
+            { radius: 100, color: 'blue' },
+            { radius: 150, color: 'green' },
+            { radius: 200, color: 'purple' }
+        ];
+
+        let t = 0; // Time in seconds
+
+        // Calculate orbital period (T = 2π √(r³/μ))
+        function getPeriod(radius) {
+            return 2 * Math.PI * Math.sqrt(Math.pow(radius, 3) / mu);
+        }
+
+        function drawOrbits() {
+            orbitCtx.clearRect(0, 0, orbitCanvas.width, orbitCanvas.height);
+
+            // Draw central body (star)
+            orbitCtx.beginPath();
+            orbitCtx.arc(centerX, centerY, 10, 0, 2 * Math.PI);
+            orbitCtx.fillStyle = 'yellow';
+            orbitCtx.fill();
+
+            // Draw each orbit and planet
+            orbits.forEach(orbit => {
+                // Draw orbital path
+                orbitCtx.beginPath();
+                orbitCtx.arc(centerX, centerY, orbit.radius * scale, 0, 2 * Math.PI);
+                orbitCtx.strokeStyle = orbit.color;
+                orbitCtx.lineWidth = 1;
+                orbitCtx.stroke();
+
+                // Calculate angular position
+                const period = getPeriod(orbit.radius);
+                const angularVelocity = 2 * Math.PI / period;
+                const theta = angularVelocity * t;
+
+                // Calculate planet position
+                const x = centerX + orbit.radius * scale * Math.cos(theta);
+                const y = centerY + orbit.radius * scale * Math.sin(theta);
+
+                // Draw planet
+                orbitCtx.beginPath();
+                orbitCtx.arc(x, y, 5, 0, 2 * Math.PI);
+                orbitCtx.fillStyle = orbit.color;
+                orbitCtx.fill();
+            });
+        }
+
+        function drawGraph() {
+            graphCtx.clearRect(0, 0, graphCanvas.width, graphCanvas.height);
+
+            // Draw axes
+            graphCtx.beginPath();
+            graphCtx.moveTo(50, graphCanvas.height - 50);
+            graphCtx.lineTo(graphCanvas.width - 20, graphCanvas.height - 50);
+            graphCtx.moveTo(50, graphCanvas.height - 50);
+            graphCtx.lineTo(50, 20);
+            graphCtx.strokeStyle = 'black';
+            graphCtx.lineWidth = 2;
+            graphCtx.stroke();
+
+            // Labels
+            graphCtx.fillStyle = 'black';
+            graphCtx.font = '12px Arial';
+            graphCtx.fillText('r³ (km³)', graphCanvas.width / 2, graphCanvas.height - 20);
+            graphCtx.save();
+            graphCtx.rotate(-Math.PI / 2);
+            graphCtx.fillText('T² (s²)', -graphCanvas.height / 2, 30);
+            graphCtx.restore();
+
+            // Plot T² vs r³
+            const maxR = 200;
+            const maxR3 = Math.pow(maxR, 3);
+            const maxT = getPeriod(maxR);
+            const maxT2 = Math.pow(maxT, 2);
+
+            graphCtx.beginPath();
+            graphCtx.moveTo(50, graphCanvas.height - 50);
+            for (let r = 0; r <= maxR; r += 5) {
+                const r3 = Math.pow(r, 3);
+                const T = getPeriod(r);
+                const T2 = Math.pow(T, 2);
+                
+                const x = 50 + (r3 / maxR3) * (graphCanvas.width - 70);
+                const y = (graphCanvas.height - 50) - (T2 / maxT2) * (graphCanvas.height - 70);
+                
+                graphCtx.lineTo(x, y);
+            }
+            graphCtx.strokeStyle = 'blue';
+            graphCtx.lineWidth = 2;
+            graphCtx.stroke();
+
+            // Plot points for each orbit
+            orbits.forEach(orbit => {
+                const r3 = Math.pow(orbit.radius, 3);
+                const T = getPeriod(orbit.radius);
+                const T2 = Math.pow(T, 2);
+                
+                const x = 50 + (r3 / maxR3) * (graphCanvas.width - 70);
+                const y = (graphCanvas.height - 50) - (T2 / maxT2) * (graphCanvas.height - 70);
+                
+                graphCtx.beginPath();
+                graphCtx.arc(x, y, 4, 0, 2 * Math.PI);
+                graphCtx.fillStyle = orbit.color;
+                graphCtx.fill();
+            });
+        }
+
+        function animate() {
+            drawOrbits();
+            drawGraph();
+            t += 0.1 * timeScale; // Increment time with acceleration
+            requestAnimationFrame(animate);
+        }
+
+        function resetSimulation() {
+            mu = parseFloat(document.getElementById('mu').value);
+            t = 0;
+            drawOrbits();
+            drawGraph();
+        }
+
+        // Initial draw and start animation
+        drawOrbits();
+        drawGraph();
+        animate();
+
+        // Update mu when input changes
+        document.getElementById('mu').addEventListener('input', () => {
+            mu = parseFloat(document.getElementById('mu').value);
+            drawGraph(); // Update graph immediately
+        });
+    </script>
+    <p>Orbital period increases with radius.</p>
+    <p>The relationship between period and radius follows T² ∝ r³.</p>
+    <p>Changing the central mass (via μ) affects orbital periods.</p>
+</body>
+</html>

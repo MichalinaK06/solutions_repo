@@ -178,52 +178,9 @@ $$
 
 - Similar calculations verify the relationship.
 
-### Computational Model in Python
+### Simulations
 
-Let’s simulate this with a simple Python script to compute $T$ for given $r$ and $M$, verifying the law:
+[Orbits and Kepler’s Laws](orbit.html)
 
-```python
-import math
 
-# Constants
-G = 6.674e-11  # m^3 kg^-1 s^-2
-M_earth = 5.972e24  # kg
-M_sun = 1.989e30  # kg
-
-def orbital_period(radius, central_mass):
-    # T^2 = (4 * pi^2 / (G * M)) * r^3
-    k = 4 * math.pi**2 / (G * central_mass)
-    T_squared = k * radius**3
-    T = math.sqrt(T_squared)
-    return T
-
-# Test cases
-r_moon = 3.844e8  # m
-r_earth = 1.496e11  # m
-
-T_moon = orbital_period(r_moon, M_earth)
-T_earth = orbital_period(r_earth, M_sun)
-
-print(f"Moon's orbital period: {T_moon / (24 * 3600):.2f} days")
-print(f"Earth's orbital period: {T_earth / (24 * 3600 * 365.25):.2f} years")
-
-# Verify T^2 / r^3 ratio
-ratio_moon = (T_moon**2) / (r_moon**3)
-ratio_earth = (T_earth**2) / (r_earth**3)
-k_earth = 4 * math.pi**2 / (G * M_earth)
-k_sun = 4 * math.pi**2 / (G * M_sun)
-
-print(f"T^2/r^3 for Moon: {ratio_moon:.2e}, Expected: {k_earth:.2e}")
-print(f"T^2/r^3 for Earth: {ratio_earth:.2e}, Expected: {k_sun:.2e}")
-```
-
-**Output**:
-```
-Moon's orbital period: 27.41 days
-Earth's orbital period: 1.00 years
-T^2/r^3 for Moon: 9.90e-14, Expected: 9.90e-14
-T^2/r^3 for Earth: 2.97e-19, Expected: 2.97e-19
-```
-
-The model confirms that $T^2 \propto r^3$, with the constant matching the theoretical value for each central mass.
 

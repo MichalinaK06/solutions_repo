@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Forced Damped Pendulum Simulation</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+        .controls {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <label>Damping (b): <input type="range" id="damping" min="0" max="0.5" step="0.01" value="0.1"></label><br>
+        <label>Driving Amplitude (A): <input type="range" id="amplitude" min="0" max="2" step="0.1" value="0.5"></label><br>
+        <label>Driving Frequency (ω): <input type="range" id="frequency" min="0" max="2" step="0.1" value="1"></label><br>
+        <button onclick="resetSimulation()">Reset Trails</button>
+    </div>
+    <canvas id="pendulumCanvas" width="800" height="600"></canvas>
+
+    <script>
+        const canvas = document.getElementById('pendulumCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Physical parameters
+        let g = 9.81;       // gravity (m/s²)
+        let l = 2;          // pendulum length (m)
+        let m = 1;          // mass (kg)
+        
+        // Initial conditions
+        let theta = Math.PI/4;    // initial angle (radians)
+        let omega = 0;           // initial angular velocity (rad/s)
+        
+        // Simulation parameters
+        let t = 0;          // time
+        let dt = 0.02;      // time step
+        
+        // Trail storage
+        let currentTrail = [];
+        let allTrails = [];
+        
+        // Get control elements
+        const dampingInput = document.getElementById('damping');
+        const amplitudeInput = document.getElementById('amplitude');
+        const frequencyInput = document.getElementById('frequency');
+        
+        // Convert slider values to physical parameters
+        let b = parseFloat(dampingInput.value);         // damping coefficient
+        let A = parseFloat(amplitudeInput.value);       // driving amplitude
+        let drivingFreq = parseFloat(frequencyInput.value);  // driving frequency
+        
+        // Canvas center
+        const centerX = canvas.width/2;
+        const centerY = canvas.height/4;
+        const scale = 200;  // pixels per meter
+        
+        function updateParameters() {
+            const newB = parseFloat(dampingInput.value);
+            const newA = parseFloat(amplitudeInput.value);
+            const newFreq = parseFloat(frequencyInput.value);
+            
+            // If parameters changed significantly, store current trail and reset
+            if (Math.abs(newB - b) > 0.01 || Math.abs(newA - A) > 0.1 || Math.abs(newFreq - drivingFreq) > 0.1) {
+                if (currentTrail.length > 1) {
+                    allTrails.push([...currentTrail]);
+                }
+                currentTrail = [];
+                theta = Math.PI/4;  // Reset to initial angle
+                omega = 0;         // Reset velocity
+                t = 0;             // Reset time
+            }
+            
+            b = newB;
+            A = newA;
+            drivingFreq = newFreq;
+        }
+
+        function calculateMotion() {
+            let alpha = -g/l * Math.sin(theta) - b * omega + A * Math.cos(drivingFreq * t);
+            omega += alpha * dt;
+            theta += omega * dt;
+            t += dt;
+        }
+
+        function drawTrails() {
+            // Draw all previous trails in gray
+            allTrails.forEach(trail => {
+                ctx.beginPath();
+                ctx.moveTo(trail[0].x, trail[0].y);
+                for (let i = 1; i < trail.length; i++) {
+                    ctx.lineTo(trail[i].x, trail[i].y);
+                }
+                ctx.strokeStyle = 'gray';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            });
+
+            // Draw current trail in blue
+            if (currentTrail.length > 1) {
+                ctx.beginPath();
+                ctx.moveTo(currentTrail[0].x, currentTrail[0].y);
+                for (let i = 1; i < currentTrail.length; i++) {
+                    ctx.lineTo(currentTrail[i].x, currentTrail[i].y);
+                }
+                ctx.strokeStyle = 'blue';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Calculate pendulum position
+            let x = centerX + scale * l * Math.sin(theta);
+            let y = centerY + scale * l * Math.cos(theta);
+            
+            // Add to current trail (limit trail length to prevent memory issues)
+            currentTrail.push({x: x, y: y});
+            if (currentTrail.length > 1000) {
+                currentTrail.shift();
+            }
+            
+            // Draw trails
+            drawTrails();
+            
+            // Draw rod
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(x, y);
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            
+            // Draw mass
+            ctx.beginPath();
+            ctx.arc(x, y, 10, 0, 2*Math.PI);
+            ctx.fillStyle = 'red';
+            ctx.fill();
+            
+            // Draw pivot point
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 5, 0, 2*Math.PI);
+            ctx.fillStyle = 'black';
+            ctx.fill();
+        }
+
+        function resetSimulation() {
+            allTrails = [];
+            currentTrail = [];
+            theta = Math.PI/4;
+            omega = 0;
+            t = 0;
+        }
+
+        function animate() {
+            updateParameters();
+            calculateMotion();
+            draw();
+            requestAnimationFrame(animate);
+        }
+
+        // Start the animation
+        animate();
+    </script>
+</body>
+</html>
