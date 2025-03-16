@@ -38,6 +38,10 @@
         const g = 9.8; // Gravity (m/s^2)
         const scale = 10; // Pixels per meter for scaling
         let animationId = null;
+        
+        // Array to store all trails
+        let trails = [];
+        let currentTrail = [];
 
         // Projectile state
         let x = 0, y = 0, t = 0;
@@ -59,10 +63,11 @@
                 return;
             }
 
-            // Reset position and time
+            // Reset current position and time
             x = 0;
             y = 0;
             t = 0;
+            currentTrail = []; // Start new trail
 
             // Initial velocity components
             const thetaRad = degreesToRadians(theta);
@@ -75,6 +80,8 @@
 
         function resetSimulation() {
             if (animationId) cancelAnimationFrame(animationId);
+            trails = []; // Clear all trails
+            currentTrail = [];
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             drawGround();
         }
@@ -88,10 +95,37 @@
             ctx.stroke();
         }
 
+        function drawTrails() {
+            // Draw all previous trails
+            trails.forEach(trail => {
+                ctx.beginPath();
+                ctx.moveTo(trail[0].x, trail[0].y);
+                for (let i = 1; i < trail.length; i++) {
+                    ctx.lineTo(trail[i].x, trail[i].y);
+                }
+                ctx.strokeStyle = 'gray';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            });
+
+            // Draw current trail
+            if (currentTrail.length > 1) {
+                ctx.beginPath();
+                ctx.moveTo(currentTrail[0].x, currentTrail[0].y);
+                for (let i = 1; i < currentTrail.length; i++) {
+                    ctx.lineTo(currentTrail[i].x, currentTrail[i].y);
+                }
+                ctx.strokeStyle = 'blue';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+        }
+
         function animate() {
-            // Clear canvas and redraw ground
+            // Clear canvas and redraw everything
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             drawGround();
+            drawTrails();
 
             // Update position
             x = vx * t;
@@ -100,6 +134,9 @@
             // Convert to canvas coordinates (y is inverted)
             const canvasX = x * scale;
             const canvasY = canvas.height - 20 - y * scale;
+
+            // Add position to current trail
+            currentTrail.push({ x: canvasX, y: canvasY });
 
             // Draw projectile
             ctx.beginPath();
@@ -112,6 +149,7 @@
 
             // Stop when projectile hits ground (or goes off-screen)
             if (canvasY > canvas.height - 20 || canvasX > canvas.width) {
+                trails.push([...currentTrail]); // Save completed trail
                 cancelAnimationFrame(animationId);
                 return;
             }

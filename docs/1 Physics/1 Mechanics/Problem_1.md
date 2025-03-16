@@ -92,18 +92,10 @@ This idealized model adapts to real-world scenarios:
 
 [Simulation of projectile](simulation_projectile.html)
 
-[in geogebra](https://www.geogebra.org/calculator/jubc9rkb})
+[How angle and velocity change in geogebra](https://www.geogebra.org/calculator/jubc9rkb})
 
+[Graph of angle and velocity](prbl1.html)
 
-
-Let’s simulate this computationally and visualize $R(\theta)$.
-
-#### Algorithm
-1. **Inputs**: $v_0$, $g$, range of $\theta$ (e.g., 0° to 90°).
-2. **Compute**: $R = \frac{v_0^2 \sin 2\theta}{g}$ for each $\theta$.
-3. **Visualize**: Plot $R$ vs. $\theta$.
-
-[Graph](prbl1.html)
 
 
 
