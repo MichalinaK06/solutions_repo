@@ -13,52 +13,87 @@
 
 ### Mathematical Derivations
 
-#### First Cosmic Velocity (v₁)
+#### First Cosmic Velocity (v_1)
+
 For a circular orbit, the gravitational force provides the centripetal force:
+
 $F_g = F_c$
-$\frac{G M m}{r^2} = \frac{m v_1^2}{r}$
+
+$$\frac{G M m}{r^2} = \frac{m v_1^2}{r}$$
+
 Cancel $m$ (mass of the orbiting object) and simplify:
-$v_1^2 = \frac{G M}{r}$
-$v_1 = \sqrt{\frac{G M}{r}}$
+
+$$v_1^2 = \frac{G M}{r}$$
+
+$$v_1 = \sqrt{\frac{G M}{r}}$$
+
+Where:
 - $G$: Gravitational constant ($6.67430 \times 10^{-11} \, \text{m}^3 \text{kg}^{-1} \text{s}^{-2}$)
+
 - $M$: Mass of the celestial body
+
 - $r$: Radius of the body (assuming orbit near the surface)
 
-#### Second Cosmic Velocity (v₂)
+#### Second Cosmic Velocity (v_2)
+
 Escape velocity comes from energy conservation. The total mechanical energy at the surface (kinetic + potential) equals zero at infinity (where potential energy is zero, and residual speed is zero):
-$\frac{1}{2} m v_2^2 - \frac{G M m}{r} = 0$
-$\frac{1}{2} v_2^2 = \frac{G M}{r}$
-$v_2^2 = \frac{2 G M}{r}$
-$v_2 = \sqrt{\frac{2 G M}{r}}$
+
+$$\frac{1}{2} m v_2^2 - \frac{G M m}{r} = 0$$
+
+$$\frac{1}{2} v_2^2 = \frac{G M}{r}$$
+
+$$v_2^2 = \frac{2 G M}{r}$$
+
+$$v_2 = \sqrt{\frac{2 G M}{r}}$$
+
 Notice: $v_2 = v_1 \sqrt{2}$, so escape velocity is $\sqrt{2}$ times the orbital velocity.
 
-#### Third Cosmic Velocity (v₃)
-This is more complex, as it involves escaping the Sun’s gravity from a planet’s orbit. It’s the velocity needed at a planet’s surface to reach the Sun’s escape velocity at the planet’s distance ($R$) from the Sun. First, the escape speed from the Sun’s gravity at distance $R$:
-$v_{\text{esc,Sun}} = \sqrt{\frac{2 G M_{\text{Sun}}}{R}}$
+#### Third Cosmic Velocity (v_3)
+
+This is more complex, as it involves escaping the Sun’s gravity from a planet’s orbit. It’s the velocity needed at a planet’s surface to reach the Sun’s escape velocity at the planet’s distance ($R$) from the Sun. 
+
+First, the escape speed from the Sun’s gravity at distance $R$:
+
+$$v_{\text{esc,Sun}} = \sqrt{\frac{2 G M_{\text{Sun}}}{R}}$$
+
 The planet orbits the Sun at speed:
-$v_{\text{orbit}} = \sqrt{\frac{G M_{\text{Sun}}}{R}}$
+
+$$v_{\text{orbit}} = \sqrt{\frac{G M_{\text{Sun}}}{R}}$$
+
 The additional speed ($v_{\infty}$) needed to escape the Sun’s gravity, added to the orbital speed, is:
-$v_{\infty} = v_{\text{esc,Sun}} - v_{\text{orbit}} = \sqrt{\frac{2 G M_{\text{Sun}}}{R}} - \sqrt{\frac{G M_{\text{Sun}}}{R}}$
-From the planet’s surface, $v_3$ combines escaping the planet ($v_2$) and achieving $v_{\infty}$ relative to the Sun. Approximations vary, but a simplified form (assuming a hyperbolic trajectory) is:
-$v_3 \approx \sqrt{v_2^2 + v_{\infty}^2}$
+
+$$v_{\infty} = v_{\text{esc,Sun}} - v_{\text{orbit}} = \sqrt{\frac{2 G M_{\text{Sun}}}{R}} - \sqrt{\frac{G M_{\text{Sun}}}{R}}$$
+
+From the planet’s surface, $v_3$ combines escaping the planet ($v_2$) and achieving $v_{\infty}$ relative to the Sun.
+
+Approximations vary, but a simplified form (assuming a hyperbolic 
+trajectory) is:
+
+$$v_3 \approx \sqrt{v_2^2 + v_{\infty}^2}$$
 
 ### Parameters Affecting Velocities
 - **Mass (M)**: Higher mass increases gravitational pull, raising all velocities.
+
 - **Radius (r)**: Larger radius decreases velocities by increasing distance from the center of mass.
+
 - **Distance from Star (R)**: For $v_3$, a greater orbital radius reduces the Sun’s influence, lowering the required speed.
 
 ### Calculations for Earth, Mars, and Jupiter
 
 #### Data
 - **Earth**: $M = 5.972 \times 10^{24} \, \text{kg}$, $r = 6,371 \, \text{km}$, $R = 1 \, \text{AU} = 1.496 \times 10^8 \, \text{km}$
+
 - **Mars**: $M = 6.417 \times 10^{23} \, \text{kg}$, $r = 3,390 \, \text{km}$, $R = 1.524 \, \text{AU}$
+
 - **Jupiter**: $M = 1.899 \times 10^{27} \, \text{kg}$, $r = 69,911 \, \text{km}$, $R = 5.203 \, \text{AU}$
+
 - **Sun**: $M_{\text{Sun}} = 1.989 \times 10^{30} \, \text{kg}$
 
 #### Earth
-- $v_1 = \sqrt{\frac{6.67430 \times 10^{-11} \cdot 5.972 \times 10^{24}}{6.371 \times 10^6}} = 7.91 \, \text{km/s}$
-- $v_2 = \sqrt{2} \cdot 7.91 = 11.19 \, \text{km/s}$
-- $v_{\text{esc,Sun}} = \sqrt{\frac{2 \cdot 6.67430 \times 10^{-11} \cdot 1.989 \times 10^{30}}{1.496 \times 10^{11}}} = 42.1 \, \text{km/s}$
+
+- $$v_1 = \sqrt{\frac{6.67430 \times 10^{-11} \cdot 5.972 \times 10^{24}}{6.371 \times 10^6}} = 7.91 \, \text{km/s}$$
+- $$v_2 = \sqrt{2} \cdot 7.91 = 11.19 \, \text{km/s}$$
+- $$v_{\text{esc,Sun}} = \sqrt{\frac{2 \cdot 6.67430 \times 10^{-11} \cdot 1.989 \times 10^{30}}{1.496 \times 10^{11}}} = 42.1 \, \text{km/s}$$
 - $v_{\text{orbit}} = 29.8 \, \text{km/s}$
 - $v_{\infty} = 42.1 - 29.8 = 12.3 \, \text{km/s}$
 - $v_3 \approx \sqrt{11.19^2 + 12.3^2} = 16.7 \, \text{km/s}$
