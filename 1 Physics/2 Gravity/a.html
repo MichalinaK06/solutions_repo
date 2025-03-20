@@ -7,6 +7,7 @@
         body {
             margin: 0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
@@ -15,11 +16,23 @@
         canvas {
             border: 1px solid #333;
         }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #333;
+            color: white;
+            border: 1px solid #666;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #444;
+        }
     </style>
 </head>
 <body>
     <script>
-        // Orbital Trajectories Visualization
         let earth;
         let satellites = [];
         let escapeVehicle;
@@ -29,7 +42,15 @@
 
         function setup() {
             createCanvas(800, 800);
+            initializeSimulation();
             
+            // Create reset button
+            let resetButton = createButton('Reset Simulation');
+            resetButton.position(width/2 - 60, height + 20);
+            resetButton.mousePressed(resetSimulation);
+        }
+
+        function initializeSimulation() {
             // Earth at center
             earth = {
                 x: width/2,
@@ -38,12 +59,13 @@
                 mass: earthMass
             };
             
-            // Create some satellites in different orbits
+            // Reset satellites array and create new ones
+            satellites = [];
             satellites.push(new Satellite(150, 0.02, color(0, 255, 0))); // Low Earth Orbit
             satellites.push(new Satellite(250, 0.015, color(255, 0, 0))); // Medium Earth Orbit
             satellites.push(new Satellite(350, 0.01, color(0, 0, 255))); // Geostationary-like
             
-            // Escape velocity vehicle
+            // Escape velocity vehicle with increased initial velocity
             escapeVehicle = new EscapeVehicle(100, 0.05, color(255, 255, 0));
         }
 
@@ -69,10 +91,9 @@
             displayLegend();
         }
 
-        // Satellite class for orbital paths
         class Satellite {
             constructor(radius, speed, col) {
-                this.r = radius; // Orbital radius in scaled units
+                this.r = radius;
                 this.angle = 0;
                 this.speed = speed;
                 this.color = col;
@@ -91,7 +112,6 @@
                 noStroke();
                 circle(this.x, this.y, 8);
                 
-                // Draw orbital path
                 noFill();
                 stroke(this.color);
                 strokeWeight(1);
@@ -99,14 +119,14 @@
             }
         }
 
-        // EscapeVehicle class for escape trajectory
         class EscapeVehicle {
             constructor(startRadius, speed, col) {
                 this.r = startRadius;
                 this.angle = 0;
                 this.speed = speed;
                 this.color = col;
-                this.v = sqrt((2 * G * earthMass) / (startRadius / scale)); // Escape velocity
+                // Increased escape velocity multiplier for longer trajectory
+                this.v = sqrt((2 * G * earthMass) / (startRadius / scale)) * 1.5; 
                 this.x = earth.x + this.r;
                 this.y = earth.y;
                 this.escaping = false;
@@ -115,6 +135,7 @@
             update() {
                 this.angle += this.speed;
                 
+                // Delay escape until frame 100
                 if (frameCount > 100 && !this.escaping) {
                     this.escaping = true;
                     this.vx = this.v * cos(this.angle) * scale;
@@ -124,7 +145,6 @@
                 if (this.escaping) {
                     this.x += this.vx;
                     this.y += this.vy;
-                    // Simple gravity effect
                     let dx = earth.x - this.x;
                     let dy = earth.y - this.y;
                     let dist = sqrt(dx*dx + dy*dy);
@@ -154,6 +174,11 @@
             text("Blue: Geostationary-like Orbit", 10, 60);
             fill(255, 255, 0);
             text("Yellow: Escape Trajectory", 10, 80);
+        }
+
+        function resetSimulation() {
+            frameCount = 0; // Reset frame counter
+            initializeSimulation();
         }
     </script>
 </body>
