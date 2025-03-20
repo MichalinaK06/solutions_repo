@@ -79,9 +79,9 @@ Use a simple Euler method or a more accurate Runge-Kutta (RK4) integrator to sol
 
 - Update rules:
 
-  $$v_x(t + \Delta t) = v_x(t) - \frac{GM}{r^3} x(t) \Delta t$$
+$$v_x(t + \Delta t) = v_x(t) - \frac{GM}{r^3} x(t) \Delta t$$
 
-  $$x(t + \Delta t) = x(t) + v_x(t) \Delta t$$
+$$x(t + \Delta t) = x(t) + v_x(t) \Delta t$$
 
   (Similarly for $y$ and $v_y$).
 
