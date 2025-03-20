@@ -135,19 +135,19 @@ $$v_3 \approx \sqrt{v_2^2 + v_{\infty}^2}$$
 
 ### Importance in Space Exploration
 
-1. **First Cosmic Velocity (Orbiting)**  
+#### **First Cosmic Velocity (Orbiting)**  
 
 - **Satellites**: Rockets must reach $v_1$ (plus extra to counter drag) to place satellites in orbit. For Earth, $7.91$ km/s is the baseline—real launches hit $~9$ km/s due to atmosphere.  
 
 - **Mars**: Lower $v_1$ ($3.55$ km/s) makes orbiting easier, aiding missions like Mars Reconnaissance Orbiter.
 
-2. **Second Cosmic Velocity (Escaping)**  
+#### **Second Cosmic Velocity (Escaping)**  
 
 - **Planetary Missions**: To send probes to Mars or beyond, we exceed Earth’s $v_2$ ($11.19$ km/s). Apollo missions used this to reach the Moon (not escaping Earth fully, but leveraging orbits).  
 
 - **Jupiter**: Its high $v_2$ ($60.2$ km/s) makes escaping its gravity a monumental challenge—hence why probes like Juno orbit rather than land and depart.
 
-3. **Third Cosmic Velocity (Interstellar)** 
+#### **Third Cosmic Velocity (Interstellar)** 
 
 - **Voyager Probes**: Launched from Earth, they used gravitational assists to approach $v_3$, escaping the Sun’s grasp (effective speed $~17$ km/s relative to the Sun).  
 
