@@ -62,11 +62,11 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#mathematical-derivations">Mathematical Derivations</a>
 <ul>
-<li class="toctree-l4"><a class="reference internal" href="#first-cosmic-velocity-v1">First Cosmic Velocity (v₁)</a>
+<li class="toctree-l4"><a class="reference internal" href="#first-cosmic-velocity-v_1">First Cosmic Velocity (v_1)</a>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="#second-cosmic-velocity-v2">Second Cosmic Velocity (v₂)</a>
+<li class="toctree-l4"><a class="reference internal" href="#second-cosmic-velocity-v_2">Second Cosmic Velocity (v_2)</a>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="#third-cosmic-velocity-v3">Third Cosmic Velocity (v₃)</a>
+<li class="toctree-l4"><a class="reference internal" href="#third-cosmic-velocity-v_3">Third Cosmic Velocity (v_3)</a>
 </li>
 </ul>
 </li>
@@ -218,51 +218,81 @@
 </li>
 </ol>
 <h3 id="mathematical-derivations">Mathematical Derivations</h3>
-<h4 id="first-cosmic-velocity-v1">First Cosmic Velocity (v₁)</h4>
-<p>For a circular orbit, the gravitational force provides the centripetal force:
-<span class="arithmatex">\(F_g = F_c\)</span>
-<span class="arithmatex">\(\frac{G M m}{r^2} = \frac{m v_1^2}{r}\)</span>
-Cancel <span class="arithmatex">\(m\)</span> (mass of the orbiting object) and simplify:
-<span class="arithmatex">\(v_1^2 = \frac{G M}{r}\)</span>
-<span class="arithmatex">\(v_1 = \sqrt{\frac{G M}{r}}\)</span>
-- <span class="arithmatex">\(G\)</span>: Gravitational constant (<span class="arithmatex">\(6.67430 \times 10^{-11} \, \text{m}^3 \text{kg}^{-1} \text{s}^{-2}\)</span>)
-- <span class="arithmatex">\(M\)</span>: Mass of the celestial body
-- <span class="arithmatex">\(r\)</span>: Radius of the body (assuming orbit near the surface)</p>
-<h4 id="second-cosmic-velocity-v2">Second Cosmic Velocity (v₂)</h4>
-<p>Escape velocity comes from energy conservation. The total mechanical energy at the surface (kinetic + potential) equals zero at infinity (where potential energy is zero, and residual speed is zero):
-<span class="arithmatex">\(\frac{1}{2} m v_2^2 - \frac{G M m}{r} = 0\)</span>
-<span class="arithmatex">\(\frac{1}{2} v_2^2 = \frac{G M}{r}\)</span>
-<span class="arithmatex">\(v_2^2 = \frac{2 G M}{r}\)</span>
-<span class="arithmatex">\(v_2 = \sqrt{\frac{2 G M}{r}}\)</span>
-Notice: <span class="arithmatex">\(v_2 = v_1 \sqrt{2}\)</span>, so escape velocity is <span class="arithmatex">\(\sqrt{2}\)</span> times the orbital velocity.</p>
-<h4 id="third-cosmic-velocity-v3">Third Cosmic Velocity (v₃)</h4>
-<p>This is more complex, as it involves escaping the Sun’s gravity from a planet’s orbit. It’s the velocity needed at a planet’s surface to reach the Sun’s escape velocity at the planet’s distance (<span class="arithmatex">\(R\)</span>) from the Sun. First, the escape speed from the Sun’s gravity at distance <span class="arithmatex">\(R\)</span>:
-<span class="arithmatex">\(v_{\text{esc,Sun}} = \sqrt{\frac{2 G M_{\text{Sun}}}{R}}\)</span>
-The planet orbits the Sun at speed:
-<span class="arithmatex">\(v_{\text{orbit}} = \sqrt{\frac{G M_{\text{Sun}}}{R}}\)</span>
-The additional speed (<span class="arithmatex">\(v_{\infty}\)</span>) needed to escape the Sun’s gravity, added to the orbital speed, is:
-<span class="arithmatex">\(v_{\infty} = v_{\text{esc,Sun}} - v_{\text{orbit}} = \sqrt{\frac{2 G M_{\text{Sun}}}{R}} - \sqrt{\frac{G M_{\text{Sun}}}{R}}\)</span>
-From the planet’s surface, <span class="arithmatex">\(v_3\)</span> combines escaping the planet (<span class="arithmatex">\(v_2\)</span>) and achieving <span class="arithmatex">\(v_{\infty}\)</span> relative to the Sun. Approximations vary, but a simplified form (assuming a hyperbolic trajectory) is:
-<span class="arithmatex">\(v_3 \approx \sqrt{v_2^2 + v_{\infty}^2}\)</span></p>
+<h4 id="first-cosmic-velocity-v_1">First Cosmic Velocity (v_1)</h4>
+<p>For a circular orbit, the gravitational force provides the centripetal force:</p>
+<p><span class="arithmatex">\(F_g = F_c\)</span></p>
+<div class="arithmatex">\[\frac{G M m}{r^2} = \frac{m v_1^2}{r}\]</div>
+<p>Cancel <span class="arithmatex">\(m\)</span> (mass of the orbiting object) and simplify:</p>
+<div class="arithmatex">\[v_1^2 = \frac{G M}{r}\]</div>
+<div class="arithmatex">\[v_1 = \sqrt{\frac{G M}{r}}\]</div>
+<p>Where:
+- <span class="arithmatex">\(G\)</span>: Gravitational constant (<span class="arithmatex">\(6.67430 \times 10^{-11} \, \text{m}^3 \text{kg}^{-1} \text{s}^{-2}\)</span>)</p>
+<ul>
+<li>
+<p><span class="arithmatex">\(M\)</span>: Mass of the celestial body</p>
+</li>
+<li>
+<p><span class="arithmatex">\(r\)</span>: Radius of the body (assuming orbit near the surface)</p>
+</li>
+</ul>
+<h4 id="second-cosmic-velocity-v_2">Second Cosmic Velocity (v_2)</h4>
+<p>Escape velocity comes from energy conservation. The total mechanical energy at the surface (kinetic + potential) equals zero at infinity (where potential energy is zero, and residual speed is zero):</p>
+<div class="arithmatex">\[\frac{1}{2} m v_2^2 - \frac{G M m}{r} = 0\]</div>
+<div class="arithmatex">\[\frac{1}{2} v_2^2 = \frac{G M}{r}\]</div>
+<div class="arithmatex">\[v_2^2 = \frac{2 G M}{r}\]</div>
+<div class="arithmatex">\[v_2 = \sqrt{\frac{2 G M}{r}}\]</div>
+<p>Notice: <span class="arithmatex">\(v_2 = v_1 \sqrt{2}\)</span>, so escape velocity is <span class="arithmatex">\(\sqrt{2}\)</span> times the orbital velocity.</p>
+<h4 id="third-cosmic-velocity-v_3">Third Cosmic Velocity (v_3)</h4>
+<p>This is more complex, as it involves escaping the Sun’s gravity from a planet’s orbit. It’s the velocity needed at a planet’s surface to reach the Sun’s escape velocity at the planet’s distance (<span class="arithmatex">\(R\)</span>) from the Sun. </p>
+<p>First, the escape speed from the Sun’s gravity at distance <span class="arithmatex">\(R\)</span>:</p>
+<div class="arithmatex">\[v_{\text{esc,Sun}} = \sqrt{\frac{2 G M_{\text{Sun}}}{R}}\]</div>
+<p>The planet orbits the Sun at speed:</p>
+<div class="arithmatex">\[v_{\text{orbit}} = \sqrt{\frac{G M_{\text{Sun}}}{R}}\]</div>
+<p>The additional speed (<span class="arithmatex">\(v_{\infty}\)</span>) needed to escape the Sun’s gravity, added to the orbital speed, is:</p>
+<div class="arithmatex">\[v_{\infty} = v_{\text{esc,Sun}} - v_{\text{orbit}} = \sqrt{\frac{2 G M_{\text{Sun}}}{R}} - \sqrt{\frac{G M_{\text{Sun}}}{R}}\]</div>
+<p>From the planet’s surface, <span class="arithmatex">\(v_3\)</span> combines escaping the planet (<span class="arithmatex">\(v_2\)</span>) and achieving <span class="arithmatex">\(v_{\infty}\)</span> relative to the Sun.</p>
+<p>Approximations vary, but a simplified form (assuming a hyperbolic 
+trajectory) is:</p>
+<div class="arithmatex">\[v_3 \approx \sqrt{v_2^2 + v_{\infty}^2}\]</div>
 <h3 id="parameters-affecting-velocities">Parameters Affecting Velocities</h3>
 <ul>
-<li><strong>Mass (M)</strong>: Higher mass increases gravitational pull, raising all velocities.</li>
-<li><strong>Radius (r)</strong>: Larger radius decreases velocities by increasing distance from the center of mass.</li>
-<li><strong>Distance from Star (R)</strong>: For <span class="arithmatex">\(v_3\)</span>, a greater orbital radius reduces the Sun’s influence, lowering the required speed.</li>
+<li>
+<p><strong>Mass (M)</strong>: Higher mass increases gravitational pull, raising all velocities.</p>
+</li>
+<li>
+<p><strong>Radius (r)</strong>: Larger radius decreases velocities by increasing distance from the center of mass.</p>
+</li>
+<li>
+<p><strong>Distance from Star (R)</strong>: For <span class="arithmatex">\(v_3\)</span>, a greater orbital radius reduces the Sun’s influence, lowering the required speed.</p>
+</li>
 </ul>
 <h3 id="calculations-for-earth-mars-and-jupiter">Calculations for Earth, Mars, and Jupiter</h3>
 <h4 id="data">Data</h4>
 <ul>
-<li><strong>Earth</strong>: <span class="arithmatex">\(M = 5.972 \times 10^{24} \, \text{kg}\)</span>, <span class="arithmatex">\(r = 6,371 \, \text{km}\)</span>, <span class="arithmatex">\(R = 1 \, \text{AU} = 1.496 \times 10^8 \, \text{km}\)</span></li>
-<li><strong>Mars</strong>: <span class="arithmatex">\(M = 6.417 \times 10^{23} \, \text{kg}\)</span>, <span class="arithmatex">\(r = 3,390 \, \text{km}\)</span>, <span class="arithmatex">\(R = 1.524 \, \text{AU}\)</span></li>
-<li><strong>Jupiter</strong>: <span class="arithmatex">\(M = 1.899 \times 10^{27} \, \text{kg}\)</span>, <span class="arithmatex">\(r = 69,911 \, \text{km}\)</span>, <span class="arithmatex">\(R = 5.203 \, \text{AU}\)</span></li>
-<li><strong>Sun</strong>: <span class="arithmatex">\(M_{\text{Sun}} = 1.989 \times 10^{30} \, \text{kg}\)</span></li>
+<li>
+<p><strong>Earth</strong>: <span class="arithmatex">\(M = 5.972 \times 10^{24} \, \text{kg}\)</span>, <span class="arithmatex">\(r = 6,371 \, \text{km}\)</span>, <span class="arithmatex">\(R = 1 \, \text{AU} = 1.496 \times 10^8 \, \text{km}\)</span></p>
+</li>
+<li>
+<p><strong>Mars</strong>: <span class="arithmatex">\(M = 6.417 \times 10^{23} \, \text{kg}\)</span>, <span class="arithmatex">\(r = 3,390 \, \text{km}\)</span>, <span class="arithmatex">\(R = 1.524 \, \text{AU}\)</span></p>
+</li>
+<li>
+<p><strong>Jupiter</strong>: <span class="arithmatex">\(M = 1.899 \times 10^{27} \, \text{kg}\)</span>, <span class="arithmatex">\(r = 69,911 \, \text{km}\)</span>, <span class="arithmatex">\(R = 5.203 \, \text{AU}\)</span></p>
+</li>
+<li>
+<p><strong>Sun</strong>: <span class="arithmatex">\(M_{\text{Sun}} = 1.989 \times 10^{30} \, \text{kg}\)</span></p>
+</li>
 </ul>
 <h4 id="earth">Earth</h4>
 <ul>
-<li><span class="arithmatex">\(v_1 = \sqrt{\frac{6.67430 \times 10^{-11} \cdot 5.972 \times 10^{24}}{6.371 \times 10^6}} = 7.91 \, \text{km/s}\)</span></li>
-<li><span class="arithmatex">\(v_2 = \sqrt{2} \cdot 7.91 = 11.19 \, \text{km/s}\)</span></li>
-<li><span class="arithmatex">\(v_{\text{esc,Sun}} = \sqrt{\frac{2 \cdot 6.67430 \times 10^{-11} \cdot 1.989 \times 10^{30}}{1.496 \times 10^{11}}} = 42.1 \, \text{km/s}\)</span></li>
+<li>
+<div class="arithmatex">\[v_1 = \sqrt{\frac{6.67430 \times 10^{-11} \cdot 5.972 \times 10^{24}}{6.371 \times 10^6}} = 7.91 \, \text{km/s}\]</div>
+</li>
+<li>
+<div class="arithmatex">\[v_2 = \sqrt{2} \cdot 7.91 = 11.19 \, \text{km/s}\]</div>
+</li>
+<li>
+<div class="arithmatex">\[v_{\text{esc,Sun}} = \sqrt{\frac{2 \cdot 6.67430 \times 10^{-11} \cdot 1.989 \times 10^{30}}{1.496 \times 10^{11}}} = 42.1 \, \text{km/s}\]</div>
+</li>
 <li><span class="arithmatex">\(v_{\text{orbit}} = 29.8 \, \text{km/s}\)</span></li>
 <li><span class="arithmatex">\(v_{\infty} = 42.1 - 29.8 = 12.3 \, \text{km/s}\)</span></li>
 <li><span class="arithmatex">\(v_3 \approx \sqrt{11.19^2 + 12.3^2} = 16.7 \, \text{km/s}\)</span></li>
