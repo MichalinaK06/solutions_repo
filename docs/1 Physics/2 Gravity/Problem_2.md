@@ -92,44 +92,66 @@ $$v_3 \approx \sqrt{v_2^2 + v_{\infty}^2}$$
 #### Earth
 
 - $$v_1 = \sqrt{\frac{6.67430 \times 10^{-11} \cdot 5.972 \times 10^{24}}{6.371 \times 10^6}} = 7.91 \, \text{km/s}$$
+
 - $$v_2 = \sqrt{2} \cdot 7.91 = 11.19 \, \text{km/s}$$
+
 - $$v_{\text{esc,Sun}} = \sqrt{\frac{2 \cdot 6.67430 \times 10^{-11} \cdot 1.989 \times 10^{30}}{1.496 \times 10^{11}}} = 42.1 \, \text{km/s}$$
-- $v_{\text{orbit}} = 29.8 \, \text{km/s}$
-- $v_{\infty} = 42.1 - 29.8 = 12.3 \, \text{km/s}$
-- $v_3 \approx \sqrt{11.19^2 + 12.3^2} = 16.7 \, \text{km/s}$
+
+- $$v_{\text{orbit}} = 29.8 \, \text{km/s}$$
+
+- $$v_{\infty} = 42.1 - 29.8 = 12.3 \, \text{km/s}$$
+
+- $$v_3 \approx \sqrt{11.19^2 + 12.3^2} = 16.7 \, \text{km/s}$$
 
 #### Mars
-- $v_1 = \sqrt{\frac{6.67430 \times 10^{-11} \cdot 6.417 \times 10^{23}}{3.39 \times 10^6}} = 3.55 \, \text{km/s}$
-- $v_2 = \sqrt{2} \cdot 3.55 = 5.02 \, \text{km/s}$
-- $v_{\text{esc,Sun}} = \sqrt{\frac{2 \cdot 6.67430 \times 10^{-11} \cdot 1.989 \times 10^{30}}{1.524 \cdot 1.496 \times 10^{11}}} = 34.1 \, \text{km/s}$
-- $v_{\text{orbit}} = 24.1 \, \text{km/s}$
-- $v_{\infty} = 34.1 - 24.1 = 10.0 \, \text{km/s}$
-- $v_3 \approx \sqrt{5.02^2 + 10.0^2} = 11.2 \, \text{km/s}$
+- $$v_1 = \sqrt{\frac{6.67430 \times 10^{-11} \cdot 6.417 \times 10^{23}}{3.39 \times 10^6}} = 3.55 \, \text{km/s}$$
+
+- $$v_2 = \sqrt{2} \cdot 3.55 = 5.02 \, \text{km/s}$$
+
+- $$v_{\text{esc,Sun}} = \sqrt{\frac{2 \cdot 6.67430 \times 10^{-11} \cdot 1.989 \times 10^{30}}{1.524 \cdot 1.496 \times 10^{11}}} = 34.1 \, \text{km/s}$$
+
+- $$v_{\text{orbit}} = 24.1 \, \text{km/s}$$
+
+- $$v_{\infty} = 34.1 - 24.1 = 10.0 \, \text{km/s}$$
+
+- $$v_3 \approx \sqrt{5.02^2 + 10.0^2} = 11.2 \, \text{km/s}$$
 
 #### Jupiter
-- $v_1 = \sqrt{\frac{6.67430 \times 10^{-11} \cdot 1.899 \times 10^{27}}{6.9911 \times 10^7}} = 42.6 \, \text{km/s}$
-- $v_2 = \sqrt{2} \cdot 42.6 = 60.2 \, \text{km/s}$
-- $v_{\text{esc,Sun}} = \sqrt{\frac{2 \cdot 6.67430 \times 10^{-11} \cdot 1.989 \times 10^{30}}{5.203 \cdot 1.496 \times 10^{11}}} = 18.5 \, \text{km/s}$
-- $v_{\text{orbit}} = 13.1 \, \text{km/s}$
-- $v_{\infty} = 18.5 - 13.1 = 5.4 \, \text{km/s}$
-- $v_3 \approx \sqrt{60.2^2 + 5.4^2} = 60.4 \, \text{km/s}$
+- $$v_1 = \sqrt{\frac{6.67430 \times 10^{-11} \cdot 1.899 \times 10^{27}}{6.9911 \times 10^7}} = 42.6 \, \text{km/s}$$
+
+- $$v_2 = \sqrt{2} \cdot 42.6 = 60.2 \, \text{km/s}$$
+
+- $$v_{\text{esc,Sun}} = \sqrt{\frac{2 \cdot 6.67430 \times 10^{-11} \cdot 1.989 \times 10^{30}}{5.203 \cdot 1.496 \times 10^{11}}} = 18.5 \, \text{km/s}$$
+
+- $$v_{\text{orbit}} = 13.1 \, \text{km/s}$$
+
+- $$v_{\infty} = 18.5 - 13.1 = 5.4 \, \text{km/s}$$
+
+- $$v_3 \approx \sqrt{60.2^2 + 5.4^2} = 60.4 \, \text{km/s}$$
 
 ### Visualization
+
 [Escape and Cosmic Velocities](velocity.html)
 
 ### Importance in Space Exploration
 
 1. **First Cosmic Velocity (Orbiting)**  
-   - **Satellites**: Rockets must reach $v_1$ (plus extra to counter drag) to place satellites in orbit. For Earth, $7.91$ km/s is the baseline—real launches hit $~9$ km/s due to atmosphere.  
-   - **Mars**: Lower $v_1$ ($3.55$ km/s) makes orbiting easier, aiding missions like Mars Reconnaissance Orbiter.
+
+- **Satellites**: Rockets must reach $v_1$ (plus extra to counter drag) to place satellites in orbit. For Earth, $7.91$ km/s is the baseline—real launches hit $~9$ km/s due to atmosphere.  
+
+- **Mars**: Lower $v_1$ ($3.55$ km/s) makes orbiting easier, aiding missions like Mars Reconnaissance Orbiter.
 
 2. **Second Cosmic Velocity (Escaping)**  
-   - **Planetary Missions**: To send probes to Mars or beyond, we exceed Earth’s $v_2$ ($11.19$ km/s). Apollo missions used this to reach the Moon (not escaping Earth fully, but leveraging orbits).  
-   - **Jupiter**: Its high $v_2$ ($60.2$ km/s) makes escaping its gravity a monumental challenge—hence why probes like Juno orbit rather than land and depart.
 
-3. **Third Cosmic Velocity (Interstellar)**  
-   - **Voyager Probes**: Launched from Earth, they used gravitational assists to approach $v_3$, escaping the Sun’s grasp (effective speed $~17$ km/s relative to the Sun).  
-   - **Future Travel**: Interstellar missions need $v_3$ or beyond, likely requiring advanced propulsion (e.g., nuclear or solar sails).
+- **Planetary Missions**: To send probes to Mars or beyond, we exceed Earth’s $v_2$ ($11.19$ km/s). Apollo missions used this to reach the Moon (not escaping Earth fully, but leveraging orbits).  
+
+- **Jupiter**: Its high $v_2$ ($60.2$ km/s) makes escaping its gravity a monumental challenge—hence why probes like Juno orbit rather than land and depart.
+
+3. **Third Cosmic Velocity (Interstellar)** 
+
+- **Voyager Probes**: Launched from Earth, they used gravitational assists to approach $v_3$, escaping the Sun’s grasp (effective speed $~17$ km/s relative to the Sun).  
+
+- **Future Travel**: Interstellar missions need $v_3$ or beyond, likely requiring advanced propulsion (e.g., nuclear or solar sails).
 
 These velocities shape mission design—rockets must pack enough energy (via chemical or future propulsion) to hit these thresholds, often using gravity assists to bridge gaps. For interstellar dreams, $v_3$ is just the start; relativistic speeds await beyond.
 
