@@ -78,8 +78,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#step-6-visualization">Step 6: Visualization</a>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#final-thoughts">Final Thoughts</a>
-</li>
 </ul>
 </li>
 </ul>
@@ -186,110 +184,109 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
 <h1 id="problem-1">Problem 1</h1>
-<p>Let’s dive into analyzing interference patterns on a water surface caused by point sources at the vertices of a regular polygon. I’ll walk through the steps systematically, keeping it engaging and clear, and I’ll choose a square as the polygon for concreteness—though the approach generalizes to any regular polygon. We’ll derive the equations, apply superposition, analyze the patterns, and discuss visualization.</p>
 <h3 id="step-1-select-a-regular-polygon">Step 1: Select a Regular Polygon</h3>
-<p>I’ll pick a square because it’s simple yet rich enough to show interesting interference. Imagine a square centered at the origin (0,0) with side length <span class="arithmatex">\(2d\)</span>, so the vertices (our wave sources) are at:
-- <span class="arithmatex">\(S_1 = (d, d)\)</span>
-- <span class="arithmatex">\(S_2 = (d, -d)\)</span>
-- <span class="arithmatex">\(S_3 = (-d, -d)\)</span>
-- <span class="arithmatex">\(S_4 = (-d, d)\)</span></p>
+<p>Imagine a square centered at the origin (0,0) with side length <span class="arithmatex">\(2d\)</span>, so the vertices (our wave sources) are at:</p>
+<ul>
+<li>
+<p><span class="arithmatex">\(S_1 = (d, d)\)</span></p>
+</li>
+<li>
+<p><span class="arithmatex">\(S_2 = (d, -d)\)</span></p>
+</li>
+<li>
+<p><span class="arithmatex">\(S_3 = (-d, -d)\)</span></p>
+</li>
+<li>
+<p><span class="arithmatex">\(S_4 = (-d, d)\)</span></p>
+</li>
+</ul>
 <p>These points are symmetrically placed, which should lead to some neat symmetry in the patterns.</p>
 <h3 id="step-2-position-the-sources">Step 2: Position the Sources</h3>
 <p>The sources are at the four corners of the square, as listed above. Each emits a circular wave that spreads outward, and we’ll assume they’re all in sync—same amplitude <span class="arithmatex">\(A\)</span>, wavelength <span class="arithmatex">\(\lambda\)</span>, frequency <span class="arithmatex">\(f\)</span>, and initial phase <span class="arithmatex">\(\phi = 0\)</span> for simplicity (coherent sources).</p>
 <h3 id="step-3-wave-equations">Step 3: Wave Equations</h3>
 <p>The wave from a single source at <span class="arithmatex">\((x_i, y_i)\)</span> is given by:
-[
+$$
 \eta_i(x, y, t) = \frac{A}{\sqrt{r_i}} \cos(kr_i - \omega t + \phi)
-]
-where:
-- <span class="arithmatex">\(r_i = \sqrt{(x - x_i)^2 + (y - y_i)^2}\)</span> is the distance from source <span class="arithmatex">\(i\)</span> to point <span class="arithmatex">\((x, y)\)</span>,
-- <span class="arithmatex">\(k = \frac{2\pi}{\lambda}\)</span> (wave number),
-- <span class="arithmatex">\(\omega = 2\pi f\)</span> (angular frequency),
-- <span class="arithmatex">\(\phi = 0\)</span> (since sources are coherent with no phase offset),
-- The <span class="arithmatex">\(\frac{1}{\sqrt{r_i}}\)</span> term accounts for amplitude decreasing with distance due to energy spreading in 2D.</p>
-<p>For our four sources:
-1. <span class="arithmatex">\(S_1 = (d, d)\)</span>: 
-   [
+$$</p>
+<p>where:</p>
+<ul>
+<li>
+<p><span class="arithmatex">\(r_i = \sqrt{(x - x_i)^2 + (y - y_i)^2}\)</span> is the distance from source <span class="arithmatex">\(i\)</span> to point <span class="arithmatex">\((x, y)\)</span>,</p>
+</li>
+<li>
+<p><span class="arithmatex">\(k = \frac{2\pi}{\lambda}\)</span> (wave number),</p>
+</li>
+<li>
+<p><span class="arithmatex">\(\omega = 2\pi f\)</span> (angular frequency),</p>
+</li>
+<li>
+<p><span class="arithmatex">\(\phi = 0\)</span> (since sources are coherent with no phase offset),</p>
+</li>
+<li>
+<p>The <span class="arithmatex">\(\frac{1}{\sqrt{r_i}}\)</span> term accounts for amplitude decreasing with distance due to energy spreading in 2D.</p>
+</li>
+</ul>
+<p>For our four sources:</p>
+<ol>
+<li><span class="arithmatex">\(S_1 = (d, d)\)</span>: </li>
+</ol>
+<p>$$
    r_1 = \sqrt{(x - d)^2 + (y - d)^2}, \quad \eta_1 = \frac{A}{\sqrt{r_1}} \cos(kr_1 - \omega t)
-   ]
-2. <span class="arithmatex">\(S_2 = (d, -d)\)</span>: 
-   [
+   $$</p>
+<ol>
+<li><span class="arithmatex">\(S_2 = (d, -d)\)</span>: </li>
+</ol>
+<p>$$
    r_2 = \sqrt{(x - d)^2 + (y + d)^2}, \quad \eta_2 = \frac{A}{\sqrt{r_2}} \cos(kr_2 - \omega t)
-   ]
-3. <span class="arithmatex">\(S_3 = (-d, -d)\)</span>: 
-   [
+   $$</p>
+<ol>
+<li><span class="arithmatex">\(S_3 = (-d, -d)\)</span>: </li>
+</ol>
+<p>$$
    r_3 = \sqrt{(x + d)^2 + (y + d)^2}, \quad \eta_3 = \frac{A}{\sqrt{r_3}} \cos(kr_3 - \omega t)
-   ]
-4. <span class="arithmatex">\(S_4 = (-d, d)\)</span>: 
-   [
+   $$</p>
+<ol>
+<li><span class="arithmatex">\(S_4 = (-d, d)\)</span>: </li>
+</ol>
+<p>$$
    r_4 = \sqrt{(x + d)^2 + (y - d)^2}, \quad \eta_4 = \frac{A}{\sqrt{r_4}} \cos(kr_4 - \omega t)
-   ]</p>
+   $$</p>
 <h3 id="step-4-superposition-of-waves">Step 4: Superposition of Waves</h3>
-<p>The total displacement at any point <span class="arithmatex">\((x, y)\)</span> and time <span class="arithmatex">\(t\)</span> is the sum of contributions from all four sources:
-[
+<p>The total displacement at any point <span class="arithmatex">\((x, y)\)</span> and time <span class="arithmatex">\(t\)</span> is the sum of contributions from all four sources:</p>
+<div class="arithmatex">\[
 \eta_{\text{sum}}(x, y, t) = \eta_1 + \eta_2 + \eta_3 + \eta_4
-]
-[
+\]</div>
+<div class="arithmatex">\[
 \eta_{\text{sum}}(x, y, t) = \sum_{i=1}^4 \frac{A}{\sqrt{r_i}} \cos(kr_i - \omega t)
-]
-Since <span class="arithmatex">\(\omega t\)</span> is the same for all terms (coherent sources), this oscillates in time, but the spatial pattern depends on the <span class="arithmatex">\(r_i\)</span>’s, which vary with position.</p>
+\]</div>
+<p>Since <span class="arithmatex">\(\omega t\)</span> is the same for all terms (coherent sources), this oscillates in time, but the spatial pattern depends on the <span class="arithmatex">\(r_i\)</span>’s, which vary with position.</p>
 <h3 id="step-5-analyze-interference-patterns">Step 5: Analyze Interference Patterns</h3>
-<p>To understand the patterns, let’s consider the spatial part at a fixed time, say <span class="arithmatex">\(t = 0\)</span>:
-[
+<p>To understand the patterns, let’s consider the spatial part at a fixed time, say <span class="arithmatex">\(t = 0\)</span>:</p>
+<div class="arithmatex">\[
 \eta_{\text{sum}}(x, y, 0) = A \sum_{i=1}^4 \frac{1}{\sqrt{r_i}} \cos(kr_i)
-]
-- <strong>Constructive Interference</strong>: Occurs when the <span class="arithmatex">\(\cos(kr_i)\)</span> terms are in phase (i.e., <span class="arithmatex">\(kr_i\)</span> values differ by multiples of <span class="arithmatex">\(2\pi\)</span>), and the amplitudes add up. This happens when the distances <span class="arithmatex">\(r_i\)</span> from multiple sources to a point are such that <span class="arithmatex">\(k(r_i - r_j) = 2\pi m\)</span> (where <span class="arithmatex">\(m\)</span> is an integer).
-- <strong>Destructive Interference</strong>: Occurs when phases cancel, e.g., <span class="arithmatex">\(k(r_i - r_j) = (2m + 1)\pi\)</span>, making <span class="arithmatex">\(\cos(kr_i)\)</span> terms oppose each other.</p>
-<p><strong>Symmetry Insight</strong>: Due to the square’s symmetry:
-- At the center <span class="arithmatex">\((0, 0)\)</span>, <span class="arithmatex">\(r_1 = r_2 = r_3 = r_4 = \sqrt{2}d\)</span>. So:
-  [
+\]</div>
+<ul>
+<li>
+<p><strong>Constructive Interference</strong>: Occurs when the <span class="arithmatex">\(\cos(kr_i)\)</span> terms are in phase (i.e., <span class="arithmatex">\(kr_i\)</span> values differ by multiples of <span class="arithmatex">\(2\pi\)</span>), and the amplitudes add up. This happens when the distances <span class="arithmatex">\(r_i\)</span> from multiple sources to a point are such that <span class="arithmatex">\(k(r_i - r_j) = 2\pi m\)</span> (where <span class="arithmatex">\(m\)</span> is an integer).</p>
+</li>
+<li>
+<p><strong>Destructive Interference</strong>: Occurs when phases cancel, e.g., <span class="arithmatex">\(k(r_i - r_j) = (2m + 1)\pi\)</span>, making <span class="arithmatex">\(\cos(kr_i)\)</span> terms oppose each other.</p>
+</li>
+</ul>
+<p><strong>Symmetry Insight</strong>: Due to the square’s symmetry:</p>
+<ul>
+<li>At the center <span class="arithmatex">\((0, 0)\)</span>, <span class="arithmatex">\(r_1 = r_2 = r_3 = r_4 = \sqrt{2}d\)</span>. So:</li>
+</ul>
+<p>$$
   \eta_{\text{sum}}(0, 0, 0) = 4 \cdot \frac{A}{\sqrt{\sqrt{2}d}} \cos(k\sqrt{2}d)
-  ]
-  This is maximized when <span class="arithmatex">\(k\sqrt{2}d = 2\pi m\)</span>, showing strong constructive interference if the wavelength fits the geometry.
-- Along the x-axis (<span class="arithmatex">\(y = 0\)</span>), distances vary: <span class="arithmatex">\(r_1 = r_2 = \sqrt{(x - d)^2 + d^2}\)</span>, <span class="arithmatex">\(r_3 = r_4 = \sqrt{(x + d)^2 + d^2}\)</span>. The pattern oscillates as <span class="arithmatex">\(x\)</span> changes.</p>
+  $$</p>
+<p>This is maximized when <span class="arithmatex">\(k\sqrt{2}d = 2\pi m\)</span>, showing strong constructive interference if the wavelength fits the geometry.</p>
+<ul>
+<li>Along the x-axis (<span class="arithmatex">\(y = 0\)</span>), distances vary: <span class="arithmatex">\(r_1 = r_2 = \sqrt{(x - d)^2 + d^2}\)</span>, <span class="arithmatex">\(r_3 = r_4 = \sqrt{(x + d)^2 + d^2}\)</span>. The pattern oscillates as <span class="arithmatex">\(x\)</span> changes.</li>
+</ul>
 <p>The interference creates a grid-like pattern with peaks and troughs, more complex than the two-source case (which gives straight fringes).</p>
 <h3 id="step-6-visualization">Step 6: Visualization</h3>
-<p>To visualize this, imagine a 2D heatmap of <span class="arithmatex">\(\eta_{\text{sum}}(x, y, 0)\)</span> over a grid, say <span class="arithmatex">\(-3d \leq x, y \leq 3d\)</span>. The pattern would show:
-- Bright spots (high amplitude) at points of constructive interference.
-- Dark spots (low amplitude) where waves cancel.</p>
-<p>Using Python with Matplotlib, you could code this:</p>
-<pre><code class="language-python">import numpy as np
-import matplotlib.pyplot as plt
-
-# Constants
-A = 1.0  # amplitude
-d = 1.0  # half-side length
-lambda_ = 0.5  # wavelength
-k = 2 * np.pi / lambda_
-
-# Grid
-x = np.linspace(-3, 3, 200)
-y = np.linspace(-3, 3, 200)
-X, Y = np.meshgrid(x, y)
-
-# Distances from each source
-r1 = np.sqrt((X - d)**2 + (Y - d)**2)
-r2 = np.sqrt((X - d)**2 + (Y + d)**2)
-r3 = np.sqrt((X + d)**2 + (Y + d)**2)
-r4 = np.sqrt((X + d)**2 + (Y - d)**2)
-
-# Wave contributions (at t=0)
-eta = (A/np.sqrt(r1)) * np.cos(k * r1) + \
-      (A/np.sqrt(r2)) * np.cos(k * r2) + \
-      (A/np.sqrt(r3)) * np.cos(k * r3) + \
-      (A/np.sqrt(r4)) * np.cos(k * r4)
-
-# Plot
-plt.imshow(eta, extent=[-3, 3, -3, 3], cmap='seismic')
-plt.colorbar(label='Displacement')
-plt.title('Interference Pattern from Square Sources')
-plt.xlabel('x')
-plt.ylabel('y')
-plt.show()
-</code></pre>
-<p>This would reveal a symmetrical, oscillating pattern with peaks along diagonals and axes, modulated by the <span class="arithmatex">\(1/\sqrt{r}\)</span> decay.</p>
-<h3 id="final-thoughts">Final Thoughts</h3>
-<p>The square setup produces a rich, crisscrossing pattern due to four sources. Constructive peaks form where waves align, like at the center or along symmetry lines, while destructive zones appear where phases mismatch. Exploring other polygons (e.g., a triangle or pentagon) would tweak the symmetry and complexity—fewer sources simplify, more sources elaborate. It’s a fantastic way to see wave physics in action, blending math with visual intuition!</p>
+<p><a href="../wave.html">Wave Interference Simulation</a></p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
