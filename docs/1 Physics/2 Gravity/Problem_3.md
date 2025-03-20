@@ -1,6 +1,7 @@
 # Problem 3
 
-
+[efer](a.html)
+[feew](b.html)
 
 Let’s dive into analyzing the trajectories of a freely released payload near Earth. This is a fascinating problem that ties together classical mechanics, orbital dynamics, and numerical simulation. I’ll break it down step-by-step: analyzing possible trajectories, performing a numerical analysis, discussing their implications, and outlining a computational tool to simulate and visualize the motion.
 

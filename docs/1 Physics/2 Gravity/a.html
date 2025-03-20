@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Orbital Trajectories Visualization</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #000;
+        }
+        canvas {
+            border: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Orbital Trajectories Visualization
+        let earth;
+        let satellites = [];
+        let escapeVehicle;
+        const G = 6.67430e-11; // Gravitational constant
+        const earthMass = 5.972e24; // Earth mass in kg
+        const scale = 1e-6; // Scale factor for visualization
+
+        function setup() {
+            createCanvas(800, 800);
+            
+            // Earth at center
+            earth = {
+                x: width/2,
+                y: height/2,
+                radius: 50,
+                mass: earthMass
+            };
+            
+            // Create some satellites in different orbits
+            satellites.push(new Satellite(150, 0.02, color(0, 255, 0))); // Low Earth Orbit
+            satellites.push(new Satellite(250, 0.015, color(255, 0, 0))); // Medium Earth Orbit
+            satellites.push(new Satellite(350, 0.01, color(0, 0, 255))); // Geostationary-like
+            
+            // Escape velocity vehicle
+            escapeVehicle = new EscapeVehicle(100, 0.05, color(255, 255, 0));
+        }
+
+        function draw() {
+            background(0);
+            
+            // Draw Earth
+            fill(0, 100, 255);
+            noStroke();
+            circle(earth.x, earth.y, earth.radius * 2);
+            
+            // Update and draw satellites
+            for (let sat of satellites) {
+                sat.update();
+                sat.display();
+            }
+            
+            // Update and draw escape vehicle
+            escapeVehicle.update();
+            escapeVehicle.display();
+            
+            // Display legend
+            displayLegend();
+        }
+
+        // Satellite class for orbital paths
+        class Satellite {
+            constructor(radius, speed, col) {
+                this.r = radius; // Orbital radius in scaled units
+                this.angle = 0;
+                this.speed = speed;
+                this.color = col;
+                this.x = earth.x + this.r;
+                this.y = earth.y;
+            }
+            
+            update() {
+                this.angle += this.speed;
+                this.x = earth.x + this.r * cos(this.angle);
+                this.y = earth.y + this.r * sin(this.angle);
+            }
+            
+            display() {
+                fill(this.color);
+                noStroke();
+                circle(this.x, this.y, 8);
+                
+                // Draw orbital path
+                noFill();
+                stroke(this.color);
+                strokeWeight(1);
+                circle(earth.x, earth.y, this.r * 2);
+            }
+        }
+
+        // EscapeVehicle class for escape trajectory
+        class EscapeVehicle {
+            constructor(startRadius, speed, col) {
+                this.r = startRadius;
+                this.angle = 0;
+                this.speed = speed;
+                this.color = col;
+                this.v = sqrt((2 * G * earthMass) / (startRadius / scale)); // Escape velocity
+                this.x = earth.x + this.r;
+                this.y = earth.y;
+                this.escaping = false;
+            }
+            
+            update() {
+                this.angle += this.speed;
+                
+                if (frameCount > 100 && !this.escaping) {
+                    this.escaping = true;
+                    this.vx = this.v * cos(this.angle) * scale;
+                    this.vy = this.v * sin(this.angle) * scale;
+                }
+                
+                if (this.escaping) {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    // Simple gravity effect
+                    let dx = earth.x - this.x;
+                    let dy = earth.y - this.y;
+                    let dist = sqrt(dx*dx + dy*dy);
+                    let force = (G * earthMass) / (dist*dist) * scale;
+                    this.vx += (dx/dist) * force;
+                    this.vy += (dy/dist) * force;
+                } else {
+                    this.x = earth.x + this.r * cos(this.angle);
+                    this.y = earth.y + this.r * sin(this.angle);
+                }
+            }
+            
+            display() {
+                fill(this.color);
+                noStroke();
+                circle(this.x, this.y, 10);
+            }
+        }
+
+        function displayLegend() {
+            textSize(16);
+            fill(255);
+            text("Green: Low Earth Orbit", 10, 20);
+            fill(255, 0, 0);
+            text("Red: Medium Earth Orbit", 10, 40);
+            fill(0, 0, 255);
+            text("Blue: Geostationary-like Orbit", 10, 60);
+            fill(255, 255, 0);
+            text("Yellow: Escape Trajectory", 10, 80);
+        }
+    </script>
+</body>
+</html>

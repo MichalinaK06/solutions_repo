@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payload Trajectories Near Earth</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #000;
+        }
+        canvas {
+            border: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Constants
+        const GM = 3.986e14;  // m^3/s^2
+        const R_e = 6.371e6;  // m (Earth radius)
+        const r0 = 6.771e6;   // m (400 km altitude)
+        const dt = 1.0;       // s
+        const t_max = 10000;  // s
+        const scale = 5e-7;   // Visualization scale factor
+
+        let trajectories = {};
+        let earth;
+
+        function setup() {
+            createCanvas(800, 800);
+            
+            // Initial conditions
+            const v_cases = {
+                'Elliptical': 7500,  // m/s
+                'Parabolic': 11100,  // m/s
+                'Hyperbolic': 12000  // m/s
+            };
+            
+            // Earth center
+            earth = {
+                x: width/2,
+                y: height/2,
+                radius: R_e * scale
+            };
+            
+            // Simulate trajectories
+            for (let [label, v0] of Object.entries(v_cases)) {
+                trajectories[label] = simulateTrajectory(v0);
+            }
+        }
+
+        function draw() {
+            background(0);
+            
+            // Draw Earth
+            fill(0, 100, 255);
+            noStroke();
+            circle(earth.x, earth.y, earth.radius * 2);
+            
+            // Draw trajectories
+            noFill();
+            strokeWeight(2);
+            
+            stroke(0, 255, 0);  // Elliptical - Green
+            drawTrajectory(trajectories['Elliptical']);
+            
+            stroke(255, 255, 0);  // Parabolic - Yellow
+            drawTrajectory(trajectories['Parabolic']);
+            
+            stroke(255, 0, 0);  // Hyperbolic - Red
+            drawTrajectory(trajectories['Hyperbolic']);
+            
+            // Draw legend
+            drawLegend();
+        }
+
+        function simulateTrajectory(v0) {
+            let t = [];
+            for (let i = 0; i < t_max; i += dt) t.push(i);
+            
+            let x = [r0];
+            let y = [0];
+            let vx = [0];
+            let vy = [v0];
+            
+            for (let i = 0; i < t.length - 1; i++) {
+                let r = sqrt(x[i] * x[i] + y[i] * y[i]);
+                let ax = -GM * x[i] / pow(r, 3);
+                let ay = -GM * y[i] / pow(r, 3);
+                
+                vx.push(vx[i] + ax * dt);
+                vy.push(vy[i] + ay * dt);
+                x.push(x[i] + vx[i] * dt);
+                y.push(y[i] + vy[i] * dt);
+            }
+            
+            return { x, y };
+        }
+
+        function drawTrajectory(traj) {
+            beginShape();
+            for (let i = 0; i < traj.x.length; i++) {
+                let px = earth.x + traj.x[i] * scale;
+                let py = earth.y + traj.y[i] * scale;
+                vertex(px, py);
+            }
+            endShape();
+        }
+
+        function drawLegend() {
+            textSize(16);
+            fill(0, 255, 0);
+            text("Elliptical (v0=7.5 km/s)", 10, 20);
+            fill(255, 255, 0);
+            text("Parabolic (v0=11.1 km/s)", 10, 40);
+            fill(255, 0, 0);
+            text("Hyperbolic (v0=12.0 km/s)", 10, 60);
+            fill(0, 100, 255);
+            text("Earth", 10, 80);
+        }
+    </script>
+</body>
+</html>
