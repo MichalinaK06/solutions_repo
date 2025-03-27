@@ -1,5 +1,5 @@
 # Problem 1
-(sas)[ele.html]
+[sas](ele.html)
 ## Simulating the Effects of the Lorentz Force
 
 The Lorentz force, defined as \( \mathbf{F} = q(\mathbf{E} + \mathbf{v} \times \mathbf{B}) \), describes the force on a charged particle in the presence of electric (\( \mathbf{E} \)) and magnetic (\( \mathbf{B} \)) fields, where \( q \) is the charge and \( \mathbf{v} \) is the particle's velocity. This simulation explores its applications, computes particle trajectories under different field configurations, and visualizes the results.
