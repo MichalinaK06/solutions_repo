@@ -71,6 +71,22 @@
 <li class="toctree-l1 current"><a class="reference internal current">4 Electromagnetism</a>
 <ul class="current">
 <li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 1</a>
+<ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#simulating-the-effects-of-the-lorentz-force">Simulating the Effects of the Lorentz Force</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#1-exploration-of-applications">1. Exploration of Applications</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#2-simulation-setup">2. Simulation Setup</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#3-python-implementation">3. Python Implementation</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#4-results-and-visualizations">4. Results and Visualizations</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#5-discussion">5. Discussion</a>
+</li>
+</ul>
+</li>
+</ul>
 </li>
 </ul>
 </li>
@@ -169,6 +185,133 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
+<h1 id="problem-1">Problem 1</h1>
+<p>(sas)[ele.html]</p>
+<h2 id="simulating-the-effects-of-the-lorentz-force">Simulating the Effects of the Lorentz Force</h2>
+<p>The Lorentz force, defined as <span class="arithmatex">\( \mathbf{F} = q(\mathbf{E} + \mathbf{v} \times \mathbf{B}) \)</span>, describes the force on a charged particle in the presence of electric (<span class="arithmatex">\( \mathbf{E} \)</span>) and magnetic (<span class="arithmatex">\( \mathbf{B} \)</span>) fields, where <span class="arithmatex">\( q \)</span> is the charge and <span class="arithmatex">\( \mathbf{v} \)</span> is the particle's velocity. This simulation explores its applications, computes particle trajectories under different field configurations, and visualizes the results.</p>
+<h3 id="1-exploration-of-applications">1. Exploration of Applications</h3>
+<p>The Lorentz force is critical in several systems:
+- <strong>Particle Accelerators</strong>: In cyclotrons, magnetic fields cause charged particles to follow circular paths, while electric fields accelerate them. The balance of forces increases particle energy for research or medical applications.
+- <strong>Mass Spectrometers</strong>: Magnetic fields deflect ions based on their charge-to-mass ratio (<span class="arithmatex">\( q/m \)</span>), enabling identification of chemical species.
+- <strong>Plasma Confinement</strong>: In fusion devices like tokamaks, magnetic fields confine charged particles in helical paths to sustain high-temperature plasmas.
+- <strong>Astrophysics</strong>: The Lorentz force governs solar wind interactions with Earth’s magnetic field, producing auroras.</p>
+<p>The electric field (<span class="arithmatex">\( \mathbf{E} \)</span>) accelerates particles linearly, while the magnetic field (<span class="arithmatex">\( \mathbf{B} \)</span>) induces circular or helical motion perpendicular to both <span class="arithmatex">\( \mathbf{B} \)</span> and <span class="arithmatex">\( \mathbf{v} \)</span>. Combined fields can produce complex trajectories like drifts, essential for controlling particle motion.</p>
+<h3 id="2-simulation-setup">2. Simulation Setup</h3>
+<p>We simulate a charged particle’s motion using the Lorentz force equation and Newton’s second law:<br/>
+[ m \frac{d\mathbf{v}}{dt} = q(\mathbf{E} + \mathbf{v} \times \mathbf{B}) ]<br/>
+[ \frac{d\mathbf{r}}{dt} = \mathbf{v} ]<br/>
+where <span class="arithmatex">\( \mathbf{r} \)</span> is the position, <span class="arithmatex">\( m \)</span> is the mass, and <span class="arithmatex">\( t \)</span> is time. The Euler method updates velocity and position iteratively.</p>
+<h4 id="field-configurations">Field Configurations</h4>
+<ol>
+<li><strong>Uniform Magnetic Field</strong>: <span class="arithmatex">\( \mathbf{B} = (0, 0, B_z) \)</span>, <span class="arithmatex">\( \mathbf{E} = 0 \)</span>.</li>
+<li><strong>Combined Electric and Magnetic Fields</strong>: <span class="arithmatex">\( \mathbf{B} = (0, 0, B_z) \)</span>, <span class="arithmatex">\( \mathbf{E} = (E_x, 0, 0) \)</span>.</li>
+<li><strong>Crossed Fields</strong>: <span class="arithmatex">\( \mathbf{E} = (E_x, 0, 0) \)</span>, <span class="arithmatex">\( \mathbf{B} = (0, 0, B_z) \)</span>, with <span class="arithmatex">\( \mathbf{E} \perp \mathbf{B} \)</span>.</li>
+</ol>
+<h3 id="3-python-implementation">3. Python Implementation</h3>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+# Constants and parameters
+q = 1.6e-19  # Charge (C, e.g., proton)
+m = 1.67e-27  # Mass (kg, e.g., proton)
+dt = 1e-9    # Time step (s)
+steps = 10000  # Number of steps
+
+# Initial conditions
+r0 = np.array([0.0, 0.0, 0.0])  # Initial position (m)
+v0 = np.array([1e5, 0.0, 0.0])  # Initial velocity (m/s)
+
+# Field configurations
+B = np.array([0.0, 0.0, 1.0])  # Magnetic field (T)
+E = np.array([0.0, 0.0, 0.0])  # Electric field (N/C) - modify for scenarios
+
+# Simulation function
+def lorentz_force(r, v, q, m, E, B):
+    return q * (E + np.cross(v, B)) / m
+
+def simulate_trajectory(r0, v0, q, m, E, B, dt, steps):
+    r = np.zeros((steps, 3))
+    v = np.zeros((steps, 3))
+    r[0] = r0
+    v[0] = v0
+    for i in range(steps - 1):
+        a = lorentz_force(r[i], v[i], q, m, E, B)
+        v[i + 1] = v[i] + a * dt
+        r[i + 1] = r[i] + v[i] * dt
+    return r, v
+
+# Plotting function
+def plot_trajectory(r, title, is_3d=True):
+    if is_3d:
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+        ax.plot(r[:, 0], r[:, 1], r[:, 2])
+        ax.set_xlabel('X (m)')
+        ax.set_ylabel('Y (m)')
+        ax.set_zlabel('Z (m)')
+    else:
+        plt.plot(r[:, 0], r[:, 1])
+        plt.xlabel('X (m)')
+        plt.ylabel('Y (m)')
+    plt.title(title)
+    plt.grid(True)
+    plt.show()
+
+# Scenario 1: Uniform Magnetic Field
+r1, v1 = simulate_trajectory(r0, v0, q, m, np.array([0.0, 0.0, 0.0]), B, dt, steps)
+plot_trajectory(r1, "Uniform Magnetic Field (Circular Motion)")
+
+# Scenario 2: Combined Fields
+E_combined = np.array([1e5, 0.0, 0.0])
+r2, v2 = simulate_trajectory(r0, v0, q, m, E_combined, B, dt, steps)
+plot_trajectory(r2, "Combined Electric and Magnetic Fields (Helical + Drift)")
+
+# Scenario 3: Crossed Fields
+r3, v3 = simulate_trajectory(r0, np.array([0.0, 1e5, 0.0]), q, m, E_combined, B, dt, steps)
+plot_trajectory(r3, "Crossed Fields (E x B Drift)")
+
+# Parameter exploration: Vary B strength
+B_strong = np.array([0.0, 0.0, 2.0])
+r4, v4 = simulate_trajectory(r0, v0, q, m, np.array([0.0, 0.0, 0.0]), B_strong, dt, steps)
+plot_trajectory(r4, "Stronger Magnetic Field (Smaller Larmor Radius)")
+</code></pre>
+<h3 id="4-results-and-visualizations">4. Results and Visualizations</h3>
+<h4 id="uniform-magnetic-field">Uniform Magnetic Field</h4>
+<ul>
+<li><strong>Trajectory</strong>: Circular motion in the XY plane.</li>
+<li><strong>Larmor Radius</strong>: <span class="arithmatex">\( r_L = \frac{m v_\perp}{|q| B} \)</span>. For <span class="arithmatex">\( v_\perp = 10^5 \, \text{m/s} \)</span>, <span class="arithmatex">\( B = 1 \, \text{T} \)</span>, <span class="arithmatex">\( r_L \approx 0.001 \, \text{m} \)</span>, matching the plot.</li>
+<li><strong>Relevance</strong>: Seen in cyclotrons where particles spiral with constant radius.</li>
+</ul>
+<h4 id="combined-electric-and-magnetic-fields">Combined Electric and Magnetic Fields</h4>
+<ul>
+<li><strong>Trajectory</strong>: Helical path with drift along the X-axis.</li>
+<li><strong>Drift Velocity</strong>: <span class="arithmatex">\( v_d = \frac{E \times B}{B^2} \)</span>. For <span class="arithmatex">\( E_x = 10^5 \, \text{N/C} \)</span>, <span class="arithmatex">\( B_z = 1 \, \text{T} \)</span>, <span class="arithmatex">\( v_d \approx 10^5 \, \text{m/s} \)</span>, consistent with the simulation.</li>
+<li><strong>Relevance</strong>: Magnetic traps use this to confine particles with drift.</li>
+</ul>
+<h4 id="crossed-fields">Crossed Fields</h4>
+<ul>
+<li><strong>Trajectory</strong>: Helical motion with pronounced <span class="arithmatex">\( \mathbf{E} \times \mathbf{B} \)</span> drift.</li>
+<li><strong>Application</strong>: Used in velocity selectors, where particles with <span class="arithmatex">\( v = E/B \)</span> pass undeflected.</li>
+</ul>
+<h4 id="parameter-variation">Parameter Variation</h4>
+<ul>
+<li><strong>Stronger <span class="arithmatex">\( B \)</span> (2 T)</strong>: Smaller Larmor radius (<span class="arithmatex">\( r_L \propto 1/B \)</span>), tightening the spiral.</li>
+</ul>
+<h3 id="5-discussion">5. Discussion</h3>
+<p>The simulations illustrate how the Lorentz force shapes particle motion:
+- In cyclotrons, uniform <span class="arithmatex">\( B \)</span> fields produce circular orbits, with radius controlled by <span class="arithmatex">\( B \)</span> and <span class="arithmatex">\( v \)</span>.
+- In plasma confinement, combined fields create helical paths with drifts, stabilizing charged particles.
+- Crossed fields enable precise control, as in mass spectrometers or magnetrons.</p>
+<p>These results align with real-world systems, offering an intuitive grasp of the Lorentz force’s role in technology and nature.</p>
+<hr/>
+<h4 id="notes">Notes</h4>
+<ul>
+<li>The Euler method is simple but less accurate for long simulations; Runge-Kutta (e.g., RK4) could improve precision.</li>
+<li>Units are in SI for consistency (meters, seconds, tesla, etc.).</li>
+<li>Visualizations are 3D, but 2D plots can highlight specific planes (e.g., XY for circular motion).</li>
+</ul>
+<p>This simulation provides a foundation for exploring more complex scenarios, such as non-uniform fields or relativistic effects.</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">

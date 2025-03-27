@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Charged Particle Simulation</title>
+    <style>
+        body { margin: 0; display: flex; }
+        #controls { width: 300px; padding: 20px; }
+        #three-container { flex-grow: 1; height: 100vh; }
+        #chart-container { width: 100%; height: 300px; }
+        input { width: 100px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <div id="controls">
+        <h3>Simulation Controls</h3>
+        <label>Charge (q): <input type="number" id="charge" value="1.6e-19" step="1e-19"></label><br>
+        <label>Mass (m): <input type="number" id="mass" value="9.1e-31" step="1e-31"></label><br>
+        <label>Vx: <input type="number" id="vx" value="100" step="10"></label><br>
+        <label>Vy: <input type="number" id="vy" value="0" step="10"></label><br>
+        <label>Vz: <input type="number" id="vz" value="0" step="10"></label><br>
+        <label>B Field: <input type="number" id="bField" value="0.1" step="0.01"></label><br>
+        <label>E Field: <input type="number" id="eField" value="0" step="10"></label><br>
+        <button onclick="startSimulation()">Start Simulation</button>
+        <button onclick="resetSimulation()">Reset</button>
+    </div>
+    <div id="three-container"></div>
+    <div id="chart-container">
+        <canvas id="trajectoryChart"></canvas>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script>
+        // Three.js setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/600, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth - 300, window.innerHeight - 300);
+        document.getElementById('three-container').appendChild(renderer.domElement);
+
+        // Chart.js setup
+        const ctx = document.getElementById('trajectoryChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'scatter',
+            data: { datasets: [{ label: 'XY Trajectory', data: [], borderColor: 'blue' }] },
+            options: { scales: { x: { title: { display: true, text: 'X' } },
+                              y: { title: { display: true, text: 'Y' } } } }
+        });
+
+        // Simulation variables
+        let particle, trajectory = [];
+        const dt = 0.001; // Time step
+
+        class Particle {
+            constructor(charge, mass, velocity) {
+                this.q = charge;
+                this.m = mass;
+                this.v = velocity; // [vx, vy, vz]
+                this.pos = [0, 0, 0];
+                this.geometry = new THREE.SphereGeometry(0.1);
+                this.material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+                this.mesh = new THREE.Mesh(this.geometry, this.material);
+                scene.add(this.mesh);
+            }
+
+            update(B, E) {
+                // Lorentz force: F = q(E + v × B)
+                const vCrossB = [
+                    this.v[1] * B[2] - this.v[2] * B[1],
+                    this.v[2] * B[0] - this.v[0] * B[2],
+                    this.v[0] * B[1] - this.v[1] * B[0]
+                ];
+                
+                const force = [
+                    this.q * (E[0] + vCrossB[0]),
+                    this.q * (E[1] + vCrossB[1]),
+                    this.q * (E[2] + vCrossB[2])
+                ];
+
+                // Acceleration: a = F/m
+                const a = force.map(f => f / this.m);
+
+                // Update velocity and position
+                this.v = this.v.map((vi, i) => vi + a[i] * dt);
+                this.pos = this.pos.map((pi, i) => pi + this.v[i] * dt);
+
+                // Update mesh position
+                this.mesh.position.set(this.pos[0], this.pos[1], this.pos[2]);
+            }
+        }
+
+        // Add coordinate axes
+        const axesHelper = new THREE.AxesHelper(5);
+        scene.add(axesHelper);
+        camera.position.z = 10;
+
+        function startSimulation() {
+            resetSimulation();
+            
+            const q = parseFloat(document.getElementById('charge').value);
+            const m = parseFloat(document.getElementById('mass').value);
+            const v = [
+                parseFloat(document.getElementById('vx').value),
+                parseFloat(document.getElementById('vy').value),
+                parseFloat(document.getElementById('vz').value)
+            ];
+            const B = [0, 0, parseFloat(document.getElementById('bField').value)]; // B along z
+            const E = [parseFloat(document.getElementById('eField').value), 0, 0]; // E along x
+
+            particle = new Particle(q, m, v);
+            trajectory = [];
+
+            function animate() {
+                requestAnimationFrame(animate);
+                particle.update(B, E);
+                
+                // Add to trajectory for 2D plot
+                trajectory.push({ x: particle.pos[0], y: particle.pos[1] });
+                if (trajectory.length > 1000) trajectory.shift();
+                chart.data.datasets[0].data = trajectory;
+                chart.update();
+
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            // Calculate and log physical quantities
+            const vPerp = Math.sqrt(v[0]*v[0] + v[1]*v[1]);
+            const larmorRadius = m * vPerp / (Math.abs(q) * B[2]);
+            console.log(`Larmor Radius: ${larmorRadius.toExponential(2)} m`);
+            if (E[0] !== 0) {
+                const driftVelocity = E[0] / B[2];
+                console.log(`E×B Drift Velocity: ${driftVelocity.toExponential(2)} m/s`);
+            }
+        }
+
+        function resetSimulation() {
+            if (particle) scene.remove(particle.mesh);
+            trajectory = [];
+            chart.data.datasets[0].data = trajectory;
+            chart.update();
+        }
+
+        // Window resize handler
+        window.addEventListener('resize', () => {
+            camera.aspect = (window.innerWidth - 300) / (window.innerHeight - 300);
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth - 300, window.innerHeight - 300);
+        });
+    </script>
+</body>
+</html>
