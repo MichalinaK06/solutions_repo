@@ -23,34 +23,35 @@ The algorithm iteratively simplifies the graph by identifying and reducing **ser
 
 1. **Model the Circuit as a Graph**:
 
-   - Input: A graph with nodes (junctions) and weighted edges (resistors), plus two terminal nodes (start and end).
+- Input: A graph with nodes (junctions) and weighted edges (resistors), plus two terminal nodes (start and end).
 
-   - Example: A series circuit with two resistors (R1 = 2Ω, R2 = 3Ω) becomes a graph with three nodes (A → B → C) and edges A-B (2Ω) and B-C (3Ω).
+- Example: A series circuit with two resistors (R1 = 2Ω, R2 = 3Ω) becomes a graph with three nodes (A → B → C) and edges A-B (2Ω) and B-C (3Ω).
 
 2. **Identify Series Connections**:
 
-   - A node with exactly two neighbors (degree 2) indicates a series connection.
+- A node with exactly two neighbors (degree 2) indicates a series connection.
 
-   - Replace the two edges (e.g., A-B with R1, B-C with R2) with a single edge (A-C) whose weight is R1 + R2.
+- Replace the two edges (e.g., A-B with R1, B-C with R2) with a single edge (A-C) whose weight is R1 + R2.
 
-   - Remove the intermediate node (B).
+- Remove the intermediate node (B).
 
 3. **Identify Parallel Connections**:
-   - Two nodes connected by multiple edges (or a cycle of length 2) indicate parallel resistors.
 
-   - Replace parallel edges (e.g., R1 and R2 between A and B) with a single edge whose weight is given by the parallel resistance formula: $R_{eq} = \frac{R1 \cdot R2}{R1 + R2}$ (or equivalently, $\frac{1}{R_{eq}} = \frac{1}{R1} + \frac{1}{R2}$).
+- Two nodes connected by multiple edges (or a cycle of length 2) indicate parallel resistors.
+
+- Replace parallel edges (e.g., R1 and R2 between A and B) with a single edge whose weight is given by the parallel resistance formula: $R_{eq} = \frac{R1 \cdot R2}{R1 + R2}$ (or equivalently, $\frac{1}{R_{eq}} = \frac{1}{R1} + \frac{1}{R2}$).
 
 4. **Iterate Until Simplified**:
 
-   - Repeatedly apply series and parallel reductions until the graph has only two nodes (the terminals) and one edge.
+- Repeatedly apply series and parallel reductions until the graph has only two nodes (the terminals) and one edge.
 
-   - The weight of this final edge is the equivalent resistance.
+- The weight of this final edge is the equivalent resistance.
 
 5. **Handle Nested Configurations**:
 
-   - For complex graphs (e.g., nested series-parallel or cycles), use traversal techniques (like DFS) to detect reducible substructures.
+- For complex graphs (e.g., nested series-parallel or cycles), use traversal techniques (like DFS) to detect reducible substructures.
 
-   - Prioritize series reductions when possible, then check for parallel edges.
+- Prioritize series reductions when possible, then check for parallel edges.
 
 #### Pseudocode:
 
@@ -99,43 +100,43 @@ End Function
 
 #### Example 1: Simple Series Combination
 
-- **Circuit**: Two resistors in series, 2Ω and 3Ω, between nodes A and C via B.
+**Circuit**: Two resistors in series, 2Ω and 3Ω, between nodes A and C via B.
 
-- **Graph**: A → B (2Ω), B → C (3Ω).
+**Graph**: A → B (2Ω), B → C (3Ω).
 
-- **Reduction**:
+**Reduction**:
 
   1. Node B has degree 2. Replace A-B (2Ω) and B-C (3Ω) with A-C (2 + 3 = 5Ω).
 
   2. Graph becomes A → C (5Ω).
 
-- **Result**: Equivalent resistance = 5Ω.
+**Result**: Equivalent resistance = 5Ω.
 
 #### Example 2: Simple Parallel Combination
 
-- **Circuit**: Two resistors in parallel, 4Ω and 6Ω, between nodes A and B.
+**Circuit**: Two resistors in parallel, 4Ω and 6Ω, between nodes A and B.
 
-- **Graph**: A → B (4Ω), A → B (6Ω) (two edges).
+**Graph**: A → B (4Ω), A → B (6Ω) (two edges).
 
-- **Reduction**:
+**Reduction**:
 
   1. Parallel edges detected. Compute $R_{eq} = \frac{4 \cdot 6}{4 + 6} = \frac{24}{10} = 2.4Ω$.
 
   2. Replace both edges with A-B (2.4Ω).
 
-- **Result**: Equivalent resistance = 2.4Ω.
+**Result**: Equivalent resistance = 2.4Ω.
 
 #### Example 3: Nested Configuration
 
-- **Circuit**: Two resistors in series (2Ω, 3Ω), with a parallel resistor (6Ω) across the pair.
+**Circuit**: Two resistors in series (2Ω, 3Ω), with a parallel resistor (6Ω) across the pair.
 
-- **Graph**: 
+**Graph**: 
 
   - A → B (2Ω), B → C (3Ω) [series part].
 
   - A → C (6Ω) [parallel across A-C].
 
-- **Reduction**:
+**Reduction**:
 
   1. Reduce series A-B (2Ω) and B-C (3Ω): Remove B, add A-C (2 + 3 = 5Ω).
 

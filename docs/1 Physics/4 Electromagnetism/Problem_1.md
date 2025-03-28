@@ -20,7 +20,7 @@ The electric field ($\mathbf{E}$) accelerates particles linearly, while the magn
 
 ### 2. Simulation
 
-https://www.geogebra.org/m/xpRMzPgc
+[Geogebra](https://www.geogebra.org/m/xpRMzPgc)
 
 
 ### 4. Results and 
