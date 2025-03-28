@@ -1,166 +1,102 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Charged Particle Simulation</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lorentz Force Simulation</title>
     <style>
-        body { margin: 0; display: flex; flex-direction: column; }
-        #controls { padding: 20px; }
-        #visualization { display: flex; width: 100%; }
-        #three-container { width: 70%; height: 600px; }
-        #canvas-2d { width: 30%; height: 600px; }
-        input { width: 80px; margin: 5px; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        canvas {
+            border: 1px solid #ccc;
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
-    <div id="controls">
-        <h3>Simulation Parameters</h3>
-        <label>Charge (C): <input type="number" id="charge" value="1.6e-19" step="1e-20"></label><br>
-        <label>Mass (kg): <input type="number" id="mass" value="1.67e-27" step="1e-28"></label><br>
-        <label>Vx (m/s): <input type="number" id="vx" value="1e5" step="1e4"></label><br>
-        <label>Vy (m/s): <input type="number" id="vy" value="0" step="1e4"></label><br>
-        <label>Vz (m/s): <input type="number" id="vz" value="0" step="1e4"></label><br>
-        <label>Bz (T): <input type="number" id="bz" value="1" step="0.1"></label><br>
-        <label>Ex (N/C): <input type="number" id="ex" value="0" step="1e4"></label><br>
-        <button onclick="startSimulation()">Start</button>
-        <button onclick="resetSimulation()">Reset</button>
-    </div>
-    <div id="visualization">
-        <div id="three-container"></div>
-        <canvas id="canvas-2d"></canvas>
-    </div>
+    <h1>Lorentz Force Simulation</h1>
+    <p>Simulating a charged particle in different field configurations:</p>
+    <canvas id="canvas1" width="400" height="400"></canvas>
+    <p>1. Uniform Magnetic Field (Circular Motion)</p>
+    <canvas id="canvas2" width="400" height="400"></canvas>
+    <p>2. Combined Electric and Magnetic Fields (Helical + Drift)</p>
+    <canvas id="canvas3" width="400" height="400"></canvas>
+    <p>3. Crossed Electric and Magnetic Fields (E x B Drift)</p>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script>
-        // Three.js setup
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth * 0.7 / 600, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth * 0.7, 600);
-        document.getElementById('three-container').appendChild(renderer.domElement);
+        // Constants
+        const q = 1.6e-19;  // Charge (Coulombs)
+        const m = 1.67e-27; // Mass (kg)
+        const dt = 1e-9;    // Time step (seconds)
+        const steps = 1000; // Number of steps (reduced for simplicity)
 
-        // 2D Canvas setup
-        const canvas2d = document.getElementById('canvas-2d');
-        const ctx = canvas2d.getContext('2d');
-        canvas2d.width = window.innerWidth * 0.3;
-        canvas2d.height = 600;
+        // Initial conditions
+        const r0 = [0, 0];       // Initial position [x, y] (m)
+        const v0 = [1e5, 0];     // Initial velocity [vx, vy] (m/s)
 
-        // Simulation parameters
-        const dt = 1e-9;  // Time step (s)
-        const maxSteps = 10000;
-        let particle, trajectory = [], animationFrameId;
+        // Field configurations
+        const B = [0, 0, 1];     // Magnetic field [Bx, By, Bz] (Tesla)
+        const E_zero = [0, 0, 0]; // No electric field
+        const E_combined = [1e5, 0, 0]; // Electric field for combined scenario
 
-        class Particle {
-            constructor(q, m, r0, v0) {
-                this.q = q;
-                this.m = m;
-                this.r = [...r0];
-                this.v = [...v0];
-                this.geometry = new THREE.SphereGeometry(0.0001);
-                this.material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-                this.mesh = new THREE.Mesh(this.geometry, this.material);
-                scene.add(this.mesh);
-            }
-
-            lorentzForce(E, B) {
-                // F = q(E + v × B)
-                const vCrossB = [
-                    this.v[1] * B[2] - this.v[2] * B[1],
-                    this.v[2] * B[0] - this.v[0] * B[2],
-                    this.v[0] * B[1] - this.v[1] * B[0]
-                ];
-                return [
-                    this.q * (E[0] + vCrossB[0]),
-                    this.q * (E[1] + vCrossB[1]),
-                    this.q * (E[2] + vCrossB[2])
-                ];
-            }
-
-            update(E, B) {
-                const force = this.lorentzForce(E, B);
-                const a = force.map(f => f / this.m);
-                this.v = this.v.map((vi, i) => vi + a[i] * dt);
-                this.r = this.r.map((ri, i) => ri + this.v[i] * dt);
-                this.mesh.position.set(this.r[0], this.r[1], this.r[2]);
-            }
+        // Lorentz force calculation (2D simplification)
+        function lorentzForce(r, v, q, m, E, B) {
+            // F = q(E + v x B), a = F/m
+            const vxB = [0, 0, v[0] * B[2] - v[1] * B[1]]; // 2D cross product (z-component only)
+            const ax = q * (E[0] + vxB[0]) / m;
+            const ay = q * (E[1] + vxB[1]) / m;
+            return [ax, ay];
         }
 
-        // Add axes
-        const axesHelper = new THREE.AxesHelper(0.01);
-        scene.add(axesHelper);
-        camera.position.set(0.01, 0.01, 0.01);
-        camera.lookAt(0, 0, 0);
+        // Simulation function
+        function simulateTrajectory(r0, v0, q, m, E, B, dt, steps) {
+            const r = Array(steps).fill().map(() => [0, 0]);
+            const v = Array(steps).fill().map(() => [0, 0]);
+            r[0] = [...r0];
+            v[0] = [...v0];
 
-        function startSimulation() {
-            resetSimulation();
-
-            const q = parseFloat(document.getElementById('charge').value);
-            const m = parseFloat(document.getElementById('mass').value);
-            const v0 = [
-                parseFloat(document.getElementById('vx').value),
-                parseFloat(document.getElementById('vy').value),
-                parseFloat(document.getElementById('vz').value)
-            ];
-            const r0 = [0, 0, 0];
-            const B = [0, 0, parseFloat(document.getElementById('bz').value)];
-            const E = [parseFloat(document.getElementById('ex').value), 0, 0];
-
-            particle = new Particle(q, m, r0, v0);
-            trajectory = [];
-
-            let step = 0;
-            function animate() {
-                if (step >= maxSteps) return;
-
-                particle.update(E, B);
-                trajectory.push([...particle.r]);
-                
-                // 2D plot
-                ctx.clearRect(0, 0, canvas2d.width, canvas2d.height);
-                ctx.beginPath();
-                ctx.strokeStyle = 'blue';
-                for (let i = 0; i < trajectory.length; i++) {
-                    const x = (trajectory[i][0] * 1e6 + canvas2d.width/2);
-                    const y = (trajectory[i][1] * 1e6 + canvas2d.height/2);
-                    if (i === 0) ctx.moveTo(x, y);
-                    else ctx.lineTo(x, y);
-                }
-                ctx.stroke();
-
-                // Labels
-                ctx.fillStyle = 'black';
-                ctx.fillText('X (μm)', canvas2d.width/2 - 20, canvas2d.height - 10);
-                ctx.fillText('Y (μm)', 10, canvas2d.height/2);
-
-                renderer.render(scene, camera);
-                step++;
-                animationFrameId = requestAnimationFrame(animate);
+            for (let i = 0; i < steps - 1; i++) {
+                const a = lorentzForce(r[i], v[i], q, m, E, B);
+                v[i + 1] = [v[i][0] + a[0] * dt, v[i][1] + a[1] * dt];
+                r[i + 1] = [r[i][0] + v[i][0] * dt, r[i][1] + v[i][1] * dt];
             }
-            animate();
-
-            // Calculate physical quantities
-            const vPerp = Math.sqrt(v0[0]*v0[0] + v0[1]*v0[1]);
-            const larmorRadius = m * vPerp / (Math.abs(q) * B[2]);
-            console.log(`Larmor Radius: ${larmorRadius.toExponential(2)} m`);
-            if (E[0] !== 0) {
-                const driftVelocity = E[0] / B[2];
-                console.log(`E×B Drift Velocity: ${driftVelocity.toExponential(2)} m/s`);
-            }
+            return r;
         }
 
-        function resetSimulation() {
-            if (particle) scene.remove(particle.mesh);
-            if (animationFrameId) cancelAnimationFrame(animationFrameId);
-            trajectory = [];
-            ctx.clearRect(0, 0, canvas2d.width, canvas2d.height);
+        // Plotting function on canvas
+        function plotTrajectory(canvasId, r, title) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            const scale = 1e-3; // Scale factor to fit trajectory in canvas
+
+            ctx.beginPath();
+            ctx.moveTo(200 + r[0][0] * scale, 200 - r[0][1] * scale); // Center origin
+            for (let i = 1; i < r.length; i++) {
+                ctx.lineTo(200 + r[i][0] * scale, 200 - r[i][1] * scale);
+            }
+            ctx.strokeStyle = 'blue';
+            ctx.stroke();
+
+            // Add title
+            ctx.fillStyle = 'black';
+            ctx.fillText(title, 10, 20);
         }
 
-        // Window resize handler
-        window.addEventListener('resize', () => {
-            camera.aspect = (window.innerWidth * 0.7) / 600;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth * 0.7, 600);
-            canvas2d.width = window.innerWidth * 0.3;
-        });
+        // Run simulations and plot
+        // Scenario 1: Uniform Magnetic Field
+        const r1 = simulateTrajectory(r0, v0, q, m, E_zero, B, dt, steps);
+        plotTrajectory('canvas1', r1, 'Uniform Magnetic Field');
+
+        // Scenario 2: Combined Fields
+        const r2 = simulateTrajectory(r0, v0, q, m, E_combined, B, dt, steps);
+        plotTrajectory('canvas2', r2, 'Combined Fields');
+
+        // Scenario 3: Crossed Fields
+        const v0_crossed = [0, 1e5]; // Adjusted initial velocity for clarity
+        const r3 = simulateTrajectory(r0, v0_crossed, q, m, E_combined, B, dt, steps);
+        plotTrajectory('canvas3', r3, 'Crossed Fields');
     </script>
 </body>
 </html>
