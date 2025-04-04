@@ -48,25 +48,17 @@
 <ul class="current">
 <li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 1</a>
 <ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="#1-theoretical-foundation">1. Theoretical Foundation</a>
+<li class="toctree-l3"><a class="reference internal" href="#investigating-the-range-as-a-function-of-the-angle-of-projection">Investigating the Range as a Function of the Angle of Projection</a>
 <ul>
-<li class="toctree-l4"><a class="reference internal" href="#deriving-the-equations-of-motion">Deriving the Equations of Motion</a>
+<li class="toctree-l4"><a class="reference internal" href="#1-theoretical-foundation">1. Theoretical Foundation</a>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="#family-of-solutions">Family of Solutions</a>
+<li class="toctree-l4"><a class="reference internal" href="#2-analysis-of-the-range">2. Analysis of the Range</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#3-practical-applications">3. Practical Applications</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#4-implementation">4. Implementation</a>
 </li>
 </ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#2-analysis-of-the-range">2. Analysis of the Range</a>
-<ul>
-<li class="toctree-l4"><a class="reference internal" href="#dependence-on-angle-theta">Dependence on Angle \(\theta\)</a>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="#other-parameters">Other Parameters</a>
-</li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#3-practical-applications">3. Practical Applications</a>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#4-implementation">4. Implementation</a>
 </li>
 </ul>
 </li>
@@ -192,6 +184,7 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
 <h1 id="problem-1">Problem 1</h1>
+<h2 id="investigating-the-range-as-a-function-of-the-angle-of-projection">Investigating the Range as a Function of the Angle of Projection</h2>
 <h3 id="1-theoretical-foundation">1. Theoretical Foundation</h3>
 <p>Projectile motion is a classic two-dimensional problem governed by Newton’s laws. We’re dealing with an object launched with an initial velocity <span class="arithmatex">\(v_0\)</span> at an angle <span class="arithmatex">\(\theta\)</span> relative to the horizontal, under the influence of gravity <span class="arithmatex">\(g\)</span>, and for now, we’ll assume no air resistance and a flat surface (launch height <span class="arithmatex">\(h = 0\)</span>).</p>
 <h4 id="deriving-the-equations-of-motion">Deriving the Equations of Motion</h4>
@@ -252,6 +245,7 @@ R = (v_0 \cos\theta) \cdot \frac{2 v_0 \sin\theta}{g}
 <li><strong>Symmetry</strong>: <span class="arithmatex">\(\sin 2\theta = \sin (180^\circ - 2\theta)\)</span>, so <span class="arithmatex">\(\theta\)</span> and <span class="arithmatex">\(90^\circ - \theta\)</span> (e.g., 30° and 60°) give the same range.</li>
 <li><strong>Extremes</strong>: At <span class="arithmatex">\(\theta = 0^\circ\)</span> or <span class="arithmatex">\(90^\circ\)</span>, <span class="arithmatex">\(\sin 2\theta = 0\)</span>, so <span class="arithmatex">\(R = 0\)</span>.</li>
 </ul>
+<p><img alt="alt text" src="../image.png"/></p>
 <h4 id="other-parameters">Other Parameters</h4>
 <ul>
 <li><strong>Initial Velocity <span class="arithmatex">\(v_0\)</span></strong>: Range scales with <span class="arithmatex">\(v_0^2\)</span>—double <span class="arithmatex">\(v_0\)</span>, get four times the range.</li>
