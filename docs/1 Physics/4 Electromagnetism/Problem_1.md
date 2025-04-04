@@ -23,7 +23,7 @@ The electric field ($\mathbf{E}$) accelerates particles linearly, while the magn
 [Geogebra](https://www.geogebra.org/m/xpRMzPgc)
 
 
-### 4. Results and 
+### 4. Results 
 
 #### Uniform Magnetic Field
 

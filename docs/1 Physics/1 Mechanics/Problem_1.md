@@ -1,5 +1,7 @@
 # Problem 1
 
+## Investigating the Range as a Function of the Angle of Projection
+
 ### 1. Theoretical Foundation
 
 Projectile motion is a classic two-dimensional problem governed by Newton’s laws. We’re dealing with an object launched with an initial velocity $v_0$ at an angle $\theta$ relative to the horizontal, under the influence of gravity $g$, and for now, we’ll assume no air resistance and a flat surface (launch height $h = 0$).
@@ -70,6 +72,8 @@ $$R = \frac{v_0^2 \sin 2\theta}{g}$$
 - **Maximum Range**: $R$ peaks when $\sin 2\theta = 1$, so $2\theta = 90^\circ$, or $\theta = 45^\circ$. Here, $R_{\text{max}} = \frac{v_0^2}{g}$.
 - **Symmetry**: $\sin 2\theta = \sin (180^\circ - 2\theta)$, so $\theta$ and $90^\circ - \theta$ (e.g., 30° and 60°) give the same range.
 - **Extremes**: At $\theta = 0^\circ$ or $90^\circ$, $\sin 2\theta = 0$, so $R = 0$.
+
+![alt text](image.png)
 
 #### Other Parameters
 - **Initial Velocity $v_0$**: Range scales with $v_0^2$—double $v_0$, get four times the range.
