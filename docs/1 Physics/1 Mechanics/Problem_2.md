@@ -132,6 +132,6 @@ In each case, understanding resonance and chaos helps design stable or efficient
 
 [Simulation model motion of pendulum](pendulum.html)
 
-[Simulation model motion of pendulum with vectors](pendulum.html)
+[Simulation model motion of pendulum with vectors](pendulum2.html)
 
 

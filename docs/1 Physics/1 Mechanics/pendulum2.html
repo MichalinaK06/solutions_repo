@@ -16,7 +16,6 @@
         <label>Damping (b): <input type="range" id="damping" min="0" max="0.5" step="0.01" value="0.1"></label><br>
         <label>Driving Amplitude (A): <input type="range" id="amplitude" min="0" max="2" step="0.1" value="0.5"></label><br>
         <label>Driving Frequency (ω): <input type="range" id="frequency" min="0" max="2" step="0.1" value="1"></label><br>
-        <button onclick="resetSimulation()">Reset Trails</button>
     </div>
     <canvas id="pendulumCanvas" width="800" height="600"></canvas>
 
@@ -37,10 +36,6 @@
         let t = 0;          // time
         let dt = 0.02;      // time step
         
-        // Trail storage
-        let currentTrail = [];
-        let allTrails = [];
-        
         // Get control elements
         const dampingInput = document.getElementById('damping');
         const amplitudeInput = document.getElementById('amplitude');
@@ -55,59 +50,57 @@
         const centerX = canvas.width/2;
         const centerY = canvas.height/4;
         const scale = 200;  // pixels per meter
-        
+        const vectorScale = 10; // Scale for force vectors (pixels per N)
+
         function updateParameters() {
-            const newB = parseFloat(dampingInput.value);
-            const newA = parseFloat(amplitudeInput.value);
-            const newFreq = parseFloat(frequencyInput.value);
-            
-            // If parameters changed significantly, store current trail and reset
-            if (Math.abs(newB - b) > 0.01 || Math.abs(newA - A) > 0.1 || Math.abs(newFreq - drivingFreq) > 0.1) {
-                if (currentTrail.length > 1) {
-                    allTrails.push([...currentTrail]);
-                }
-                currentTrail = [];
-                theta = Math.PI/4;  // Reset to initial angle
-                omega = 0;         // Reset velocity
-                t = 0;             // Reset time
-            }
-            
-            b = newB;
-            A = newA;
-            drivingFreq = newFreq;
+            b = parseFloat(dampingInput.value);
+            A = parseFloat(amplitudeInput.value);
+            drivingFreq = parseFloat(frequencyInput.value);
+        }
+
+        function drawArrow(x, y, dx, dy, color, label) {
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x + dx, y + dy);
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Draw arrowhead
+            const angle = Math.atan2(dy, dx);
+            const arrowSize = 10;
+            ctx.beginPath();
+            ctx.moveTo(x + dx, y + dy);
+            ctx.lineTo(x + dx - arrowSize * Math.cos(angle - Math.PI/6), y + dy - arrowSize * Math.sin(angle - Math.PI/6));
+            ctx.moveTo(x + dx, y + dy);
+            ctx.lineTo(x + dx - arrowSize * Math.cos(angle + Math.PI/6), y + dy - arrowSize * Math.sin(angle + Math.PI/6));
+            ctx.stroke();
+
+            // Draw label
+            ctx.fillStyle = color;
+            ctx.font = '12px Arial';
+            ctx.fillText(label, x + dx + 5, y + dy - 5);
         }
 
         function calculateMotion() {
+            // Forced damped pendulum differential equation
+            // d²θ/dt² = -g/l * sin(θ) - b * dθ/dt + A * cos(ωt)
+            
             let alpha = -g/l * Math.sin(theta) - b * omega + A * Math.cos(drivingFreq * t);
             omega += alpha * dt;
             theta += omega * dt;
+            
             t += dt;
-        }
 
-        function drawTrails() {
-            // Draw all previous trails in gray
-            allTrails.forEach(trail => {
-                ctx.beginPath();
-                ctx.moveTo(trail[0].x, trail[0].y);
-                for (let i = 1; i < trail.length; i++) {
-                    ctx.lineTo(trail[i].x, trail[i].y);
-                }
-                ctx.strokeStyle = 'gray';
-                ctx.lineWidth = 1;
-                ctx.stroke();
-            });
+            // Calculate forces for visualization
+            const forces = {
+                gravity: { x: 0, y: m * g }, // Downward
+                tension: { x: -m * g * Math.sin(theta) / Math.cos(theta), y: -m * g }, // Along rod toward pivot
+                damping: { x: -b * omega * l * Math.cos(theta), y: b * omega * l * Math.sin(theta) }, // Opposite velocity
+                driving: { x: m * A * Math.cos(drivingFreq * t) * l * Math.cos(theta), y: -m * A * Math.cos(drivingFreq * t) * l * Math.sin(theta) } // Tangential
+            };
 
-            // Draw current trail in blue
-            if (currentTrail.length > 1) {
-                ctx.beginPath();
-                ctx.moveTo(currentTrail[0].x, currentTrail[0].y);
-                for (let i = 1; i < currentTrail.length; i++) {
-                    ctx.lineTo(currentTrail[i].x, currentTrail[i].y);
-                }
-                ctx.strokeStyle = 'blue';
-                ctx.lineWidth = 1;
-                ctx.stroke();
-            }
+            return forces;
         }
 
         function draw() {
@@ -117,15 +110,9 @@
             let x = centerX + scale * l * Math.sin(theta);
             let y = centerY + scale * l * Math.cos(theta);
             
-            // Add to current trail (limit trail length to prevent memory issues)
-            currentTrail.push({x: x, y: y});
-            if (currentTrail.length > 1000) {
-                currentTrail.shift();
-            }
-            
-            // Draw trails
-            drawTrails();
-            
+            // Calculate forces
+            const forces = calculateMotion();
+
             // Draw rod
             ctx.beginPath();
             ctx.moveTo(centerX, centerY);
@@ -145,19 +132,16 @@
             ctx.arc(centerX, centerY, 5, 0, 2*Math.PI);
             ctx.fillStyle = 'black';
             ctx.fill();
-        }
 
-        function resetSimulation() {
-            allTrails = [];
-            currentTrail = [];
-            theta = Math.PI/4;
-            omega = 0;
-            t = 0;
+            // Draw force vectors
+            drawArrow(x, y, forces.gravity.x * vectorScale, forces.gravity.y * vectorScale, 'blue', 'Gravity');
+            drawArrow(x, y, forces.tension.x * vectorScale, forces.tension.y * vectorScale, 'green', 'Tension');
+            drawArrow(x, y, forces.damping.x * vectorScale, forces.damping.y * vectorScale, 'purple', 'Damping');
+            drawArrow(x, y, forces.driving.x * vectorScale, forces.driving.y * vectorScale, 'orange', 'Driving');
         }
 
         function animate() {
             updateParameters();
-            calculateMotion();
             draw();
             requestAnimationFrame(animate);
         }
