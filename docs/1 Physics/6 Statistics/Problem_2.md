@@ -36,7 +36,7 @@ $$ \pi \approx 4 \times \frac{\text{Number of points inside circle}}{\text{Total
 ### **2. Simulation**
 1. Generate random $(x, y)$ points in the range $[-1, 1] × [-1, 1]$.  
 
-2. Check if each point satisfies $ x^2 + y^2 \leq 1 $ (inside the circle).  
+2. Check if each point satisfies $x^2 + y^2 \leq 1$ (inside the circle).  
 
 3. Estimate π using the ratio of points inside the circle to the total points.  
 
