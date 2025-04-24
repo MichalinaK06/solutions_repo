@@ -79,9 +79,13 @@ $$\pi \approx \frac{2L \times \text{Total throws}}{D \times \text{Number of cros
 
 3. Estimate π using the derived formula.  
 
+[Buffon’s Needle method](neddle.html)
+
 ### **3. Visualization**
 
-[Buffon’s Needle method](neddle.html)
+![alt text](image-1.png)
+
+
 
 ### **4. Analysis**
 
