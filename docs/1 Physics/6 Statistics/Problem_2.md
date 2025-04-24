@@ -48,7 +48,9 @@ $$ \pi \approx 4 \times \frac{\text{Number of points inside circle}}{\text{Total
 ![alt text](image.png)
 
 ### **4. Analysis**
+
 - **Convergence**: The estimate improves with more points, but the error decreases slowly (~1/√N).
+
 - **Computational Considerations**: Large N improves accuracy but increases runtime.
 
 ---
@@ -56,18 +58,24 @@ $$ \pi \approx 4 \times \frac{\text{Number of points inside circle}}{\text{Total
 ## **Part 2: Estimating π Using Buffon’s Needle**
 
 ### **1. Theoretical Foundation**
-Buffon’s Needle involves dropping a needle of length \( L \) on a plane with parallel lines spaced distance \( D \) apart.  
-- If \( L \leq D \), the probability \( P \) of the needle crossing a line is:  
-\[ P = \frac{2L}{\pi D} \]  
+
+Buffon’s Needle involves dropping a needle of length $L$ on a plane with parallel lines spaced distance $D$ apart.  
+
+- If $L \leq D$, the probability $P$ of the needle crossing a line is:
+
+$$P = \frac{2L}{\pi D}$$  
+
 - Solving for π:  
-\[ \pi \approx \frac{2L \times \text{Total throws}}{D \times \text{Number of crossings}} \]  
+$$\pi \approx \frac{2L \times \text{Total throws}}{D \times \text{Number of crossings}}$$  
 
 ### **2. Simulation**
+
 1. Simulate random needle drops with random position and angle.  
 2. Check if the needle crosses any of the parallel lines.  
 3. Estimate π using the derived formula.  
 
 ### **3. Visualization**
+
 A plot can show:
 - The parallel lines.
 - Needles colored differently based on whether they cross a line.
@@ -76,37 +84,6 @@ A plot can show:
 - **Convergence**: Slower than the circle method (~1/N).
 - **Comparison**: The circle method is more efficient for the same number of iterations.
 
----
-
-## **Deliverables**
-1. **Markdown Report** (this document).  
-2. **Python Implementation** (Jupyter Notebook or script) with:  
-   - Circle-based π estimation.  
-   - Buffon’s Needle simulation.  
-3. **Graphical Outputs**  
-   - Scatter plots for the circle method.  
-   - Needle-drop visualizations for Buffon’s method.  
-4. **Analysis**  
-   - Convergence plots (π estimate vs. number of iterations).  
-   - Comparison of computational efficiency.  
-
----
 
 ## **Conclusion**
 Monte Carlo methods provide an engaging way to estimate π using randomness. While the circle method converges faster, Buffon’s Needle offers historical and geometric insights. Both methods illustrate the power of probabilistic simulations in numerical computation.  
-
-**Further Exploration**:  
-- Variance reduction techniques (e.g., importance sampling).  
-- Higher-dimensional generalizations (e.g., sphere in a cube).  
-- Parallel computing for faster convergence.  
-
----
-
-### **References & Resources**
-- *Numerical Recipes* by Press et al.  
-- *Introduction to Probability Models* by Sheldon Ross.  
-- Python libraries: `numpy`, `matplotlib`, `random`.  
-
----
-
-Would you like the accompanying Python code for these simulations?
