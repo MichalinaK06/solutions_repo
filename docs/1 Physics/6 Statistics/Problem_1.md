@@ -1,5 +1,6 @@
 # Problem 1
 
+[debhw](e.html)
 
 ## Exploring the Central Limit Theorem through Simulations
 
