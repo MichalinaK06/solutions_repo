@@ -43,9 +43,9 @@ $$ \pi \approx 4 \times \frac{\text{Number of points inside circle}}{\text{Total
 [xx](d.html)
 
 ### **3. Visualization**
-A scatter plot can be generated where:
-- Points inside the circle are colored differently from those outside.
-- The circle boundary is drawn for reference.
+
+
+![alt text](image.png)
 
 ### **4. Analysis**
 - **Convergence**: The estimate improves with more points, but the error decreases slowly (~1/√N).
