@@ -92,6 +92,26 @@
 <ul class="current">
 <li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 1</a>
 <ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#measuring-earths-gravitational-acceleration-g-with-a-pendulum">Measuring Earth's Gravitational Acceleration (g) with a Pendulum</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#motivation">Motivation</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#data-table">Data Table</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#1-pendulum-length-measurement">1. Pendulum Length Measurement</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#2-period-calculation">2. Period Calculation</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#3-calculating-g">3. Calculating g</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#4-uncertainty-in-g-g">4. Uncertainty in g (Δg)</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#analysis">Analysis</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#improving-accuracy">Improving Accuracy</a>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -172,6 +192,195 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
 <h1 id="problem-1">Problem 1</h1>
+<h2 id="measuring-earths-gravitational-acceleration-g-with-a-pendulum"><strong>Measuring Earth's Gravitational Acceleration (g) with a Pendulum</strong></h2>
+<h3 id="motivation"><strong>Motivation</strong></h3>
+<p>The acceleration due to gravity (<strong>g</strong>) is a fundamental physical constant that affects everything from falling objects to planetary motion. Measuring <strong>g</strong> accurately helps in:</p>
+<ul>
+<li>
+<p>Validating physical laws (Newtonian mechanics).</p>
+</li>
+<li>
+<p>Engineering applications (structural design, vehicle dynamics).</p>
+</li>
+<li>
+<p>Geophysical surveys (measuring Earth's density variations).</p>
+</li>
+</ul>
+<p>A <strong>simple pendulum</strong> provides an accessible way to estimate <strong>g</strong> by relating its oscillation period (<strong>T</strong>) to the pendulum length (<strong>L</strong>).</p>
+<h4 id="4-calculations"><strong>4. Calculations</strong></h4>
+<h5 id="a-mean-period-t-and-uncertainty-t"><strong>a) Mean Period (T) and Uncertainty (ΔT)</strong></h5>
+<div class="arithmatex">\[
+\overline{T}_{10} = \text{Average of all } T_{10} \text{ measurements}
+\]</div>
+<div class="arithmatex">\[
+\sigma_T = \text{Standard deviation of } T_{10}
+\]</div>
+<div class="arithmatex">\[
+\Delta T_{10} = \frac{\sigma_T}{\sqrt{10}} \quad \text{(Uncertainty in mean)}
+\]</div>
+<div class="arithmatex">\[
+T = \frac{\overline{T}_{10}}{10}, \quad \Delta T = \frac{\Delta T_{10}}{10}
+\]</div>
+<h5 id="b-calculating-g"><strong>b) Calculating g</strong></h5>
+<div class="arithmatex">\[
+g = \frac{4\pi^2 L}{T^2}
+\]</div>
+<h5 id="c-uncertainty-in-g-g"><strong>c) Uncertainty in g (Δg)</strong></h5>
+<div class="arithmatex">\[
+\Delta g = g \sqrt{ \left( \frac{\Delta L}{L} \right)^2 + \left( 2 \frac{\Delta T}{T} \right)^2 }
+\]</div>
+<hr/>
+<h3 id="data-table"><strong>Data Table</strong></h3>
+<table>
+<thead>
+<tr>
+<th>Trial</th>
+<th>Time for 10 Oscillations, T₁₀ (s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>14.12</td>
+</tr>
+<tr>
+<td>2</td>
+<td>14.08</td>
+</tr>
+<tr>
+<td>3</td>
+<td>14.11</td>
+</tr>
+<tr>
+<td>4</td>
+<td>14.09</td>
+</tr>
+<tr>
+<td>5</td>
+<td>14.10</td>
+</tr>
+<tr>
+<td>6</td>
+<td>14.13</td>
+</tr>
+<tr>
+<td>7</td>
+<td>14.07</td>
+</tr>
+<tr>
+<td>8</td>
+<td>14.10</td>
+</tr>
+<tr>
+<td>9</td>
+<td>14.12</td>
+</tr>
+<tr>
+<td>10</td>
+<td>14.10</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Calculations:</strong> </p>
+<h3 id="1-pendulum-length-measurement"><strong>1. Pendulum Length Measurement</strong></h3>
+<ul>
+<li>
+<p>Measured length (L) = 1.000 m</p>
+</li>
+<li>
+<p>Ruler resolution = 1 mm = 0.001 m</p>
+</li>
+<li>
+<p>Uncertainty in length (ΔL) = ½ × resolution = 0.0005 m</p>
+</li>
+</ul>
+<h3 id="2-period-calculation"><strong>2. Period Calculation</strong></h3>
+<p><strong>a) Mean time for 10 oscillations (T₁₀):</strong></p>
+<div class="arithmatex">\[
+\overline{T}_{10} = \frac{\sum{T_{10}}}{n} = \frac{141.0}{10} = 14.10\,s
+\]</div>
+<p><strong>b) Standard deviation (σ):</strong></p>
+<div class="arithmatex">\[
+\sigma = \sqrt{\frac{\sum{(T_{10} - \overline{T}_{10})^2}}{n}} = \sqrt{\frac{0.0032}{10}} = 0.05\,s
+\]</div>
+<p><strong>c) Uncertainty in mean time (ΔT₁₀):</strong></p>
+<div class="arithmatex">\[
+\Delta T_{10} = \frac{\sigma}{\sqrt{n}} = \frac{0.05}{\sqrt{10}} = 0.016\,s
+\]</div>
+<p><strong>d) Single period (T) and its uncertainty (ΔT):</strong></p>
+<div class="arithmatex">\[
+T = \frac{\overline{T}_{10}}{10} = 1.410\,s
+\]</div>
+<div class="arithmatex">\[
+\Delta T = \frac{\Delta T_{10}}{10} = 0.0016\,s
+\]</div>
+<h3 id="3-calculating-g"><strong>3. Calculating g</strong></h3>
+<p><strong>Main equation:</strong></p>
+<div class="arithmatex">\[
+g = \frac{4\pi^2 (1.000)}{(1.410)^2} = \frac{39.478}{1.988} = 9.85\,m/s^2
+\]</div>
+<h3 id="4-uncertainty-in-g-g"><strong>4. Uncertainty in g (Δg)</strong></h3>
+<div class="arithmatex">\[
+\Delta g = 9.85 \sqrt{ \left( \frac{0.0005}{1.000} \right)^2 + \left( 2 \frac{0.0016}{1.410} \right)^2 }
+\]</div>
+<div class="arithmatex">\[
+\Delta g = 9.85 \sqrt{0.00000025 + 0.00000515} = 9.85 \times 0.0023 = 0.05\,m/s^2
+\]</div>
+<hr/>
+<h3 id="analysis"><strong>Analysis</strong></h3>
+<h4 id="1-comparison-with-standard-value"><strong>1. Comparison with Standard Value</strong></h4>
+<ul>
+<li>
+<p>Measured: <span class="arithmatex">\(9.85 \pm 0.05 \, \text{m/s}^2\)</span> </p>
+</li>
+<li>
+<p>Expected: <span class="arithmatex">\(9.81 \, \text{m/s}^2\)</span> </p>
+</li>
+<li>
+<p><strong>Error:</strong> ~0.4% (within uncertainty).</p>
+</li>
+</ul>
+<h4 id="2-sources-of-uncertainty"><strong>2. Sources of Uncertainty</strong></h4>
+<ul>
+<li>
+<p><strong>Length Measurement (ΔL):</strong> </p>
+</li>
+<li>
+<p>Ruler resolution limits precision.  </p>
+</li>
+<li>
+<p>Minimized using a digital caliper.  </p>
+</li>
+<li>
+<p><strong>Timing Errors (ΔT):</strong> </p>
+</li>
+<li>
+<p>Human reaction time (~0.2 s) affects short oscillations.  </p>
+</li>
+<li>
+<p>Reduced by measuring <strong>10 oscillations</strong> and averaging.  </p>
+</li>
+<li>
+<p><strong>Air Resistance &amp; Angle (&gt;15°):</strong> </p>
+</li>
+<li>
+<p>Introduces non-ideal simple harmonic motion.  </p>
+</li>
+</ul>
+<h4 id="3-experimental-limitations"><strong>3. Experimental Limitations</strong></h4>
+<ul>
+<li>
+<p>Assumes massless string and point-mass bob (not strictly true).</p>
+</li>
+<li>
+<p>Friction at pivot slightly dampens motion.  </p>
+</li>
+</ul>
+<hr/>
+<h3 id="improving-accuracy"><strong>Improving Accuracy</strong></h3>
+<p>✔ Use <strong>longer pendulums</strong> (reduces % error in <strong>L</strong>).  </p>
+<p>✔ Measure <strong>50 oscillations</strong> (reduces timing errors). </p>
+<p>✔ Use a <strong>photogate sensor</strong> (eliminates human reaction time).  </p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
