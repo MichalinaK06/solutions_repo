@@ -47,6 +47,7 @@ The electric field ($\mathbf{E}$) accelerates particles linearly, while the magn
 
 - **Application**: Used in velocity selectors, where particles with $v = E/B$ pass undeflected.
 
+![alt text](image.png)
 
 ### 5. Discussion
 
