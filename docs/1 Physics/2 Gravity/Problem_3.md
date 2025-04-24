@@ -83,7 +83,7 @@ $$v_x(t + \Delta t) = v_x(t) - \frac{GM}{r^3} x(t) \Delta t$$
 
 $$x(t + \Delta t) = x(t) + v_x(t) \Delta t$$
 
-  (Similarly for $y$ and $v_y$).
+(Similarly for $y$ and $v_y$).
 
 Running this for 10,000 seconds:
 
@@ -108,3 +108,17 @@ Running this for 10,000 seconds:
 ### 4. Visualization
 
 [Orbital Trajectories Visualization](a.html)
+
+**Left Canvas:** 
+
+Displays Earth with:
+
+A circular orbit (green) for a satellite in low earth orbit.
+
+An escape trajectory (red) for an object launched with escape velocity.
+
+An elliptical orbit (blue) for a payload in a non-circular orbit.
+
+**Right Canvas:**
+
+Bar chart comparing the velocities (orbital, escape, and payload) in km/s.
