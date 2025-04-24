@@ -18,6 +18,8 @@
     <h2>Water Wave Interference Simulation</h2>
     <canvas id="waveCanvas" width="800" height="600"></canvas>
     <div style="margin-top: 20px;">
+        <label>Number of Sources: <input type="range" id="sourceCount" min="1" max="5" value="2"></label>
+        <br>
         <label>Wave Frequency: <input type="range" id="frequency" min="1" max="10" value="5"></label>
         <br>
         <label>Source Separation: <input type="range" id="separation" min="100" max="400" value="200"></label>
@@ -31,6 +33,7 @@
 
         let frequency = 5;
         let separation = 200;
+        let sourceCount = 2;
         let time = 0;
 
         // Update parameters from sliders
@@ -40,6 +43,10 @@
 
         document.getElementById('separation').addEventListener('input', (e) => {
             separation = parseInt(e.target.value);
+        });
+
+        document.getElementById('sourceCount').addEventListener('input', (e) => {
+            sourceCount = parseInt(e.target.value);
         });
 
         function calculateWave(x, y, sourceX, sourceY) {
@@ -52,14 +59,31 @@
             return Math.cos(distance * 0.1 - time) / (distance * 0.1 + 1);
         }
 
+        function getSourcePositions(count, separation) {
+            const centerX = width / 2;
+            const centerY = height / 2;
+            const sources = [];
+            
+            if (count === 1) {
+                sources.push({x: centerX, y: centerY});
+            } else {
+                const startX = centerX - (separation * (count - 1)) / 2;
+                for (let i = 0; i < count; i++) {
+                    sources.push({
+                        x: startX + i * separation,
+                        y: centerY
+                    });
+                }
+            }
+            
+            return sources;
+        }
+
         function draw() {
             ctx.clearRect(0, 0, width, height);
             
-            // Define two wave sources
-            const source1X = width/2 - separation/2;
-            const source1Y = height/2;
-            const source2X = width/2 + separation/2;
-            const source2Y = height/2;
+            // Get wave sources based on current count and separation
+            const sources = getSourcePositions(sourceCount, separation);
 
             // Create interference pattern
             const imageData = ctx.createImageData(width, height);
@@ -67,12 +91,11 @@
 
             for (let y = 0; y < height; y += 2) {
                 for (let x = 0; x < width; x += 2) {
-                    // Calculate wave amplitude from both sources
-                    const wave1 = calculateWave(x, y, source1X, source1Y) * frequency;
-                    const wave2 = calculateWave(x, y, source2X, source2Y) * frequency;
-                    
-                    // Superposition of waves
-                    const amplitude = wave1 + wave2;
+                    // Calculate combined wave amplitude from all sources
+                    let amplitude = 0;
+                    for (const source of sources) {
+                        amplitude += calculateWave(x, y, source.x, source.y) * frequency;
+                    }
                     
                     // Convert to color (blue water-like visualization)
                     const intensity = Math.min(Math.max((amplitude + 2) * 64, 0), 255);
@@ -90,8 +113,10 @@
             // Draw wave sources
             ctx.fillStyle = 'red';
             ctx.beginPath();
-            ctx.arc(source1X, source1Y, 5, 0, Math.PI * 2);
-            ctx.arc(source2X, source2Y, 5, 0, Math.PI * 2);
+            for (const source of sources) {
+                ctx.moveTo(source.x + 5, source.y);
+                ctx.arc(source.x, source.y, 5, 0, Math.PI * 2);
+            }
             ctx.fill();
 
             time += 0.1;
