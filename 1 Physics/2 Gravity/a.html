@@ -1,186 +1,223 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Orbital Trajectories Visualization</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earth Orbital Trajectories Simulation</title>
     <style>
         body {
-            margin: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
             display: flex;
-            flex-direction: column;
             justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: #000;
+            gap: 20px;
         }
         canvas {
-            border: 1px solid #333;
+            border: 1px solid black;
+            background-color: white;
         }
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
+        .controls {
+            margin: 20px 0;
+        }
+        select {
+            padding: 5px;
             font-size: 16px;
-            cursor: pointer;
-            background-color: #333;
-            color: white;
-            border: 1px solid #666;
-            border-radius: 5px;
-        }
-        button:hover {
-            background-color: #444;
         }
     </style>
 </head>
 <body>
-    <p>Orbital Trajectories Visualization</p>
+    <h1>Earth Orbital and Escape Trajectories</h1>
+    <div class="controls">
+        <label>Select Trajectory to Highlight: 
+            <select id="trajectorySelect">
+                <option value="orbital">Orbital (LEO)</option>
+                <option value="escape">Escape</option>
+                <option value="payload">Payload (Elliptical)</option>
+            </select>
+        </label>
+        <br><br>
+        <button onclick="updateVisualization()">Update</button>
+    </div>
+    <div class="container">
+        <canvas id="orbitCanvas" width="400" height="400"></canvas>
+        <canvas id="barCanvas" width="400" height="400"></canvas>
+    </div>
+    <div>
+        <p>Left: Trajectory visualization (not to scale)</p>
+        <p>Right: Velocity comparison (km/s)</p>
+    </div>
+
     <script>
-        let earth;
-        let satellites = [];
-        let escapeVehicle;
-        const G = 6.67430e-11; // Gravitational constant
-        const earthMass = 5.972e24; // Earth mass in kg
-        const scale = 1e-6; // Scale factor for visualization
+        // Get canvas elements
+        const orbitCanvas = document.getElementById('orbitCanvas');
+        const orbitCtx = orbitCanvas.getContext('2d');
+        const barCanvas = document.getElementById('barCanvas');
+        const barCtx = barCanvas.getContext('2d');
 
-        function setup() {
-            createCanvas(800, 800);
-            initializeSimulation();
-            
-            // Create reset button
-            let resetButton = createButton('Reset Simulation');
-            resetButton.position(width/2 - 60, height + 20);
-            resetButton.mousePressed(resetSimulation);
-        }
+        // Constants
+        const G = 6.67430e-11; // Gravitational constant (m³ kg⁻¹ s⁻²)
+        const M = 5.972e24; // Earth's mass (kg)
+        const R = 6371e3; // Earth's radius (m)
+        const orbitAltitude = 400e3; // LEO altitude (m)
+        const orbitRadius = R + orbitAltitude; // Orbital radius (m)
+        const centerX = orbitCanvas.width / 2;
+        const centerY = orbitCanvas.height / 2;
+        const scale = 2e-5; // Pixels per meter for visualization
 
-        function initializeSimulation() {
-            // Earth at center
-            earth = {
-                x: width/2,
-                y: height/2,
-                radius: 50,
-                mass: earthMass
-            };
-            
-            // Reset satellites array and create new ones
-            satellites = [];
-            satellites.push(new Satellite(150, 0.02, color(0, 255, 0))); // Low Earth Orbit
-            satellites.push(new Satellite(250, 0.015, color(255, 0, 0))); // Medium Earth Orbit
-            satellites.push(new Satellite(350, 0.01, color(0, 0, 255))); // Geostationary-like
-            
-            // Escape velocity vehicle with increased initial velocity
-            escapeVehicle = new EscapeVehicle(100, 0.05, color(255, 255, 0));
-        }
+        // Trajectory parameters
+        const trajectories = {
+            orbital: {
+                velocity: Math.sqrt(G * M / orbitRadius) / 1000, // km/s
+                color: 'green',
+                type: 'circular',
+                radius: orbitRadius
+            },
+            escape: {
+                velocity: Math.sqrt(2 * G * M / orbitRadius) / 1000, // km/s
+                color: 'red',
+                type: 'escape'
+            },
+            payload: {
+                velocity: 1.1 * Math.sqrt(G * M / orbitRadius) / 1000, // km/s
+                color: 'blue',
+                type: 'elliptical',
+                semiMajorAxis: orbitRadius / (1 - (1.1 * 1.1 - 1)) // From vis-viva equation
+            }
+        };
 
-        function draw() {
-            background(0);
-            
+        let selectedTrajectory = 'orbital';
+        let t = 0;
+
+        function drawOrbitVisualization() {
+            orbitCtx.clearRect(0, 0, orbitCanvas.width, orbitCanvas.height);
+
             // Draw Earth
-            fill(0, 100, 255);
-            noStroke();
-            circle(earth.x, earth.y, earth.radius * 2);
-            
-            // Update and draw satellites
-            for (let sat of satellites) {
-                sat.update();
-                sat.display();
-            }
-            
-            // Update and draw escape vehicle
-            escapeVehicle.update();
-            escapeVehicle.display();
-            
-            // Display legend
-            displayLegend();
-        }
+            orbitCtx.beginPath();
+            orbitCtx.arc(centerX, centerY, R * scale, 0, 2 * Math.PI);
+            orbitCtx.fillStyle = 'blue';
+            orbitCtx.fill();
 
-        class Satellite {
-            constructor(radius, speed, col) {
-                this.r = radius;
-                this.angle = 0;
-                this.speed = speed;
-                this.color = col;
-                this.x = earth.x + this.r;
-                this.y = earth.y;
-            }
-            
-            update() {
-                this.angle += this.speed;
-                this.x = earth.x + this.r * cos(this.angle);
-                this.y = earth.y + this.r * sin(this.angle);
-            }
-            
-            display() {
-                fill(this.color);
-                noStroke();
-                circle(this.x, this.y, 8);
-                
-                noFill();
-                stroke(this.color);
-                strokeWeight(1);
-                circle(earth.x, earth.y, this.r * 2);
-            }
-        }
-
-        class EscapeVehicle {
-            constructor(startRadius, speed, col) {
-                this.r = startRadius;
-                this.angle = 0;
-                this.speed = speed;
-                this.color = col;
-                // Increased escape velocity multiplier for longer trajectory
-                this.v = sqrt((2 * G * earthMass) / (startRadius / scale)) * 1.5; 
-                this.x = earth.x + this.r;
-                this.y = earth.y;
-                this.escaping = false;
-            }
-            
-            update() {
-                this.angle += this.speed;
-                
-                // Delay escape until frame 100
-                if (frameCount > 100 && !this.escaping) {
-                    this.escaping = true;
-                    this.vx = this.v * cos(this.angle) * scale;
-                    this.vy = this.v * sin(this.angle) * scale;
+            // Draw trajectories
+            for (const trajName in trajectories) {
+                const traj = trajectories[trajName];
+                const isSelected = trajName === selectedTrajectory;
+                orbitCtx.beginPath();
+                if (traj.type === 'circular') {
+                    orbitCtx.arc(centerX, centerY, traj.radius * scale, 0, 2 * Math.PI);
+                } else if (traj.type === 'elliptical') {
+                    const a = traj.semiMajorAxis * scale;
+                    const e = 0.5; // Eccentricity for visualization
+                    const b = a * Math.sqrt(1 - e * e);
+                    orbitCtx.ellipse(centerX, centerY, a, b, 0, 0, 2 * Math.PI);
+                } else if (traj.type === 'escape') {
+                    // Simplified escape path (parabolic/hyperbolic)
+                    for (let theta = -Math.PI/2; theta <= Math.PI/2; theta += 0.1) {
+                        const r = orbitRadius / (1 + 0.5 * Math.cos(theta));
+                        const x = centerX + r * scale * Math.cos(theta);
+                        const y = centerY + r * scale * Math.sin(theta);
+                        if (theta === -Math.PI/2) orbitCtx.moveTo(x, y);
+                        else orbitCtx.lineTo(x, y);
+                    }
                 }
-                
-                if (this.escaping) {
-                    this.x += this.vx;
-                    this.y += this.vy;
-                    let dx = earth.x - this.x;
-                    let dy = earth.y - this.y;
-                    let dist = sqrt(dx*dx + dy*dy);
-                    let force = (G * earthMass) / (dist*dist) * scale;
-                    this.vx += (dx/dist) * force;
-                    this.vy += (dy/dist) * force;
-                } else {
-                    this.x = earth.x + this.r * cos(this.angle);
-                    this.y = earth.y + this.r * sin(this.angle);
+                orbitCtx.strokeStyle = isSelected ? traj.color : traj.color + '80'; // Semi-transparent if not selected
+                orbitCtx.lineWidth = isSelected ? 3 : 1;
+                orbitCtx.stroke();
+
+                // Animate object
+                let x, y;
+                if (traj.type === 'circular') {
+                    const period = 2 * Math.PI * Math.sqrt(traj.radius**3 / (G * M));
+                    const theta = (2 * Math.PI * t / period) % (2 * Math.PI);
+                    x = centerX + traj.radius * scale * Math.cos(theta);
+                    y = centerY + traj.radius * scale * Math.sin(theta);
+                } else if (traj.type === 'elliptical') {
+                    const period = 2 * Math.PI * Math.sqrt(traj.semiMajorAxis**3 / (G * M));
+                    const theta = (2 * Math.PI * t / period) % (2 * Math.PI);
+                    const r = traj.semiMajorAxis * (1 - 0.5 * 0.5) / (1 + 0.5 * Math.cos(theta));
+                    x = centerX + r * scale * Math.cos(theta);
+                    y = centerY + r * scale * Math.sin(theta);
+                } else if (traj.type === 'escape') {
+                    const v = traj.velocity * 1000; // m/s
+                    const r = orbitRadius + v * t;
+                    if (r * scale < orbitCanvas.width) {
+                        x = centerX + r * scale * Math.cos(t / 10);
+                        y = centerY + r * scale * Math.sin(t / 10);
+                    } else {
+                        x = y = -10; // Off-screen
+                    }
                 }
-            }
-            
-            display() {
-                fill(this.color);
-                noStroke();
-                circle(this.x, this.y, 10);
+                orbitCtx.beginPath();
+                orbitCtx.arc(x, y, 5, 0, 2 * Math.PI);
+                orbitCtx.fillStyle = isSelected ? traj.color : traj.color + '80';
+                orbitCtx.fill();
             }
         }
 
-        function displayLegend() {
-            textSize(16);
-            fill(124, 252, 0);
-            text("Green: Low Earth Orbit", 10, 20);
-            fill(255, 0, 0);
-            text("Red: Medium Earth Orbit", 10, 40);
-            fill(0, 0, 255);
-            text("Blue: Geostationary-like Orbit", 10, 60);
-            fill(255, 255, 0);
-            text("Yellow: Escape Trajectory", 10, 80);
+        function drawBarChart() {
+            barCtx.clearRect(0, 0, barCanvas.width, barCanvas.height);
+
+            // Draw axes
+            barCtx.beginPath();
+            barCtx.moveTo(50, barCanvas.height - 50);
+            barCtx.lineTo(barCanvas.width - 20, barCanvas.height - 50);
+            barCtx.moveTo(50, barCanvas.height - 50);
+            barCtx.lineTo(50, 20);
+            barCtx.strokeStyle = 'black';
+            barCtx.lineWidth = 2;
+            barCtx.stroke();
+
+            // Labels
+            barCtx.fillStyle = 'black';
+            barCtx.font = '12px Arial';
+            barCtx.fillText('Velocity (km/s)', 50, 30);
+
+            // Scale for bars
+            const maxV = Math.max(...Object.values(trajectories).map(t => t.velocity)) * 1.2;
+            const barWidth = 40;
+            const barSpacing = 20;
+            let xOffset = 100;
+
+            // Draw bars
+            for (const trajName in trajectories) {
+                const traj = trajectories[trajName];
+                const isSelected = trajName === selectedTrajectory;
+                const vHeight = (traj.velocity / maxV) * (barCanvas.height - 70);
+                barCtx.fillStyle = isSelected ? traj.color : traj.color + '80';
+                barCtx.fillRect(xOffset, barCanvas.height - 50 - vHeight, barWidth, vHeight);
+                if (isSelected) {
+                    barCtx.strokeStyle = 'black';
+                    barCtx.lineWidth = 2;
+                    barCtx.strokeRect(xOffset, barCanvas.height - 50 - vHeight, barWidth, vHeight);
+                }
+                barCtx.fillStyle = 'black';
+                barCtx.fillText(`${traj.velocity.toFixed(2)}`, xOffset + 5, barCanvas.height - 55 - vHeight);
+                barCtx.fillText(trajName, xOffset + 5, barCanvas.height - 20);
+                xOffset += barWidth + barSpacing;
+            }
         }
 
-        function resetSimulation() {
-            frameCount = 0; // Reset frame counter
-            initializeSimulation();
+        function animate() {
+            drawOrbitVisualization();
+            drawBarChart();
+            t += 100; // Time step (seconds)
+            requestAnimationFrame(animate);
         }
+
+        function updateVisualization() {
+            selectedTrajectory = document.getElementById('trajectorySelect').value;
+            t = 0; // Reset time
+            drawOrbitVisualization();
+            drawBarChart();
+        }
+
+        // Initial draw and start animation
+        drawOrbitVisualization();
+        drawBarChart();
+        animate();
     </script>
 </body>
 </html>
