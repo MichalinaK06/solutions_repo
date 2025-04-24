@@ -81,7 +81,7 @@ $$\pi \approx \frac{2L \times \text{Total throws}}{D \times \text{Number of cros
 
 ### **3. Visualization**
 
-[Buffon’s Needle method](needle.html)
+[Buffon’s Needle method](neddle.html)
 
 ### **4. Analysis**
 
