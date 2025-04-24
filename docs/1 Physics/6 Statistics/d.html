@@ -1,111 +1,114 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Estimating π with Monte Carlo (Circle Method)</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        canvas { border: 1px solid #000; margin: 20px auto; display: block; }
-        #piEstimate { font-size: 24px; font-weight: bold; }
-        button { padding: 8px 16px; margin: 5px; cursor: pointer; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Monte Carlo π Estimation</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+    canvas {
+      border: 2px solid black;
+      background-color: white;
+      margin-top: 20px;
+    }
+    #piEstimate {
+      margin-top: 20px;
+      font-size: 1.2rem;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 1rem;
+    }
+  </style>
 </head>
 <body>
-    <h1>Estimating π using Monte Carlo (Circle Method)</h1>
-    <canvas id="monteCarloCanvas" width="500" height="500"></canvas>
-    <div>
-        <button id="startButton">Start Simulation</button>
-        <button id="resetButton">Reset</button>
-        <button id="fastButton">Fast Mode (100x)</button>
-    </div>
-    <div>Points: <span id="pointCount">0</span></div>
-    <div>Estimated π: <span id="piEstimate">0</span></div>
-    <div>Actual π: 3.141592653589793</div>
-    <div>Error: <span id="error">0</span>%</div>
+  <h1>Monte Carlo π Estimation</h1>
+  <canvas id="canvas" width="400" height="400"></canvas>
+  <div id="piEstimate">Estimating π...</div>
+  <button onclick="startSimulation()">Start</button>
+  <button onclick="resetSimulation()">Reset</button>
 
-    <script>
-        const canvas = document.getElementById("monteCarloCanvas");
-        const ctx = canvas.getContext("2d");
-        const pointCountDisplay = document.getElementById("pointCount");
-        const piEstimateDisplay = document.getElementById("piEstimate");
-        const errorDisplay = document.getElementById("error");
-        const startButton = document.getElementById("startButton");
-        const resetButton = document.getElementById("resetButton");
-        const fastButton = document.getElementById("fastButton");
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    const width = canvas.width;
+    const height = canvas.height;
+    const radius = width / 2;
 
-        const width = canvas.width;
-        const height = canvas.height;
-        const centerX = width / 2;
-        const centerY = height / 2;
-        const radius = width / 2;
+    let totalPoints = 0;
+    let insideCircle = 0;
+    let running = false;
 
-        let totalPoints = 0;
-        let pointsInCircle = 0;
-        let animationId = null;
-        let fastMode = false;
+    // Draw square and circle
+    function drawCircle() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.strokeStyle = 'black';
+      ctx.beginPath();
+      ctx.arc(radius, radius, radius, 0, 2 * Math.PI);
+      ctx.stroke();
+    }
 
-        // Draw the initial circle
-        function drawCircle() {
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-            ctx.strokeStyle = "#000";
-            ctx.stroke();
-        }
+    function randomPoint() {
+      const x = Math.random() * width;
+      const y = Math.random() * height;
+      return { x, y };
+    }
 
-        function reset() {
-            totalPoints = 0;
-            pointsInCircle = 0;
-            pointCountDisplay.textContent = "0";
-            piEstimateDisplay.textContent = "0";
-            errorDisplay.textContent = "0";
-            ctx.clearRect(0, 0, width, height);
-            drawCircle();
-        }
+    function isInsideCircle(x, y) {
+      const dx = x - radius;
+      const dy = y - radius;
+      return dx * dx + dy * dy <= radius * radius;
+    }
 
-        function simulatePoint() {
-            for (let i = 0; i < (fastMode ? 100 : 1); i++) {
-                const x = Math.random() * width;
-                const y = Math.random() * height;
-                
-                const distance = Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2);
-                const isInside = distance <= radius;
-                
-                ctx.fillStyle = isInside ? "rgba(0, 100, 255, 0.5)" : "rgba(255, 50, 50, 0.5)";
-                ctx.fillRect(x, y, 2, 2);
-                
-                totalPoints++;
-                if (isInside) pointsInCircle++;
-                
-                const piEstimate = 4 * (pointsInCircle / totalPoints);
-                const error = Math.abs(piEstimate - Math.PI) / Math.PI * 100;
-                
-                pointCountDisplay.textContent = totalPoints.toLocaleString();
-                piEstimateDisplay.textContent = piEstimate.toFixed(6);
-                errorDisplay.textContent = error.toFixed(4);
-            }
-            
-            if (totalPoints < 100000) {
-                animationId = requestAnimationFrame(simulatePoint);
-            }
-        }
+    function drawPoint(x, y, inside) {
+      ctx.fillStyle = inside ? "blue" : "red";
+      ctx.fillRect(x, y, 2, 2);
+    }
 
-        startButton.addEventListener("click", () => {
-            if (!animationId) {
-                simulatePoint();
-            }
-        });
+    function updatePiEstimate() {
+      const estimate = 4 * (insideCircle / totalPoints);
+      document.getElementById("piEstimate").innerText = 
+        `Points: ${totalPoints} | Inside Circle: ${insideCircle} | Estimated π: ${estimate.toFixed(6)}`;
+    }
 
-        resetButton.addEventListener("click", () => {
-            cancelAnimationFrame(animationId);
-            animationId = null;
-            reset();
-        });
+    function simulateStep() {
+      if (!running) return;
 
-        fastButton.addEventListener("click", () => {
-            fastMode = !fastMode;
-            fastButton.textContent = fastMode ? "Fast Mode (100x)" : "Normal Mode";
-        });
+      for (let i = 0; i < 100; i++) {
+        const { x, y } = randomPoint();
+        const inside = isInsideCircle(x, y);
+        if (inside) insideCircle++;
+        totalPoints++;
+        drawPoint(x, y, inside);
+      }
 
-        reset();
-    </script>
+      updatePiEstimate();
+      requestAnimationFrame(simulateStep);
+    }
+
+    function startSimulation() {
+      if (!running) {
+        running = true;
+        simulateStep();
+      }
+    }
+
+    function resetSimulation() {
+      running = false;
+      totalPoints = 0;
+      insideCircle = 0;
+      drawCircle();
+      updatePiEstimate();
+    }
+
+    drawCircle();
+  </script>
 </body>
 </html>
