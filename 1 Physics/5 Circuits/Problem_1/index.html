@@ -287,6 +287,7 @@ End Function
 <h4 id="example-1-simple-series-combination">Example 1: Simple Series Combination</h4>
 <p><strong>Circuit</strong>: Two resistors in series, 2Ω and 3Ω, between nodes A and C via B.</p>
 <p><strong>Graph</strong>: A → B (2Ω), B → C (3Ω).</p>
+<p><img alt="alt text" src="../image.png"/></p>
 <p><strong>Reduction</strong>:</p>
 <ol>
 <li>
@@ -296,10 +297,12 @@ End Function
 <p>Graph becomes A → C (5Ω).</p>
 </li>
 </ol>
+<p><img alt="alt text" src="../image-1.png"/></p>
 <p><strong>Result</strong>: Equivalent resistance = 5Ω.</p>
 <h4 id="example-2-simple-parallel-combination">Example 2: Simple Parallel Combination</h4>
 <p><strong>Circuit</strong>: Two resistors in parallel, 4Ω and 6Ω, between nodes A and B.</p>
 <p><strong>Graph</strong>: A → B (4Ω), A → B (6Ω) (two edges).</p>
+<p><img alt="alt text" src="../image-2.png"/></p>
 <p><strong>Reduction</strong>:</p>
 <ol>
 <li>
@@ -309,6 +312,7 @@ End Function
 <p>Replace both edges with A-B (2.4Ω).</p>
 </li>
 </ol>
+<p><img alt="alt text" src="../image-3.png"/></p>
 <p><strong>Result</strong>: Equivalent resistance = 2.4Ω.</p>
 <h4 id="example-3-nested-configuration">Example 3: Nested Configuration</h4>
 <p><strong>Circuit</strong>: Two resistors in series (2Ω, 3Ω), with a parallel resistor (6Ω) across the pair.</p>
@@ -321,14 +325,17 @@ End Function
 <p>A → C (6Ω) [parallel across A-C].</p>
 </li>
 </ul>
+<p><img alt="alt text" src="../image-4.png"/></p>
 <p><strong>Reduction</strong>:</p>
 <ol>
-<li>
-<p>Reduce series A-B (2Ω) and B-C (3Ω): Remove B, add A-C (2 + 3 = 5Ω).</p>
-</li>
-<li>
-<p>Graph now has A → C (5Ω) and A → C (6Ω) [two edges in parallel].</p>
-</li>
+<li>Reduce series A-B (2Ω) and B-C (3Ω): Remove B, add A-C (2 + 3 = 5Ω).</li>
+</ol>
+<p><img alt="alt text" src="../image-5.png"/></p>
+<ol>
+<li>Graph now has A → C (5Ω) and A → C (6Ω) [two edges in parallel].</li>
+</ol>
+<p><img alt="alt text" src="../image-6.png"/></p>
+<ol>
 <li>
 <p>Compute parallel: <span class="arithmatex">\(R_{eq} = \frac{5 \cdot 6}{5 + 6} = \frac{30}{11} \approx 2.727Ω\)</span>.</p>
 </li>
