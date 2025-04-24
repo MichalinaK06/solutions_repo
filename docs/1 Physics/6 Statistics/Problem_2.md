@@ -40,7 +40,7 @@ $$ \pi \approx 4 \times \frac{\text{Number of points inside circle}}{\text{Total
 
 3. Estimate π using the ratio of points inside the circle to the total points.  
 
-[xx](d.html)
+[Circle method](d.html)
 
 ### **3. Visualization**
 
@@ -69,6 +69,8 @@ $$P = \frac{2L}{\pi D}$$
 $$\pi \approx \frac{2L \times \text{Total throws}}{D \times \text{Number of crossings}}$$  
 
 ### **2. Simulation**
+
+[Buffon’s Needle method](needle.html)
 
 1. Simulate random needle drops with random position and angle.  
 2. Check if the needle crosses any of the parallel lines.  
