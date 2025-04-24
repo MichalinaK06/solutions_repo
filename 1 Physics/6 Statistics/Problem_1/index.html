@@ -172,8 +172,6 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
 <h1 id="problem-1">Problem 1</h1>
-<p><a href="lol">1.py</a></p>
-<p><a href="../1.py">lol</a></p>
 <p>Let’s dive into this exploration of the Central Limit Theorem (CLT) through simulations! I’ll provide a clear, step-by-step approach with Python code to simulate sampling distributions, visualize the results, and discuss the findings. Below is a Markdown document with embedded Python scripts that you can use or adapt as needed.</p>
 <hr/>
 <h1 id="exploring-the-central-limit-theorem-through-simulations">Exploring the Central Limit Theorem through Simulations</h1>
@@ -279,6 +277,71 @@ for dist_name, pop in populations.items():
 <hr/>
 <h3 id="running-the-code">Running the Code</h3>
 <p>Copy the scripts into a Python environment with NumPy, Matplotlib, and Seaborn installed. Adjust parameters (e.g., <code>population_size</code>, <code>num_samples</code>) to explore further. The plots will visually demonstrate the CLT in action, making it a powerful learning tool!</p>
+<h1 id="exploring-the-central-limit-theorem-through-simulations_1"><strong>Exploring the Central Limit Theorem through Simulations</strong></h1>
+<h2 id="motivation"><strong>Motivation</strong></h2>
+<p>The <strong>Central Limit Theorem (CLT)</strong> is one of the most fundamental concepts in statistics. It states that, regardless of the underlying population distribution, the <strong>sampling distribution of the sample mean</strong> will approximate a <strong>normal distribution</strong> as the sample size increases. This theorem underpins many statistical methods, including hypothesis testing, confidence intervals, and regression analysis.</p>
+<h3 id="why-simulate-the-clt"><strong>Why Simulate the CLT?</strong></h3>
+<ul>
+<li><strong>Intuitive Understanding</strong>: Visualizing how sample means converge to normality helps solidify theoretical knowledge.</li>
+<li><strong>Hands-on Learning</strong>: Simulations allow experimentation with different distributions and sample sizes.</li>
+<li><strong>Real-World Applications</strong>: The CLT is crucial in fields like <strong>finance, quality control, and data science</strong>, where we often rely on sample means to make inferences about populations.</li>
+</ul>
+<hr/>
+<h2 id="task-simulating-the-clt"><strong>Task: Simulating the CLT</strong></h2>
+<h3 id="1-simulating-sampling-distributions_1"><strong>1. Simulating Sampling Distributions</strong></h3>
+<p>We will examine three different population distributions:
+1. <strong>Uniform Distribution</strong> (e.g., numbers between 0 and 1)
+2. <strong>Exponential Distribution</strong> (e.g., λ = 1, highly skewed)
+3. <strong>Binomial Distribution</strong> (e.g., n=10, p=0.5, discrete)</p>
+<p>For each distribution:
+- Generate a large population (e.g., 100,000 data points).
+- Take <strong>random samples</strong> of different sizes (e.g., n = 5, 10, 30, 50).
+- Compute the <strong>sample mean</strong> for each sample.
+- Repeat this process many times (e.g., 10,000 iterations) to build the <strong>sampling distribution of the mean</strong>.</p>
+<h3 id="2-visualization"><strong>2. Visualization</strong></h3>
+<p>For each distribution and sample size:
+- Plot a <strong>histogram</strong> of the sample means.
+- Overlay a <strong>normal distribution curve</strong> with the same mean and standard deviation.
+- Observe how the sampling distribution becomes more <strong>bell-shaped</strong> as the sample size increases.</p>
+<h3 id="3-key-observations"><strong>3. Key Observations</strong></h3>
+<ul>
+<li><strong>Effect of Sample Size</strong>:  </li>
+<li>Small samples (n=5) may not look normal, especially for skewed distributions.  </li>
+<li>Larger samples (n=30+) tend to approximate normality, regardless of the original distribution.  </li>
+<li><strong>Effect of Population Variance</strong>:  </li>
+<li>Higher variance in the population leads to a wider sampling distribution.  </li>
+<li>The <strong>standard error</strong> (SE = σ/√n) decreases as sample size increases.  </li>
+</ul>
+<h3 id="4-practical-applications_1"><strong>4. Practical Applications</strong></h3>
+<p>The CLT enables:
+- <strong>Confidence Intervals</strong>: Estimating population means from sample data.
+- <strong>Hypothesis Testing</strong>: Using z-tests and t-tests even if the original data isn’t normal.
+- <strong>Quality Control</strong>: Monitoring manufacturing processes using sample averages.
+- <strong>Financial Modeling</strong>: Predicting stock returns based on historical averages.</p>
+<hr/>
+<h2 id="deliverables"><strong>Deliverables</strong></h2>
+<ol>
+<li><strong>Markdown Report</strong> (like this one) explaining the CLT and simulation results.</li>
+<li><strong>Interactive Python/JavaScript Simulation</strong> (code provided below).</li>
+<li><strong>Plots</strong> showing:</li>
+<li>Original population distributions.</li>
+<li>Sampling distributions for different sample sizes.</li>
+<li>Convergence to normality as sample size increases.</li>
+</ol>
+<hr/>
+<h2 id="key-findings"><strong>Key Findings</strong></h2>
+<ol>
+<li><strong>Uniform Distribution</strong> → Sampling distribution becomes normal quickly (even at n=5).</li>
+<li><strong>Exponential Distribution</strong> → Needs larger n (≥30) to approximate normality due to skewness.</li>
+<li><strong>Binomial Distribution</strong> → Discrete nature is smoothed out as n increases.</li>
+</ol>
+<h2 id="conclusion"><strong>Conclusion</strong></h2>
+<p>This simulation demonstrates the <strong>power of the CLT</strong>—even with non-normal data, the sample mean's distribution converges to normality. This justifies many statistical techniques used in real-world data analysis.  </p>
+<p><strong>Try experimenting with:</strong>
+- Different sample sizes (n=5 vs. n=50).
+- Other distributions (e.g., Poisson, Pareto).
+- The impact of population skewness on convergence rate.  </p>
+<p>Would you like any modifications or additional features? 🚀</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">

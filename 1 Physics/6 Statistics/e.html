@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Central Limit Theorem Simulation</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        .container { display: flex; flex-wrap: wrap; justify-content: center; }
+        .plot-container { margin: 20px; width: 45%; }
+        canvas { border: 1px solid #ccc; max-width: 100%; }
+        button { padding: 8px 16px; margin: 5px; cursor: pointer; }
+        select, input { padding: 5px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Central Limit Theorem Simulation</h1>
+    <div>
+        <label for="distribution">Distribution:</label>
+        <select id="distribution">
+            <option value="uniform">Uniform (0-1)</option>
+            <option value="exponential">Exponential (λ=1)</option>
+            <option value="binomial">Binomial (n=10, p=0.5)</option>
+        </select>
+        <label for="sampleSize">Sample Size (n):</label>
+        <input id="sampleSize" type="number" value="5" min="1" max="100">
+        <label for="numSamples">Number of Samples:</label>
+        <input id="numSamples" type="number" value="1000" min="100" max="10000">
+        <button id="simulateBtn">Run Simulation</button>
+        <button id="resetBtn">Reset</button>
+    </div>
+    <div class="container">
+        <div class="plot-container">
+            <h3>Population Distribution</h3>
+            <canvas id="populationCanvas" width="400" height="300"></canvas>
+        </div>
+        <div class="plot-container">
+            <h3>Sampling Distribution of Mean</h3>
+            <canvas id="samplingCanvas" width="400" height="300"></canvas>
+        </div>
+    </div>
+    <div id="stats" style="margin-top: 20px;">
+        <p>Population Mean (μ): <span id="popMean">-</span></p>
+        <p>Population Std Dev (σ): <span id="popStd">-</span></p>
+        <p>Sample Mean (x̄): <span id="sampleMean">-</span></p>
+        <p>Std Error (σ/√n): <span id="stdError">-</span></p>
+    </div>
+
+    <script>
+        const populationCanvas = document.getElementById("populationCanvas");
+        const samplingCanvas = document.getElementById("samplingCanvas");
+        const popCtx = populationCanvas.getContext("2d");
+        const sampleCtx = samplingCanvas.getContext("2d");
+        const simulateBtn = document.getElementById("simulateBtn");
+        const resetBtn = document.getElementById("resetBtn");
+        const distributionSelect = document.getElementById("distribution");
+        const sampleSizeInput = document.getElementById("sampleSize");
+        const numSamplesInput = document.getElementById("numSamples");
+
+        // Stats displays
+        const popMeanDisplay = document.getElementById("popMean");
+        const popStdDisplay = document.getElementById("popStd");
+        const sampleMeanDisplay = document.getElementById("sampleMean");
+        const stdErrorDisplay = document.getElementById("stdError");
+
+        let population = [];
+        let sampleMeans = [];
+
+        function generatePopulation() {
+            const dist = distributionSelect.value;
+            const size = 100000;
+            population = [];
+
+            if (dist === "uniform") {
+                for (let i = 0; i < size; i++) {
+                    population.push(Math.random());
+                }
+            } else if (dist === "exponential") {
+                const lambda = 1;
+                for (let i = 0; i < size; i++) {
+                    population.push(-Math.log(1 - Math.random()) / lambda);
+                }
+            } else if (dist === "binomial") {
+                const n = 10, p = 0.5;
+                for (let i = 0; i < size; i++) {
+                    let successes = 0;
+                    for (let j = 0; j < n; j++) {
+                        if (Math.random() < p) successes++;
+                    }
+                    population.push(successes);
+                }
+            }
+
+            updatePopulationStats();
+            drawHistogram(population, popCtx, populationCanvas, "Population");
+        }
+
+        function updatePopulationStats() {
+            const mean = population.reduce((a, b) => a + b, 0) / population.length;
+            const variance = population.reduce((a, b) => a + (b - mean) ** 2, 0) / population.length;
+            const stdDev = Math.sqrt(variance);
+
+            popMeanDisplay.textContent = mean.toFixed(4);
+            popStdDisplay.textContent = stdDev.toFixed(4);
+        }
+
+        function runSimulation() {
+            const sampleSize = parseInt(sampleSizeInput.value);
+            const numSamples = parseInt(numSamplesInput.value);
+            sampleMeans = [];
+
+            for (let i = 0; i < numSamples; i++) {
+                const sample = [];
+                for (let j = 0; j < sampleSize; j++) {
+                    const randomIndex = Math.floor(Math.random() * population.length);
+                    sample.push(population[randomIndex]);
+                }
+                const sampleMean = sample.reduce((a, b) => a + b, 0) / sampleSize;
+                sampleMeans.push(sampleMean);
+            }
+
+            const meanOfMeans = sampleMeans.reduce((a, b) => a + b, 0) / sampleMeans.length;
+            const popStd = parseFloat(popStdDisplay.textContent);
+            const stdError = popStd / Math.sqrt(sampleSize);
+
+            sampleMeanDisplay.textContent = meanOfMeans.toFixed(4);
+            stdErrorDisplay.textContent = stdError.toFixed(4);
+
+            drawHistogram(sampleMeans, sampleCtx, samplingCanvas, "Sample Means");
+        }
+
+        function drawHistogram(data, ctx, canvas, title) {
+            const width = canvas.width;
+            const height = canvas.height;
+            ctx.clearRect(0, 0, width, height);
+
+            // Calculate histogram bins
+            const min = Math.min(...data);
+            const max = Math.max(...data);
+            const binCount = 20;
+            const binSize = (max - min) / binCount;
+            const bins = new Array(binCount).fill(0);
+
+            data.forEach(value => {
+                const binIndex = Math.min(Math.floor((value - min) / binSize), binCount - 1);
+                bins[binIndex]++;
+            });
+
+            // Normalize to canvas height
+            const maxBin = Math.max(...bins);
+            const scale = height / maxBin * 0.8;
+
+            // Draw bins
+            ctx.fillStyle = "steelblue";
+            for (let i = 0; i < binCount; i++) {
+                const binHeight = bins[i] * scale;
+                ctx.fillRect(
+                    i * (width / binCount),
+                    height - binHeight,
+                    width / binCount - 1,
+                    binHeight
+                );
+            }
+
+            // Draw title
+            ctx.fillStyle = "black";
+            ctx.font = "16px Arial";
+            ctx.fillText(title, 10, 20);
+        }
+
+        function reset() {
+            popCtx.clearRect(0, 0, populationCanvas.width, populationCanvas.height);
+            sampleCtx.clearRect(0, 0, samplingCanvas.width, samplingCanvas.height);
+            popMeanDisplay.textContent = "-";
+            popStdDisplay.textContent = "-";
+            sampleMeanDisplay.textContent = "-";
+            stdErrorDisplay.textContent = "-";
+        }
+
+        simulateBtn.addEventListener("click", () => {
+            generatePopulation();
+            runSimulation();
+        });
+
+        resetBtn.addEventListener("click", reset);
+
+        // Initialize
+        generatePopulation();
+    </script>
+</body>
+</html>
