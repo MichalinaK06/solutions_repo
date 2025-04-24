@@ -79,6 +79,8 @@ Since $\omega t$ is the same for all terms (coherent sources), this oscillates i
 
 ### Step 5: Analyze Interference Patterns
 
+![alt text](image.png)
+
 To understand the patterns, let’s consider the spatial part at a fixed time, say $t = 0$:
 
 $$
@@ -88,6 +90,10 @@ $$
 - **Constructive Interference**: Occurs when the $\cos(kr_i)$ terms are in phase (i.e., $kr_i$ values differ by multiples of $2\pi$), and the amplitudes add up. This happens when the distances $r_i$ from multiple sources to a point are such that $k(r_i - r_j) = 2\pi m$ (where $m$ is an integer).
 
 - **Destructive Interference**: Occurs when phases cancel, e.g., $k(r_i - r_j) = (2m + 1)\pi$, making $\cos(kr_i)$ terms oppose each other.
+
+![alt text](image-1.png)
+
+
 
 **Symmetry Insight**: Due to the square’s symmetry:
 
