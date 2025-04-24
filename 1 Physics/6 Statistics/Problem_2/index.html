@@ -214,17 +214,25 @@
 <p><img alt="alt text" src="../image.png"/></p>
 <h3 id="4-analysis"><strong>4. Analysis</strong></h3>
 <ul>
-<li><strong>Convergence</strong>: The estimate improves with more points, but the error decreases slowly (~1/√N).</li>
-<li><strong>Computational Considerations</strong>: Large N improves accuracy but increases runtime.</li>
+<li>
+<p><strong>Convergence</strong>: The estimate improves with more points, but the error decreases slowly (~1/√N).</p>
+</li>
+<li>
+<p><strong>Computational Considerations</strong>: Large N improves accuracy but increases runtime.</p>
+</li>
 </ul>
 <hr/>
 <h2 id="part-2-estimating-using-buffons-needle"><strong>Part 2: Estimating π Using Buffon’s Needle</strong></h2>
 <h3 id="1-theoretical-foundation_1"><strong>1. Theoretical Foundation</strong></h3>
-<p>Buffon’s Needle involves dropping a needle of length <span class="arithmatex">\( L \)</span> on a plane with parallel lines spaced distance <span class="arithmatex">\( D \)</span> apart.<br/>
-- If <span class="arithmatex">\( L \leq D \)</span>, the probability <span class="arithmatex">\( P \)</span> of the needle crossing a line is:<br/>
-[ P = \frac{2L}{\pi D} ]<br/>
-- Solving for π:<br/>
-[ \pi \approx \frac{2L \times \text{Total throws}}{D \times \text{Number of crossings}} ]  </p>
+<p>Buffon’s Needle involves dropping a needle of length <span class="arithmatex">\(L\)</span> on a plane with parallel lines spaced distance <span class="arithmatex">\(D\)</span> apart.  </p>
+<ul>
+<li>If <span class="arithmatex">\(L \leq D\)</span>, the probability <span class="arithmatex">\(P\)</span> of the needle crossing a line is:</li>
+</ul>
+<div class="arithmatex">\[P = \frac{2L}{\pi D}\]</div>
+<ul>
+<li>Solving for π:<br/>
+<span class="arithmatex">\(<span class="arithmatex">\(\pi \approx \frac{2L \times \text{Total throws}}{D \times \text{Number of crossings}}\)</span>\)</span> </li>
+</ul>
 <h3 id="2-simulation_1"><strong>2. Simulation</strong></h3>
 <ol>
 <li>Simulate random needle drops with random position and angle.  </li>
@@ -240,36 +248,8 @@
 <li><strong>Convergence</strong>: Slower than the circle method (~1/N).</li>
 <li><strong>Comparison</strong>: The circle method is more efficient for the same number of iterations.</li>
 </ul>
-<hr/>
-<h2 id="deliverables"><strong>Deliverables</strong></h2>
-<ol>
-<li><strong>Markdown Report</strong> (this document).  </li>
-<li><strong>Python Implementation</strong> (Jupyter Notebook or script) with:  </li>
-<li>Circle-based π estimation.  </li>
-<li>Buffon’s Needle simulation.  </li>
-<li><strong>Graphical Outputs</strong> </li>
-<li>Scatter plots for the circle method.  </li>
-<li>Needle-drop visualizations for Buffon’s method.  </li>
-<li><strong>Analysis</strong> </li>
-<li>Convergence plots (π estimate vs. number of iterations).  </li>
-<li>Comparison of computational efficiency.  </li>
-</ol>
-<hr/>
 <h2 id="conclusion"><strong>Conclusion</strong></h2>
 <p>Monte Carlo methods provide an engaging way to estimate π using randomness. While the circle method converges faster, Buffon’s Needle offers historical and geometric insights. Both methods illustrate the power of probabilistic simulations in numerical computation.  </p>
-<p><strong>Further Exploration</strong>:<br/>
-- Variance reduction techniques (e.g., importance sampling).<br/>
-- Higher-dimensional generalizations (e.g., sphere in a cube).<br/>
-- Parallel computing for faster convergence.  </p>
-<hr/>
-<h3 id="references-resources"><strong>References &amp; Resources</strong></h3>
-<ul>
-<li><em>Numerical Recipes</em> by Press et al.  </li>
-<li><em>Introduction to Probability Models</em> by Sheldon Ross.  </li>
-<li>Python libraries: <code>numpy</code>, <code>matplotlib</code>, <code>random</code>.  </li>
-</ul>
-<hr/>
-<p>Would you like the accompanying Python code for these simulations?</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
