@@ -218,7 +218,7 @@
 <p><strong>Convergence</strong>: The estimate improves with more points, but the error decreases slowly (~1/√N).</p>
 </li>
 <li>
-<p><strong>Computational Considerations</strong>: Large N improves accuracy but increases runtime.</p>
+<p><strong>Computational Considerations</strong>: Large number of points improves accuracy but increases runtime.</p>
 </li>
 </ul>
 <hr/>
@@ -230,24 +230,31 @@
 </ul>
 <div class="arithmatex">\[P = \frac{2L}{\pi D}\]</div>
 <ul>
-<li>Solving for π:<br/>
-<span class="arithmatex">\(<span class="arithmatex">\(\pi \approx \frac{2L \times \text{Total throws}}{D \times \text{Number of crossings}}\)</span>\)</span> </li>
+<li>Solving for π:  </li>
 </ul>
+<div class="arithmatex">\[\pi \approx \frac{2L \times \text{Total throws}}{D \times \text{Number of crossings}}\]</div>
 <h3 id="2-simulation_1"><strong>2. Simulation</strong></h3>
-<p><a href="needle.html">Buffon’s Needle method</a></p>
 <ol>
-<li>Simulate random needle drops with random position and angle.  </li>
-<li>Check if the needle crosses any of the parallel lines.  </li>
-<li>Estimate π using the derived formula.  </li>
+<li>
+<p>Simulate random needle drops with random position and angle. </p>
+</li>
+<li>
+<p>Check if the needle crosses any of the parallel lines.  </p>
+</li>
+<li>
+<p>Estimate π using the derived formula.  </p>
+</li>
 </ol>
 <h3 id="3-visualization_1"><strong>3. Visualization</strong></h3>
-<p>A plot can show:
-- The parallel lines.
-- Needles colored differently based on whether they cross a line.</p>
+<p><a href="needle.html">Buffon’s Needle method</a></p>
 <h3 id="4-analysis_1"><strong>4. Analysis</strong></h3>
 <ul>
-<li><strong>Convergence</strong>: Slower than the circle method (~1/N).</li>
-<li><strong>Comparison</strong>: The circle method is more efficient for the same number of iterations.</li>
+<li>
+<p><strong>Convergence</strong>: Slower than the circle method (~1/N).</p>
+</li>
+<li>
+<p><strong>Comparison</strong>: The circle method is more efficient for the same number of iterations.</p>
+</li>
 </ul>
 <h2 id="conclusion"><strong>Conclusion</strong></h2>
 <p>Monte Carlo methods provide an engaging way to estimate π using randomness. While the circle method converges faster, Buffon’s Needle offers historical and geometric insights. Both methods illustrate the power of probabilistic simulations in numerical computation.  </p>
