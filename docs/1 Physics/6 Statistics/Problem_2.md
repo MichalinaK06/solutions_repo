@@ -51,7 +51,7 @@ $$ \pi \approx 4 \times \frac{\text{Number of points inside circle}}{\text{Total
 
 - **Convergence**: The estimate improves with more points, but the error decreases slowly (~1/√N).
 
-- **Computational Considerations**: Large N improves accuracy but increases runtime.
+- **Computational Considerations**: Large number of points improves accuracy but increases runtime.
 
 ---
 
@@ -66,24 +66,27 @@ Buffon’s Needle involves dropping a needle of length $L$ on a plane with paral
 $$P = \frac{2L}{\pi D}$$  
 
 - Solving for π:  
+
 $$\pi \approx \frac{2L \times \text{Total throws}}{D \times \text{Number of crossings}}$$  
 
 ### **2. Simulation**
 
-[Buffon’s Needle method](needle.html)
 
-1. Simulate random needle drops with random position and angle.  
+
+1. Simulate random needle drops with random position and angle. 
+
 2. Check if the needle crosses any of the parallel lines.  
+
 3. Estimate π using the derived formula.  
 
 ### **3. Visualization**
 
-A plot can show:
-- The parallel lines.
-- Needles colored differently based on whether they cross a line.
+[Buffon’s Needle method](needle.html)
 
 ### **4. Analysis**
+
 - **Convergence**: Slower than the circle method (~1/N).
+
 - **Comparison**: The circle method is more efficient for the same number of iterations.
 
 
