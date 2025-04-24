@@ -104,11 +104,19 @@ End Function
 
 **Graph**: A → B (2Ω), B → C (3Ω).
 
+![alt text](image.png)
+
+
+
 **Reduction**:
 
   1. Node B has degree 2. Replace A-B (2Ω) and B-C (3Ω) with A-C (2 + 3 = 5Ω).
 
   2. Graph becomes A → C (5Ω).
+
+  ![alt text](image-1.png)
+
+
 
 **Result**: Equivalent resistance = 5Ω.
 
@@ -118,11 +126,17 @@ End Function
 
 **Graph**: A → B (4Ω), A → B (6Ω) (two edges).
 
+![alt text](image-2.png)
+
+
+
 **Reduction**:
 
   1. Parallel edges detected. Compute $R_{eq} = \frac{4 \cdot 6}{4 + 6} = \frac{24}{10} = 2.4Ω$.
 
   2. Replace both edges with A-B (2.4Ω).
+
+  ![alt text](image-3.png)
 
 **Result**: Equivalent resistance = 2.4Ω.
 
@@ -136,11 +150,17 @@ End Function
 
   - A → C (6Ω) [parallel across A-C].
 
+  ![alt text](image-4.png)
+
 **Reduction**:
 
   1. Reduce series A-B (2Ω) and B-C (3Ω): Remove B, add A-C (2 + 3 = 5Ω).
 
+![alt text](image-5.png)
+
   2. Graph now has A → C (5Ω) and A → C (6Ω) [two edges in parallel].
+
+  ![alt text](image-6.png)
 
   3. Compute parallel: $R_{eq} = \frac{5 \cdot 6}{5 + 6} = \frac{30}{11} \approx 2.727Ω$.
 
