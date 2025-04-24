@@ -91,43 +91,43 @@ $$v_3 \approx \sqrt{v_2^2 + v_{\infty}^2}$$
 
 #### Earth
 
-- $$v_1 = \sqrt{\frac{6.67430 \times 10^{-11} \cdot 5.972 \times 10^{24}}{6.371 \times 10^6}} = 7.91 \, \text{km/s}$$
+- $v_1 = \sqrt{\frac{6.67430 \times 10^{-11} \cdot 5.972 \times 10^{24}}{6.371 \times 10^6}} = 7.91 \, \text{km/s}$
 
-- $$v_2 = \sqrt{2} \cdot 7.91 = 11.19 \, \text{km/s}$$
+- $v_2 = \sqrt{2} \cdot 7.91 = 11.19 \, \text{km/s}$
 
-- $$v_{\text{esc,Sun}} = \sqrt{\frac{2 \cdot 6.67430 \times 10^{-11} \cdot 1.989 \times 10^{30}}{1.496 \times 10^{11}}} = 42.1 \, \text{km/s}$$
+- $v_{\text{esc,Sun}} = \sqrt{\frac{2 \cdot 6.67430 \times 10^{-11} \cdot 1.989 \times 10^{30}}{1.496 \times 10^{11}}} = 42.1 \, \text{km/s}$
 
-- $$v_{\text{orbit}} = 29.8 \, \text{km/s}$$
+- $v_{\text{orbit}} = 29.8 \, \text{km/s}$
 
-- $$v_{\infty} = 42.1 - 29.8 = 12.3 \, \text{km/s}$$
+- $v_{\infty} = 42.1 - 29.8 = 12.3 \, \text{km/s}$
 
-- $$v_3 \approx \sqrt{11.19^2 + 12.3^2} = 16.7 \, \text{km/s}$$
+- $v_3 \approx \sqrt{11.19^2 + 12.3^2} = 16.7 \, \text{km/s}$
 
 #### Mars
-- $$v_1 = \sqrt{\frac{6.67430 \times 10^{-11} \cdot 6.417 \times 10^{23}}{3.39 \times 10^6}} = 3.55 \, \text{km/s}$$
+- $v_1 = \sqrt{\frac{6.67430 \times 10^{-11} \cdot 6.417 \times 10^{23}}{3.39 \times 10^6}} = 3.55 \, \text{km/s}$
 
-- $$v_2 = \sqrt{2} \cdot 3.55 = 5.02 \, \text{km/s}$$
+- $v_2 = \sqrt{2} \cdot 3.55 = 5.02 \, \text{km/s}$
 
-- $$v_{\text{esc,Sun}} = \sqrt{\frac{2 \cdot 6.67430 \times 10^{-11} \cdot 1.989 \times 10^{30}}{1.524 \cdot 1.496 \times 10^{11}}} = 34.1 \, \text{km/s}$$
+- $v_{\text{esc,Sun}} = \sqrt{\frac{2 \cdot 6.67430 \times 10^{-11} \cdot 1.989 \times 10^{30}}{1.524 \cdot 1.496 \times 10^{11}}} = 34.1 \, \text{km/s}$
 
-- $$v_{\text{orbit}} = 24.1 \, \text{km/s}$$
+- $v_{\text{orbit}} = 24.1 \, \text{km/s}$
 
-- $$v_{\infty} = 34.1 - 24.1 = 10.0 \, \text{km/s}$$
+- $v_{\infty} = 34.1 - 24.1 = 10.0 \, \text{km/s}$
 
-- $$v_3 \approx \sqrt{5.02^2 + 10.0^2} = 11.2 \, \text{km/s}$$
+- $v_3 \approx \sqrt{5.02^2 + 10.0^2} = 11.2 \, \text{km/s}$
 
 #### Jupiter
-- $$v_1 = \sqrt{\frac{6.67430 \times 10^{-11} \cdot 1.899 \times 10^{27}}{6.9911 \times 10^7}} = 42.6 \, \text{km/s}$$
+- $v_1 = \sqrt{\frac{6.67430 \times 10^{-11} \cdot 1.899 \times 10^{27}}{6.9911 \times 10^7}} = 42.6 \, \text{km/s}$
 
-- $$v_2 = \sqrt{2} \cdot 42.6 = 60.2 \, \text{km/s}$$
+- $v_2 = \sqrt{2} \cdot 42.6 = 60.2 \, \text{km/s}$
 
-- $$v_{\text{esc,Sun}} = \sqrt{\frac{2 \cdot 6.67430 \times 10^{-11} \cdot 1.989 \times 10^{30}}{5.203 \cdot 1.496 \times 10^{11}}} = 18.5 \, \text{km/s}$$
+- $v_{\text{esc,Sun}} = \sqrt{\frac{2 \cdot 6.67430 \times 10^{-11} \cdot 1.989 \times 10^{30}}{5.203 \cdot 1.496 \times 10^{11}}} = 18.5 \, \text{km/s}$
 
-- $$v_{\text{orbit}} = 13.1 \, \text{km/s}$$
+- $v_{\text{orbit}} = 13.1 \, \text{km/s}$
 
-- $$v_{\infty} = 18.5 - 13.1 = 5.4 \, \text{km/s}$$
+- $v_{\infty} = 18.5 - 13.1 = 5.4 \, \text{km/s}$
 
-- $$v_3 \approx \sqrt{60.2^2 + 5.4^2} = 60.4 \, \text{km/s}$$
+- $v_3 \approx \sqrt{60.2^2 + 5.4^2} = 60.4 \, \text{km/s}$
 
 ### Visualization
 

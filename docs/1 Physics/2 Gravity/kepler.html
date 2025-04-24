@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kepler's Third Law Graph</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        canvas {
+            max-width: 800px;
+            width: 100%;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="keplerChart"></canvas>
+    <script>
+        // Planetary data: Orbital Period (years), Semi-major Axis (AU)
+        const planets = [
+            { name: "Mercury", period: 0.2408467, radius: 0.387098 },
+            { name: "Venus", period: 0.61519726, radius: 0.723332 },
+            { name: "Earth", period: 1.0000174, radius: 1.000000 },
+            { name: "Mars", period: 1.8808476, radius: 1.523679 },
+            { name: "Jupiter", period: 11.862615, radius: 5.203363 },
+            { name: "Saturn", period: 29.447498, radius: 9.537070 },
+            { name: "Uranus", period: 84.016846, radius: 19.191263 },
+            { name: "Neptune", period: 164.79132, radius: 30.068963 }
+        ];
+
+        // Prepare data for Kepler's Third Law: T^2 vs a^3
+        const dataPoints = planets.map(planet => ({
+            x: Math.pow(planet.radius, 3), // a^3
+            y: Math.pow(planet.period, 2), // T^2
+            label: planet.name
+        }));
+
+        // Generate points for the diagonal line (T^2 = a^3)
+        const lineData = [];
+        const maxRadiusCubed = Math.pow(30.068963, 3);
+        for (let x = 0; x <= maxRadiusCubed; x += maxRadiusCubed / 50) {
+            lineData.push({ x: x, y: x });
+        }
+
+        // Create the chart
+        const ctx = document.getElementById('keplerChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'scatter',
+            data: {
+                datasets: [
+                    {
+                        label: 'Planets (T² vs a³)',
+                        data: dataPoints,
+                        backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        pointRadius: 6,
+                        pointHoverRadius: 8
+                    },
+                    {
+                        label: 'T² = a³ Line',
+                        data: lineData,
+                        type: 'line',
+                        fill: false,
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        showLine: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        title: {
+                            display: true,
+                            text: 'Semi-major Axis Cubed (a³, AU³)'
+                        }
+                    },
+                    y: {
+                        type: 'linear',
+                        title: {
+                            display: true,
+                            text: 'Orbital Period Squared (T², years²)'
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                if (context.dataset.label === 'Planets (T² vs a³)') {
+                                    return `${context.raw.label}: (a³=${context.raw.x.toFixed(2)}, T²=${context.raw.y.toFixed(2)})`;
+                                }
+                                return `T² = a³: (${context.raw.x.toFixed(2)}, ${context.raw.y.toFixed(2)})`;
+                            }
+                        }
+                    },
+                    legend: {
+                        display: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

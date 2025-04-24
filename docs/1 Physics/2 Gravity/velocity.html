@@ -34,10 +34,14 @@
     <div class="controls">
         <label>Select Celestial Body: 
             <select id="bodySelect">
+                <option value="Mercury">Mercury</option>
+                <option value="Venus">Venus</option>
                 <option value="Earth">Earth</option>
-                <option value="Moon">Moon</option>
                 <option value="Mars">Mars</option>
                 <option value="Jupiter">Jupiter</option>
+                <option value="Saturn">Saturn</option>
+                <option value="Uranus">Uranus</option>
+                <option value="Neptune">Neptune</option>
             </select>
         </label>
         <br><br>
@@ -66,10 +70,14 @@
 
         // Celestial body data (mass in kg, radius in km)
         const bodies = {
+            Mercury: { mass: 3.285e23, radius: 2439.7, color: '#b0b0b0' },
+            Venus: { mass: 4.867e24, radius: 6051.8, color: '#e6b800' },
             Earth: { mass: 5.972e24, radius: 6371, color: 'blue' },
-            Moon: { mass: 7.342e22, radius: 1737.4, color: 'gray' },
             Mars: { mass: 6.417e23, radius: 3390, color: 'red' },
-            Jupiter: { mass: 1.898e27, radius: 69911, color: 'orange' }
+            Jupiter: { mass: 1.898e27, radius: 69911, color: 'orange' },
+            Saturn: { mass: 5.683e26, radius: 58232, color: '#d4a017' },
+            Uranus: { mass: 8.681e25, radius: 25362, color: '#4fd0e7' },
+            Neptune: { mass: 1.024e26, radius: 24622, color: '#4682b4' }
         };
 
         let selectedBody = 'Earth';
@@ -143,10 +151,6 @@
         function drawBarChart() {
             barCtx.clearRect(0, 0, barCanvas.width, barCanvas.height);
 
-            const body = bodies[selectedBody];
-            const v1 = getFirstCosmicVelocity(body.mass, body.radius);
-            const v2 = getSecondCosmicVelocity(body.mass, body.radius);
-
             // Draw axes
             barCtx.beginPath();
             barCtx.moveTo(50, barCanvas.height - 50);
@@ -161,32 +165,66 @@
             barCtx.fillStyle = 'black';
             barCtx.font = '12px Arial';
             barCtx.fillText('Velocity (km/s)', 50, 30);
-            barCtx.fillText(selectedBody, barCanvas.width / 2 - 20, barCanvas.height - 20);
 
-            // Scale for bars
-            const maxV = Math.max(v2, 20) * 1.2; // Ensure some headroom
-            const barWidth = 80;
-            const barSpacing = 40;
+            // Find max velocity for scaling
+            let maxV = 0;
+            for (const bodyName in bodies) {
+                const v2 = getSecondCosmicVelocity(bodies[bodyName].mass, bodies[bodyName].radius);
+                maxV = Math.max(maxV, v2);
+            }
+            maxV *= 1.2; // Add headroom
 
-            // First Cosmic Velocity Bar
-            const v1Height = (v1 / maxV) * (barCanvas.height - 70);
-            barCtx.fillStyle = 'green';
-            barCtx.fillRect(100, barCanvas.height - 50 - v1Height, barWidth, v1Height);
-            barCtx.fillStyle = 'black';
-            barCtx.fillText(`V1: ${v1.toFixed(2)}`, 100, barCanvas.height - 55 - v1Height);
+            const barWidth = 10;
+            const barSpacing = 5;
+            const groupSpacing = 15;
+            let xOffset = 60;
 
-            // Escape Velocity Bar
-            const v2Height = (v2 / maxV) * (barCanvas.height - 70);
-            barCtx.fillStyle = 'red';
-            barCtx.fillRect(100 + barWidth + barSpacing, barCanvas.height - 50 - v2Height, barWidth, v2Height);
-            barCtx.fillStyle = 'black';
-            barCtx.fillText(`V2: ${v2.toFixed(2)}`, 100 + barWidth + barSpacing, barCanvas.height - 55 - v2Height);
+            // Draw bars for each planet
+            for (const bodyName in bodies) {
+                const body = bodies[bodyName];
+                const v1 = getFirstCosmicVelocity(body.mass, body.radius);
+                const v2 = getSecondCosmicVelocity(body.mass, body.radius);
+                const isSelected = bodyName === selectedBody;
+
+                // First Cosmic Velocity Bar
+                const v1Height = (v1 / maxV) * (barCanvas.height - 70);
+                barCtx.fillStyle = isSelected ? '#00cc00' : 'green';
+                barCtx.fillRect(xOffset, barCanvas.height - 50 - v1Height, barWidth, v1Height);
+                if (isSelected) {
+                    barCtx.strokeStyle = 'black';
+                    barCtx.lineWidth = 2;
+                    barCtx.strokeRect(xOffset, barCanvas.height - 50 - v1Height, barWidth, v1Height);
+                }
+                barCtx.fillStyle = 'black';
+                barCtx.fillText(`V1: ${v1.toFixed(2)}`, xOffset, barCanvas.height - 55 - v1Height);
+
+                // Escape Velocity Bar
+                const v2Height = (v2 / maxV) * (barCanvas.height - 70);
+                barCtx.fillStyle = isSelected ? '#ff3333' : 'red';
+                barCtx.fillRect(xOffset + barWidth + barSpacing, barCanvas.height - 50 - v2Height, barWidth, v2Height);
+                if (isSelected) {
+                    barCtx.strokeStyle = 'black';
+                    barCtx.lineWidth = 2;
+                    barCtx.strokeRect(xOffset + barWidth + barSpacing, barCanvas.height - 50 - v2Height, barWidth, v2Height);
+                }
+                barCtx.fillStyle = 'black';
+                barCtx.fillText(`V2: ${v2.toFixed(2)}`, xOffset + barWidth + barSpacing, barCanvas.height - 55 - v2Height);
+
+                // Label planet name
+                barCtx.save();
+                barCtx.translate(xOffset + barWidth, barCanvas.height - 20);
+                barCtx.rotate(-Math.PI / 4);
+                barCtx.fillText(bodyName, 0, 0);
+                barCtx.restore();
+
+                xOffset += (2 * barWidth + barSpacing + groupSpacing);
+            }
         }
 
         function animate() {
             drawOrbitVisualization();
             drawBarChart();
-            t += 0.02; // Time step
+            t += 0.005; // Slower time step for better visibility
             requestAnimationFrame(animate);
         }
 

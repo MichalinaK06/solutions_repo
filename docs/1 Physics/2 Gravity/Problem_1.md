@@ -6,6 +6,10 @@
 
 To derive the relationship between the square of the orbital period ($T^2$) and the cube of the orbital radius ($r^3$) for a body in a circular orbit, we start with the physics of circular motion and gravity.
 
+How it works:
+
+![alt text](image.png)
+
 #### 1. **Gravitational Force as the Centripetal Force**:
 
 - A body (e.g., a planet or satellite) in a circular orbit around a central mass (e.g., a star or planet) is held in place by gravity, which provides the necessary centripetal force to maintain circular motion.
@@ -142,45 +146,14 @@ $$
 
 ### Real-World Examples
 
-#### 1. **Moon’s Orbit Around Earth**:
+#### How Kepler’s Third Law is Used in Astronomy:
 
-- Orbital period: $T \approx 27.32$ days $= 2.36 \times 10^6$ seconds.
+[How kepler's 3rd law works.](kepler.html)
 
-- Orbital radius: $r \approx 384,400$ km $= 3.844 \times 10^8$ m.
+[Planet parameters](https://nssdc.gsfc.nasa.gov/planetary/factsheet/)
 
-- Earth’s mass: $M \approx 5.972 \times 10^{24}$ kg, $G = 6.674 \times 10^{-11}$ m³ kg⁻¹ s⁻².
+Used in the graph are Distance from the sun(AU) and Orbital period (days).
 
-- Check: $T^2 = \frac{4\pi^2}{G M} r^3$:
-
-$$
-\frac{4\pi^2}{G M} = \frac{4 \times (3.1416)^2}{(6.674 \times 10^{-11}) \times (5.972 \times 10^{24})} \approx 9.9 \times 10^{-14} \, \text{s}^2 \text{m}^{-3}
-$$
-
-$$
-r^3 = (3.844 \times 10^8)^3 \approx 5.68 \times 10^{25} \, \text{m}^3
-$$
-
-$$
-T^2 = (9.9 \times 10^{-14}) \times (5.68 \times 10^{25}) \approx 5.62 \times 10^{12} \, \text{s}^2
-$$
-
-$$
-T = \sqrt{5.62 \times 10^{12}} \approx 2.37 \times 10^6 \, \text{s}
-$$
-
-- Matches closely with $2.36 × 10⁶$ s, confirming the law holds.
-
-#### 2. **Earth’s Orbit Around the Sun**:
-
-- $T = 1$ year $= 3.156 \times 10^7$ s, $r = 1$ AU $= 1.496 \times 10^{11}$ m.
-
-- Sun’s mass: $M \approx 1.989 \times 10^{30}$ kg.
-
-- Similar calculations verify the relationship.
-
-### Simulations
-
-[Orbits and Kepler’s Laws](orbit.html)
 
 
 
