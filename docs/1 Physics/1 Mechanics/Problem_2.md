@@ -2,6 +2,8 @@
 
 ## Investigating the Dynamics of a Forced Damped Pendulum
 
+![alt text](image-2.png)
+
 ### 1. Theoretical Foundation
 
 #### Differential Equation
