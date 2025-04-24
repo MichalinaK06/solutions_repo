@@ -172,6 +172,106 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
 <h1 id="problem-2">Problem 2</h1>
+<h1 id="estimating-using-monte-carlo-methods"><strong>Estimating π using Monte Carlo Methods</strong></h1>
+<h2 id="motivation"><strong>Motivation</strong></h2>
+<p>Monte Carlo methods are computational algorithms that rely on random sampling to estimate numerical results. One of the most intuitive applications is estimating the value of π using geometric probability. This approach demonstrates how randomness can be harnessed to solve deterministic problems, providing insights into probability, geometry, and numerical convergence.</p>
+<p>Two classic Monte Carlo methods for estimating π are:</p>
+<ol>
+<li>
+<p><strong>Circle-based method</strong>: Dropping random points inside a square and counting those that fall within an inscribed circle.</p>
+</li>
+<li>
+<p><strong>Buffon’s Needle method</strong>: Randomly dropping needles on a lined surface and using the probability of crossings to estimate π.</p>
+</li>
+</ol>
+<p>These methods not only offer a visual and interactive way to approximate π but also serve as an introduction to stochastic simulations in computational mathematics.</p>
+<hr/>
+<h2 id="part-1-estimating-using-a-circle"><strong>Part 1: Estimating π Using a Circle</strong></h2>
+<h3 id="1-theoretical-foundation"><strong>1. Theoretical Foundation</strong></h3>
+<p>Consider a unit circle (radius = 1) inscribed inside a square with side length 2.  </p>
+<ul>
+<li><strong>Area of the circle</strong> = <span class="arithmatex">\(πr² = π(1)² = π\)</span> </li>
+<li><strong>Area of the square</strong> = <span class="arithmatex">\(side² = 2² = 4\)</span> </li>
+</ul>
+<p>If we randomly scatter points inside the square, the probability that a point lands inside the circle is: </p>
+<div class="arithmatex">\[ P(\text{inside circle}) = \frac{\text{Area of circle}}{\text{Area of square}} = \frac{\pi}{4} \]</div>
+<p>Rearranging, we get:  </p>
+<div class="arithmatex">\[ \pi \approx 4 \times \frac{\text{Number of points inside circle}}{\text{Total number of points}} \]</div>
+<h3 id="2-simulation"><strong>2. Simulation</strong></h3>
+<ol>
+<li>
+<p>Generate random <span class="arithmatex">\((x, y)\)</span> points in the range <span class="arithmatex">\([-1, 1] × [-1, 1]\)</span>.  </p>
+</li>
+<li>
+<p>Check if each point satisfies $ x^2 + y^2 \leq 1 $ (inside the circle).  </p>
+</li>
+<li>
+<p>Estimate π using the ratio of points inside the circle to the total points.  </p>
+</li>
+</ol>
+<p><a href="../d.html">xx</a></p>
+<h3 id="3-visualization"><strong>3. Visualization</strong></h3>
+<p>A scatter plot can be generated where:
+- Points inside the circle are colored differently from those outside.
+- The circle boundary is drawn for reference.</p>
+<h3 id="4-analysis"><strong>4. Analysis</strong></h3>
+<ul>
+<li><strong>Convergence</strong>: The estimate improves with more points, but the error decreases slowly (~1/√N).</li>
+<li><strong>Computational Considerations</strong>: Large N improves accuracy but increases runtime.</li>
+</ul>
+<hr/>
+<h2 id="part-2-estimating-using-buffons-needle"><strong>Part 2: Estimating π Using Buffon’s Needle</strong></h2>
+<h3 id="1-theoretical-foundation_1"><strong>1. Theoretical Foundation</strong></h3>
+<p>Buffon’s Needle involves dropping a needle of length <span class="arithmatex">\( L \)</span> on a plane with parallel lines spaced distance <span class="arithmatex">\( D \)</span> apart.<br/>
+- If <span class="arithmatex">\( L \leq D \)</span>, the probability <span class="arithmatex">\( P \)</span> of the needle crossing a line is:<br/>
+[ P = \frac{2L}{\pi D} ]<br/>
+- Solving for π:<br/>
+[ \pi \approx \frac{2L \times \text{Total throws}}{D \times \text{Number of crossings}} ]  </p>
+<h3 id="2-simulation_1"><strong>2. Simulation</strong></h3>
+<ol>
+<li>Simulate random needle drops with random position and angle.  </li>
+<li>Check if the needle crosses any of the parallel lines.  </li>
+<li>Estimate π using the derived formula.  </li>
+</ol>
+<h3 id="3-visualization_1"><strong>3. Visualization</strong></h3>
+<p>A plot can show:
+- The parallel lines.
+- Needles colored differently based on whether they cross a line.</p>
+<h3 id="4-analysis_1"><strong>4. Analysis</strong></h3>
+<ul>
+<li><strong>Convergence</strong>: Slower than the circle method (~1/N).</li>
+<li><strong>Comparison</strong>: The circle method is more efficient for the same number of iterations.</li>
+</ul>
+<hr/>
+<h2 id="deliverables"><strong>Deliverables</strong></h2>
+<ol>
+<li><strong>Markdown Report</strong> (this document).  </li>
+<li><strong>Python Implementation</strong> (Jupyter Notebook or script) with:  </li>
+<li>Circle-based π estimation.  </li>
+<li>Buffon’s Needle simulation.  </li>
+<li><strong>Graphical Outputs</strong> </li>
+<li>Scatter plots for the circle method.  </li>
+<li>Needle-drop visualizations for Buffon’s method.  </li>
+<li><strong>Analysis</strong> </li>
+<li>Convergence plots (π estimate vs. number of iterations).  </li>
+<li>Comparison of computational efficiency.  </li>
+</ol>
+<hr/>
+<h2 id="conclusion"><strong>Conclusion</strong></h2>
+<p>Monte Carlo methods provide an engaging way to estimate π using randomness. While the circle method converges faster, Buffon’s Needle offers historical and geometric insights. Both methods illustrate the power of probabilistic simulations in numerical computation.  </p>
+<p><strong>Further Exploration</strong>:<br/>
+- Variance reduction techniques (e.g., importance sampling).<br/>
+- Higher-dimensional generalizations (e.g., sphere in a cube).<br/>
+- Parallel computing for faster convergence.  </p>
+<hr/>
+<h3 id="references-resources"><strong>References &amp; Resources</strong></h3>
+<ul>
+<li><em>Numerical Recipes</em> by Press et al.  </li>
+<li><em>Introduction to Probability Models</em> by Sheldon Ross.  </li>
+<li>Python libraries: <code>numpy</code>, <code>matplotlib</code>, <code>random</code>.  </li>
+</ul>
+<hr/>
+<p>Would you like the accompanying Python code for these simulations?</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Estimating π with Monte Carlo (Circle Method)</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        canvas { border: 1px solid #000; margin: 20px auto; display: block; }
+        #piEstimate { font-size: 24px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Estimating π using Monte Carlo (Circle Method)</h1>
+    <canvas id="monteCarloCanvas" width="500" height="500"></canvas>
+    <div>
+        <button id="startButton">Start Simulation</button>
+        <button id="resetButton">Reset</button>
+    </div>
+    <div>Points: <span id="pointCount">0</span></div>
+    <div>Estimated π: <span id="piEstimate">0</span></div>
+    <div>Actual π: <span>3.141592653589793</span></div>
+    <script src="circle-montecarlo.js"></script>
+</body>
+</html>
